@@ -272,7 +272,7 @@ public class DomainUtils {
             , it -> it != null && !it.isEmpty());
         if (pinyinFormsForEachCharacter.isEmpty()) return "";
         return U.join(
-            U.reduce(pinyinFormsForEachCharacter, DomainUtils::cross, Collections.singletonList("")),
+            U.reduce(pinyinFormsForEachCharacter, DomainUtils::cross, Collections.emptyList()),
             " ");
     }
 

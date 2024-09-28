@@ -1,5 +1,6 @@
 package opencontacts.open.com.opencontacts.domain;
 
+import static opencontacts.open.com.opencontacts.orm.PhoneNumber.createDummyPhoneNumber;
 import static opencontacts.open.com.opencontacts.utils.Common.getEmptyStringIfNull;
 import static opencontacts.open.com.opencontacts.utils.Common.replaceAccentedCharactersWithEnglish;
 import static opencontacts.open.com.opencontacts.utils.DomainUtils.getNumericKeyPadNumberForString;
@@ -55,7 +56,7 @@ public class Contact implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.name = getName(firstName, lastName);
-        this.primaryPhoneNumber = new PhoneNumber(number);
+        this.primaryPhoneNumber = createDummyPhoneNumber(number);
         id = -1;
     }
 
@@ -103,7 +104,7 @@ public class Contact implements Serializable {
     }
 
     private static PhoneNumber getPrimaryPhoneNumber(List<PhoneNumber> dbPhoneNumbers) {
-        if (dbPhoneNumbers.isEmpty()) return new PhoneNumber("");
+        if (dbPhoneNumbers.isEmpty()) return createDummyPhoneNumber("");
         PhoneNumber primaryPhoneNumber = U.chain(dbPhoneNumbers)
             .filter(arg -> arg.isPrimaryNumber)
             .firstOrNull()
