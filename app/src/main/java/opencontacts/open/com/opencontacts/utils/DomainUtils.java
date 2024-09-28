@@ -257,6 +257,8 @@ public class DomainUtils {
     }
 
     public static List<String> cross(List<String> firstSetOfWords, Set<String> secondSetOfWords) {
+        if(firstSetOfWords.isEmpty()) return List.copyOf(secondSetOfWords);
+        if(secondSetOfWords.isEmpty()) return firstSetOfWords;
         return U.flatten(
             U.map(firstSetOfWords, wordFromFirstSet -> Common.map(secondSetOfWords, wordFromSecondSet -> wordFromFirstSet.concat(" ").concat(wordFromSecondSet)))
         );
@@ -267,7 +269,7 @@ public class DomainUtils {
         if (isEmpty(text)) return "";
         List<Set<String>> pinyinFormsForEachCharacter = U.filter(
             mapIndexes(chineseCharacters.length, index -> getPinyinRepresentations(chineseCharacters[index]))
-            , it -> it != null);
+            , it -> it != null && !it.isEmpty());
         if (pinyinFormsForEachCharacter.isEmpty()) return "";
         return U.join(
             U.reduce(pinyinFormsForEachCharacter, DomainUtils::cross, Collections.singletonList("")),
