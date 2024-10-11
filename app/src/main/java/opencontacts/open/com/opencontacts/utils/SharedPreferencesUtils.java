@@ -62,7 +62,7 @@ public class SharedPreferencesUtils {
     public static final String SHOULD_USE_SYSTEM_PHONE_APP = "SHOULD_USE_SYSTEM_PHONE_APP";
     public static final String SHORTCUTS_ADDED_IN_VERSION_SHARED_PREF_KEY = "SHORTCUTS_ADDED_IN_VERSION";
     public static final String KEYBOARD_RESIZE_VIEWS_SHARED_PREF_KEY = "KEYBOARD_RESIZE_VIEWS";
-    public static final String BOTTOM_MENU_OPEN_DEFAULT_SHARED_PREF_KEY = "BOTTOM_MENU_OPEN_DEFAULT";
+//    public static final String BOTTOM_MENU_OPEN_DEFAULT_SHARED_PREF_KEY = "BOTTOM_MENU_OPEN_DEFAULT";
     public static final String LAST_VISITED_GROUP_SHARED_PREF_KEY = "LAST_VISITED_GROUP";
     public static final String DEFAULT_SOCIAL_APP= "default_social_app";
     public static final String TELEGRAM = "Telegram";
@@ -71,8 +71,10 @@ public class SharedPreferencesUtils {
 
     public static final String SHOULD_AUTO_CANCEL_MISSED_CALL_NOTIF_SHARED_PREF_KEY = "SHOULD_AUTO_CANCEL_MISSED_CALL_NOTIF";
     public static final String SHOULD_SHOW_UNKNOWN_MISSED_CALL_NOTIF_SHARED_PREF_KEY = "SHOULD_SHOW_UNKNOWN_MISSED_CALL_NOTIF";
+
     public static final String SHOULD_SHOW_UNKNOWN_CALLER_ID_SHARED_PREF_KEY = "SHOULD_SHOW_UNKNOWN_CALLER_ID";
-    public static final String SHOULD_SHOW_BOTTOM_MENU_SHARED_PREF_KEY = "SHOULD_SHOW_BOTTOM_MENU";
+//    public static final String SHOULD_SHOW_BOTTOM_MENU_SHARED_PREF_KEY = "SHOULD_SHOW_BOTTOM_MENU";
+
     public static final String ENABLE_CALL_FILTERING_SHARED_PREF_KEY = "enableCallFiltering";
     public static final String CALL_FILTER_REJECT_CALLS_SHARED_PREF_KEY = "rejectCalls";
     public static final String SYNC_DEBUG_LOGS = "SYNC_DEBUG_LOGS";
@@ -239,9 +241,9 @@ public class SharedPreferencesUtils {
         return getBoolean(KEYBOARD_RESIZE_VIEWS_SHARED_PREF_KEY, false, context);
     }
 
-    public static boolean shouldBottomMenuOpenByDefault(Context context) {
-        return getBoolean(BOTTOM_MENU_OPEN_DEFAULT_SHARED_PREF_KEY, true, context);
-    }
+//    public static boolean shouldBottomMenuOpenByDefault(Context context) {
+//        return getBoolean(BOTTOM_MENU_OPEN_DEFAULT_SHARED_PREF_KEY, true, context);
+//    }
 
     public static String getLastVisistedGroup(Context context) {
         return getStringFromPreferences(LAST_VISITED_GROUP_SHARED_PREF_KEY, "", context);
@@ -263,9 +265,9 @@ public class SharedPreferencesUtils {
         return getBoolean(SHOULD_SHOW_UNKNOWN_CALLER_ID_SHARED_PREF_KEY, true, context);
     }
 
-    public static boolean shouldShowBottomMenu(Context context) {
-        return getBoolean(SHOULD_SHOW_BOTTOM_MENU_SHARED_PREF_KEY, true, context);
-    }
+//    public static boolean shouldShowBottomMenu(Context context) {
+//        return getBoolean(SHOULD_SHOW_BOTTOM_MENU_SHARED_PREF_KEY, false, context);
+//    }
 
     public static void removeSyncProgress(Context context) {
         updatePreference(SYNC_TOKEN_SHARED_PREF_KEY, "", context);

@@ -1,7 +1,7 @@
 package opencontacts.open.com.opencontacts.activities;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.view.View.GONE;
+//import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
 import static android.widget.Toast.LENGTH_SHORT;
@@ -19,13 +19,15 @@ import static opencontacts.open.com.opencontacts.utils.AndroidUtils.setColorFilt
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.wrapInConfirmation;
 import static opencontacts.open.com.opencontacts.utils.DomainUtils.handleExportLocationChooserResult;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.getDefaultTab;
+
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.hasExportLocation;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.markPermissionsAsked;
-import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldBottomMenuOpenByDefault;
+//import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldBottomMenuOpenByDefault;
+
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldKeyboardResizeViews;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldLaunchDefaultTab;
-import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldShowBottomMenu;
-import static opencontacts.open.com.opencontacts.utils.ThemeUtils.getPrimaryColor;
+//import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldShowBottomMenu;
+//import static opencontacts.open.com.opencontacts.utils.ThemeUtils.getPrimaryColor;
 import static opencontacts.open.com.opencontacts.utils.domain.AppShortcuts.TAB_INDEX_INTENT_EXTRA;
 
 import android.content.Intent;
@@ -170,7 +172,7 @@ public class MainActivity extends AppBaseActivity {
             return;
         } else {
             setupTabs();
-            setupBottomMenu();
+            //setupBottomMenu();
             if (shouldKeyboardResizeViews(this))
                 getWindow().setSoftInputMode(SOFT_INPUT_ADJUST_RESIZE);
             if (handleIntent(getIntent())) ;
@@ -179,6 +181,7 @@ public class MainActivity extends AppBaseActivity {
         markPermissionsAsked(this);
     }
 
+/*
     private void setupBottomMenu() {
         bottomMenu = findViewById(R.id.bottom_menu);
         if (!shouldShowBottomMenu(this)) {
@@ -211,6 +214,7 @@ public class MainActivity extends AppBaseActivity {
         if (shouldBottomMenuOpenByDefault(this)) bottomMenu.expandMenu();
         else bottomMenu.collapseMenu();
     }
+*/
 
     @Override
     int title() {
@@ -428,6 +432,7 @@ public class MainActivity extends AppBaseActivity {
             searchItem.collapseActionView(); // happens when app hasn't even got menu items callback
     }
 
+/*
     public void hideBottomMenu() {
         if (bottomMenu == null) return;
         bottomMenu.setVisibility(GONE);
@@ -437,4 +442,5 @@ public class MainActivity extends AppBaseActivity {
         if (bottomMenu == null || !shouldShowBottomMenu(this)) return;
         bottomMenu.setVisibility(VISIBLE);
     }
+*/
 }
