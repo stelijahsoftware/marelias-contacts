@@ -330,6 +330,12 @@ public class ContactsDataStore {
                     e.printStackTrace();
                     AndroidUtils.toastFromNonUIThread(R.string.failed_merging_a_contact, Toast.LENGTH_SHORT, context);
                     // this happened coz of not being able to read contact data from vcard table. So, its fine if its not merged finally
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                    AndroidUtils.toastFromNonUIThread(R.string.error_while_loading_contact, Toast.LENGTH_SHORT, context);
+                } catch (Exception e){
+                    e.printStackTrace();
+                    AndroidUtils.toastFromNonUIThread(R.string.unexpected_error_happened, Toast.LENGTH_SHORT, context);
                 }
             });
     }
