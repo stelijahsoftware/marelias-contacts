@@ -25,6 +25,8 @@ import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.sh
 import static opencontacts.open.com.opencontacts.utils.ThemeUtils.getPrimaryColor;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.ComponentName;
 import android.content.ContentValues;
@@ -53,6 +55,7 @@ import android.widget.Space;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -420,6 +423,20 @@ public class AndroidUtils {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public static void pickADirectory(Activity activity) {
+        new AlertDialog.Builder(activity)
+            .setTitle(R.string.choose_create_export_location)
+            .setMessage(R.string.choose_export_location_detail)
+            .setNeutralButton(R.string.okay, null)
+            .setOnDismissListener(dialog -> {
+                Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                i.addCategory(Intent.CATEGORY_DEFAULT);
+                activity.startActivityForResult(Intent.createChooser(i, activity.getString(R.string.choose_directory)), STORAGE_LOCATION_CHOOSER_RESULT);
+            })
+            .create()
+            .show();
+    }
     public static boolean doesNotHaveAllPermissions(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             return false;
@@ -660,7 +677,23 @@ public class AndroidUtils {
     }
 
     public static boolean isValidDirectory(String uri, Context context){
+        if(Build.VERSION.SDK_INT < 21) {
+            File file = new File(uri);
+            return file.exists() && file.isDirectory();
+        };
         DocumentFile documentFile = DocumentFile.fromTreeUri(context, Uri.parse(uri));
+        if(documentFile == null) return false;
         return documentFile.isDirectory() && documentFile.exists();
+    }
+
+    @SuppressLint("WrongConstant")
+    public static void takePersistablePermissionsOnUri(Intent data, Context context) {
+        if(data.getData() == null) return;
+        final int takeFlags = data.getFlags()
+            & (Intent.FLAG_GRANT_READ_URI_PERMISSION
+            | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            context.getContentResolver().takePersistableUriPermission(data.getData(), takeFlags);
+        }
     }
 }

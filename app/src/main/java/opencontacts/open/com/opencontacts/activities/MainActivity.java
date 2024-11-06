@@ -6,16 +6,20 @@ import static android.view.View.VISIBLE;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
+import static opencontacts.open.com.opencontacts.utils.AndroidUtils.STORAGE_LOCATION_CHOOSER_RESULT;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.getMenuItemClickHandlerFor;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.getNumberToDial;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.getThemeAttributeColor;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.hasPermission;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.isAddContactIntent;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.isValidDialIntent;
+import static opencontacts.open.com.opencontacts.utils.AndroidUtils.pickADirectory;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.runOnMainDelayed;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.setColorFilterUsingColor;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.wrapInConfirmation;
+import static opencontacts.open.com.opencontacts.utils.DomainUtils.handleExportLocationChooserResult;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.getDefaultTab;
+import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.hasExportLocation;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.markPermissionsAksed;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldBottomMenuOpenByDefault;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldKeyboardResizeViews;
@@ -89,7 +93,14 @@ public class MainActivity extends AppBaseActivity {
             );
             return;
         }
-        if (requestCode == PREFERENCES_ACTIVITY_RESULT) recreate();
+        if (requestCode == PREFERENCES_ACTIVITY_RESULT) {
+            recreate();
+            return;
+        }
+        if (requestCode == STORAGE_LOCATION_CHOOSER_RESULT) {
+            handleExportLocationChooserResult(data, this);
+            return;
+        };
     }
 
     @Override
@@ -148,6 +159,9 @@ public class MainActivity extends AppBaseActivity {
         super.onCreate(savedInstanceState);
         if (SharedPreferencesUtils.shouldAskForPermissions(this)) {
             AndroidUtils.askForPermissionsIfNotGranted(this);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                pickADirectory(this); // for export location
+            }
             View startButton = findViewById(R.id.start_button);
             startButton.setVisibility(VISIBLE);
             startButton.setOnClickListener(x -> this.recreate());
@@ -238,6 +252,10 @@ public class MainActivity extends AppBaseActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, 123);
                 }
+                return true;
+            }
+            if(!hasExportLocation(this)) {
+                Toast.makeText(this, R.string.choose_create_export_location, Toast.LENGTH_LONG).show();
                 return true;
             }
             return new ExportMenuItemClickHandler(this).onMenuItemClick(item);

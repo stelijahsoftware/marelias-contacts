@@ -78,7 +78,7 @@
     <string name="could_not_process_import_without_storage_permission">Can not process this import without storage permission, please retry</string>
     <string name="grant_storage_permission">Grant storage permission</string>
     <string name="grant_storage_permisson_detail">Grant storage phone permission to be able to export and import contacts</string>
-    <string name="choose_export_location" tools:ignore="MissingTranslation">Pick/Create a directory</string>
+    <string name="choose_create_export_location" tools:ignore="MissingTranslation">Pick/Create a export directory</string>
     <string name="choose_export_location_detail" tools:ignore="MissingTranslation">It will be used mainly for automatic contacts backup</string>
     <string name="caller_id_text">%1$s calling...</string>
     <string name="missed_call">Missed Call</string>
@@ -265,6 +265,7 @@
     <string name="failure_setting_export_directory" tools:ignore="MissingTranslation">Couldn\'t set export directory</string>
     <string name="custom_font_size_title" tools:ignore="MissingTranslation">Choose custom font size</string>
     <string name="custom_font_size_description" tools:ignore="MissingTranslation">Increase or decrease the size of text across app</string>
+    <string name="choose_directory" tools:ignore="MissingTranslation">Choose directory</string>
     <string-array name="phone_number_types">
         <item>Mobile</item>
         <item>Work</item>
