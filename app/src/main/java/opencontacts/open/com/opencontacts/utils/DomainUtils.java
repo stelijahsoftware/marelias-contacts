@@ -3,28 +3,36 @@ package opencontacts.open.com.opencontacts.utils;
 import static android.app.Notification.EXTRA_TITLE;
 import static android.text.TextUtils.isEmpty;
 import static android.widget.Toast.LENGTH_LONG;
+import static android.widget.Toast.makeText;
+import static opencontacts.open.com.opencontacts.BuildConfig.DEBUG;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.isValidDirectory;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.processAsync;
+import static opencontacts.open.com.opencontacts.utils.AndroidUtils.takePersistablePermissionsOnUri;
 import static opencontacts.open.com.opencontacts.utils.Common.appendNewLineIfNotEmpty;
 import static opencontacts.open.com.opencontacts.utils.Common.getOrDefault;
 import static opencontacts.open.com.opencontacts.utils.Common.mapIndexes;
 import static opencontacts.open.com.opencontacts.utils.Common.replaceAccentedCharactersWithEnglish;
+import static opencontacts.open.com.opencontacts.utils.Common.safeExec;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.exportLocation;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.getEncryptingContactsKey;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.hasEncryptingContactsKey;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.hasExportLocation;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.is12HourFormatEnabled;
+import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.setExportLocation;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldSortUsingFirstName;
 import static opencontacts.open.com.opencontacts.utils.VCardUtils.getVCardFromString;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.CallLog;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,6 +52,8 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -106,6 +116,7 @@ public class DomainUtils {
     public static TelephoneType defaultPhoneNumberType = TelephoneType.CELL;
     public static AddressType defaultAddressType = AddressType.HOME;
     public static EmailType defaultEmailType = EmailType.HOME;
+    public static String LEGACY_STORAGE_DIRECTORY_NAME = DEBUG ? "DOpenContacts" : "OpenContacts";
 
     static {
         initializeT9Mapping();
@@ -158,8 +169,18 @@ public class DomainUtils {
         stringValueOfCallTypeIntToTextMapping.put(String.valueOf(CallLog.Calls.REJECTED_TYPE), context.getString(R.string.rejected_call));
     }
 
+    private static void createOpenContactsDirectoryIfItDoesNotExist(Context context) throws Exception {
+        File openContactsDirectory = new File(exportLocation(context));
+        if (openContactsDirectory.exists()) return;
+        boolean directoryCreated = openContactsDirectory.mkdir();
+        if (!directoryCreated) throw new Exception("Directory creation has failed...");
+    }
+
     public static void exportAllContacts(Context context) throws Exception {
-        if (!hasExportLocation(context) || !isValidDirectory(exportLocation(context), context)) {
+        if(Build.VERSION.SDK_INT < 21) {
+            createOpenContactsDirectoryIfItDoesNotExist(context);
+        }
+        else if (!hasExportLocation(context) || !isValidDirectory(exportLocation(context), context)) {
             AndroidUtils.runOnMainDelayed(() -> AndroidUtils.toastFromNonUIThread(R.string.no_valid_export_location, LENGTH_LONG, context), 0);
             throw new Exception("Valid export location not set");
         }
@@ -174,7 +195,7 @@ public class DomainUtils {
     private static void exportAsPlainTextVCFFile(byte[] plainTextExportBytes, SimpleDateFormat simpleDateFormat, Context context) throws Exception {
         OutputStream fileOutputStream = null;
         try {
-            String fileName = "/Contacts_" + simpleDateFormat.format(new Date()) + ".vcf";
+            String fileName = "Contacts_" + simpleDateFormat.format(new Date()) + ".vcf";
             fileOutputStream = getExportFileOutStream(fileName, context);
             fileOutputStream.write(plainTextExportBytes);
         } finally {
@@ -188,9 +209,18 @@ public class DomainUtils {
     }
 
     private static OutputStream getExportFileOutStream(String fileName, Context context) throws Exception {
+        if(Build.VERSION.SDK_INT < 21) {
+            return getLegacyOutputStream(fileName);
+        }
         DocumentFile documentFile = DocumentFile.fromTreeUri(context, Uri.parse(exportLocation(context)));
         Uri exportFileUri = documentFile.createFile("", fileName).getUri();
         return context.getContentResolver().openOutputStream(exportFileUri);
+    }
+
+    private static OutputStream getLegacyOutputStream(String fileName) throws Exception {
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + LEGACY_STORAGE_DIRECTORY_NAME, fileName);
+        file.createNewFile();
+        return new FileOutputStream(file);
     }
 
     private static byte[] getVCFExportBytes(List<Contact> allContacts, List<Contact> favorites) throws IOException {
@@ -394,7 +424,10 @@ public class DomainUtils {
     }
 
     public static void exportCallLog(Context context) throws Exception {
-        if (!hasExportLocation(context) || !isValidDirectory(exportLocation(context), context)) {
+        if(Build.VERSION.SDK_INT < 21) {
+            createOpenContactsDirectoryIfItDoesNotExist(context);
+        }
+        else if (!hasExportLocation(context) || !isValidDirectory(exportLocation(context), context)) {
             AndroidUtils.runOnMainDelayed(() -> AndroidUtils.toastFromNonUIThread(R.string.no_valid_export_location, LENGTH_LONG, context), 0);
             throw new Exception("Valid export location not set");
         }
@@ -555,5 +588,16 @@ public class DomainUtils {
             .map(phoneNumber -> phoneNumber.phoneNumber)
             .forEach(numberAsString -> contactAsText.append(numberAsString + "\n"));
         AndroidUtils.shareText(contactAsText.toString(), context);
+    }
+
+    public static void handleExportLocationChooserResult(Intent data, Context context) {
+        safeExec(data::getData, uri -> {
+            if(uri == null) {
+                makeText(context, R.string.failure_setting_export_directory, Toast.LENGTH_LONG).show();
+                return;
+            }
+            takePersistablePermissionsOnUri(data, context);
+            setExportLocation(uri.toString(), context);
+        }, ignore -> makeText(context, R.string.failure_setting_export_directory, Toast.LENGTH_LONG).show());
     }
 }

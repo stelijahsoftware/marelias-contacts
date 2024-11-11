@@ -174,6 +174,15 @@ public class Common {
         }
     }
 
+    public static void safeExec(Runnable runnable, Consumer<Exception> onFailure) {
+        try{
+            runnable.run();
+        }
+        catch (Exception e){
+            onFailure.accept(e);
+        }
+    }
+
     public interface Supplier<T> {
         T get() throws Exception;
     }

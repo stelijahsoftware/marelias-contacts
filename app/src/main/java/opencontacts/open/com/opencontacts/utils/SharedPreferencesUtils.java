@@ -12,10 +12,13 @@ import static opencontacts.open.com.opencontacts.utils.AndroidUtils.getLong;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.getStringFromPreferences;
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.updatePreference;
 import static opencontacts.open.com.opencontacts.utils.Common.hasItBeen;
+import static opencontacts.open.com.opencontacts.utils.DomainUtils.LEGACY_STORAGE_DIRECTORY_NAME;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.os.Build;
+import android.os.Environment;
 import android.text.TextUtils;
 
 import java.util.Date;
@@ -307,10 +310,17 @@ public class SharedPreferencesUtils {
         return getBoolean(SYNC_DEBUG_LOGS, false, context);
     }
 
+    private static String legacyExportLocation() {
+        return Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + LEGACY_STORAGE_DIRECTORY_NAME;
+    }
+
     public static boolean hasExportLocation(Context context) {
+        if(Build.VERSION.SDK_INT < 21) return true;
         return !TextUtils.isEmpty(exportLocation(context));
     }
+
     public static String exportLocation(Context context) {
+        if(Build.VERSION.SDK_INT < 21) return legacyExportLocation();
         return getStringFromPreferences(STORAGE_LOCATION, "", context);
     }
 
