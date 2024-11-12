@@ -590,13 +590,13 @@ public class DomainUtils {
         AndroidUtils.shareText(contactAsText.toString(), context);
     }
 
-    public static void handleExportLocationChooserResult(Intent data, Context context) {
-        safeExec(data::getData, uri -> {
+    public static void handleExportLocationChooserResult(Intent intent, Context context) {
+        safeExec(() -> intent.getData(), uri -> { // don't simplify lambda to method reference, when intent is null, it crashes
             if(uri == null) {
                 makeText(context, R.string.failure_setting_export_directory, Toast.LENGTH_LONG).show();
                 return;
             }
-            takePersistablePermissionsOnUri(data, context);
+            takePersistablePermissionsOnUri(intent, context);
             setExportLocation(uri.toString(), context);
         }, ignore -> makeText(context, R.string.failure_setting_export_directory, Toast.LENGTH_LONG).show());
     }
