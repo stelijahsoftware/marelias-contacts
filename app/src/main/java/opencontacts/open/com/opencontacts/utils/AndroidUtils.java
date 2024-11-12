@@ -15,6 +15,7 @@ import static android.provider.CalendarContract.Events.TITLE;
 import static android.text.TextUtils.isEmpty;
 import static java.lang.Math.round;
 import static opencontacts.open.com.opencontacts.utils.Common.removeSpacesIfAny;
+import static opencontacts.open.com.opencontacts.utils.Common.safeExec;
 import static opencontacts.open.com.opencontacts.utils.PhoneCallUtils.handleMultiSimCalling;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.SIGNAL;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.TELEGRAM;
@@ -150,7 +151,12 @@ public class AndroidUtils {
 
     public static void callWithSystemDefaultSim(String number, Context context) {
         Intent callIntent = getIntentToCall(number, context);
-        context.startActivity(callIntent);
+        startActivity(callIntent, context);
+    }
+
+    public static void startActivity(Intent intent, Context context) {
+        safeExec(() -> context.startActivity(intent),
+            e -> toastFromNonUIThread(R.string.no_app_found_to_open, Toast.LENGTH_LONG, context));
     }
 
     public static void signal(String number, Context context) {
@@ -258,11 +264,11 @@ public class AndroidUtils {
     }
 
     public static void message(String number, Context context) {
-        context.startActivity(getIntentToMessage(number));
+        startActivity(getIntentToMessage(number), context);
     }
 
     public static void message(Collection<String> numbers, Context context) {
-        context.startActivity(getIntentToMessage(numbers));
+        startActivity(getIntentToMessage(numbers), context);
     }
 
     public static Intent getIntentToMessage(String number) {
@@ -425,14 +431,16 @@ public class AndroidUtils {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void pickADirectory(Activity activity) {
+        Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        i.addCategory(Intent.CATEGORY_DEFAULT);
         new AlertDialog.Builder(activity)
             .setTitle(R.string.choose_create_export_location)
             .setMessage(R.string.choose_export_location_detail)
             .setNeutralButton(R.string.okay, null)
             .setOnDismissListener(dialog -> {
-                Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                i.addCategory(Intent.CATEGORY_DEFAULT);
-                activity.startActivityForResult(Intent.createChooser(i, activity.getString(R.string.choose_directory)), STORAGE_LOCATION_CHOOSER_RESULT);
+                safeExec(() ->
+                    activity.startActivityForResult(Intent.createChooser(i, activity.getString(R.string.choose_directory)), STORAGE_LOCATION_CHOOSER_RESULT),
+                    e -> Toast.makeText(activity, R.string.no_app_found_to_open, Toast.LENGTH_LONG).show());
             })
             .create()
             .show();
@@ -483,7 +491,7 @@ public class AndroidUtils {
         Intent emailAppChooserIntent = Intent.createChooser(
             new Intent(ACTION_SENDTO, Uri.parse(EMAIL_SCHEME + emailAddress))
             , context.getString(R.string.email));
-        context.startActivity(emailAppChooserIntent);
+        startActivity(emailAppChooserIntent, context);
     }
 
     public static boolean isScreenLocked(Context context) {
@@ -577,10 +585,7 @@ public class AndroidUtils {
     public static void openMap(String address, Context context) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(MAP_LOCATION_URI + Uri.encode(address)));
-        if (intent.resolveActivity(context.getPackageManager()) != null) {
-            context.startActivity(intent);
-        } else
-            Toast.makeText(context, R.string.no_app_found_to_open, Toast.LENGTH_SHORT).show();
+        startActivity(intent, context);
     }
 
     public static void shareContact(String vcardAsString, Context context) {
@@ -596,19 +601,19 @@ public class AndroidUtils {
             toastFromNonUIThread("Error sharing a contact", Toast.LENGTH_LONG, context);
             return;
         }
-        context.startActivity(new ShareCompat.IntentBuilder(context)
+        startActivity(new ShareCompat.IntentBuilder(context)
             .addStream(FileProvider.getUriForFile(context, context.getString(R.string.file_provider_authority), tempFile))
             .setType("text/x-vcard")
             .getIntent()
             .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        );
+        , context);
     }
 
     public static void shareText(String text, Context context) {
-        context.startActivity(new ShareCompat.IntentBuilder(context)
+        startActivity(new ShareCompat.IntentBuilder(context)
             .setText(text)
             .setType("text/plain")
-            .getIntent());
+            .getIntent(), context);
     }
 
     public static boolean hasPermission(String permission, Context context) {
