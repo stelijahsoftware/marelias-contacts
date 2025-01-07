@@ -66,7 +66,8 @@ public class ContactGroupsDataStore {
     }
 
     public static List<ContactGroup> getAllGroups() {
-        return new ArrayList<>(groupsMap.values());
+        // don't remove sorting from here, edit contact is relying on this sort
+        return U.sortBy(groupsMap.values(), ContactGroup::getName);
     }
 
 
