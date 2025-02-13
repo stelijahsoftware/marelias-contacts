@@ -46,6 +46,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.github.underscore.U;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -347,13 +348,9 @@ public class MainActivity extends AppBaseActivity {
         viewPager = findViewById(R.id.view_pager);
         List<Fragment> fragmentsList = getSupportFragmentManager().getFragments();
         if (!fragmentsList.isEmpty()) {
-//            TODO: fix this niggle at some point
-//            fragmentsList.get(fragmentsList.indexOf(callLogFragment));
-//            fragmentsList.get(fragmentsList.indexOf(callLogFragment));
-//            fragmentsList.get(fragmentsList.indexOf(callLogFragment));
-            callLogFragment = (CallLogFragment) fragmentsList.get(0);
-            contactsFragment = (ContactsFragment) fragmentsList.get(1);
-            dialerFragment = (DialerFragment) fragmentsList.get(2);
+            callLogFragment = U.find(fragmentsList, frag -> frag instanceof CallLogFragment).map(f -> (CallLogFragment)f ).or(new CallLogFragment());
+            contactsFragment = U.find(fragmentsList, frag -> frag instanceof ContactsFragment).map(f -> (ContactsFragment)f ).or(new ContactsFragment());
+            dialerFragment = U.find(fragmentsList, frag -> frag instanceof DialerFragment).map(f -> (DialerFragment)f ).or(new DialerFragment());
         } else {
             callLogFragment = new CallLogFragment();
             contactsFragment = new ContactsFragment();
