@@ -40,6 +40,7 @@ public class ContactsListView extends ListView implements DataStoreChangeListene
         this.context = context;
         this.setFastScrollEnabled(true);
         this.searchStringSupplier = searchStringSupplier;
+        this.setVerticalScrollBarEnabled(false);
         setTextFilterEnabled(false);
         ContactsDataStore.addDataChangeListener(this);
         contacts = new ArrayList<>();

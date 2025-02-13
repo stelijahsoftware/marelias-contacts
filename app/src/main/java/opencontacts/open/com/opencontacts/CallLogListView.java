@@ -91,7 +91,7 @@ public class CallLogListView extends RelativeLayout implements DataStoreChangeLi
         this.editNumberBeforeCallHandler = editNumberBeforeCallHandler;
         listView = new ListView(context);
         listView.setId(android.R.id.list);
-        listView.setFastScrollEnabled(true);
+        listView.setVerticalScrollBarEnabled(false);
         addView(getSwipeRefreshLayout(context));
         prepareLongClickActions();
         boolean shouldToggleContactActions = shouldToggleContactActions(context);
