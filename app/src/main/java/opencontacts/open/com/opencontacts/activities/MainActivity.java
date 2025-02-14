@@ -19,8 +19,7 @@ import static opencontacts.open.com.opencontacts.utils.AndroidUtils.setColorFilt
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.wrapInConfirmation;
 import static opencontacts.open.com.opencontacts.utils.DomainUtils.handleExportLocationChooserResult;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.getDefaultTab;
-import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.hasExportLocation;
-import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.markPermissionsAksed;
+import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.markPermissionsAsked;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldBottomMenuOpenByDefault;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldKeyboardResizeViews;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldLaunchDefaultTab;
@@ -166,7 +165,7 @@ public class MainActivity extends AppBaseActivity {
             View startButton = findViewById(R.id.start_button);
             startButton.setVisibility(VISIBLE);
             startButton.setOnClickListener(x -> this.recreate());
-            markPermissionsAksed(this);
+            markPermissionsAsked(this);
             return;
         } else {
             setupTabs();
@@ -176,7 +175,7 @@ public class MainActivity extends AppBaseActivity {
             if (handleIntent(getIntent())) ;
             else gotoDefaultTab();
         }
-        markPermissionsAksed(this);
+        markPermissionsAsked(this);
     }
 
     private void setupBottomMenu() {
@@ -336,7 +335,7 @@ public class MainActivity extends AppBaseActivity {
                 new Intent(Intent.ACTION_PICK),
                 IMPORT_FILE_CHOOSER_RESULT);
         } catch (Exception e) {
-            makeText(this, R.string.no_app_found_for_action_open_document, LENGTH_SHORT);
+            makeText(this, R.string.no_app_found_for_action_open_document, LENGTH_SHORT).show();
         }
     }
 
