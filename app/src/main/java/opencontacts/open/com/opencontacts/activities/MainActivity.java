@@ -19,6 +19,7 @@ import static opencontacts.open.com.opencontacts.utils.AndroidUtils.setColorFilt
 import static opencontacts.open.com.opencontacts.utils.AndroidUtils.wrapInConfirmation;
 import static opencontacts.open.com.opencontacts.utils.DomainUtils.handleExportLocationChooserResult;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.getDefaultTab;
+import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.hasExportLocation;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.markPermissionsAsked;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldBottomMenuOpenByDefault;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldKeyboardResizeViews;

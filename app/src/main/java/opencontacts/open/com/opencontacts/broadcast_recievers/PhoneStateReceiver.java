@@ -66,9 +66,9 @@ public class PhoneStateReceiver extends BroadcastReceiver {
             if (incomingNumber == null)
                 return; //in pie, two intents are launched one with number and other with not
             callingContact = ContactsDataStore.getContact(incomingNumber);
+            if(callingContact == null && !shouldShowUnknownContactCallerId(context)) return;
             if (callingContact == null)
                 callingContact = new Contact(context.getString(R.string.unknown), incomingNumber);
-            if(callingContact.firstName.equals(context.getString(R.string.unknown)) && !shouldShowUnknownContactCallerId(context)) return;
             drawCallerID(context, callingContact);
         } else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
             removeCallerIdDrawing(context);
