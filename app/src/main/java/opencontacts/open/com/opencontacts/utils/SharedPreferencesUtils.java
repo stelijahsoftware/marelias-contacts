@@ -71,6 +71,7 @@ public class SharedPreferencesUtils {
 
     public static final String SHOULD_AUTO_CANCEL_MISSED_CALL_NOTIF_SHARED_PREF_KEY = "SHOULD_AUTO_CANCEL_MISSED_CALL_NOTIF";
     public static final String SHOULD_SHOW_UNKNOWN_MISSED_CALL_NOTIF_SHARED_PREF_KEY = "SHOULD_SHOW_UNKNOWN_MISSED_CALL_NOTIF";
+    public static final String SHOULD_SHOW_UNKNOWN_CALLER_ID_SHARED_PREF_KEY = "SHOULD_SHOW_UNKNOWN_CALLER_ID";
     public static final String SHOULD_SHOW_BOTTOM_MENU_SHARED_PREF_KEY = "SHOULD_SHOW_BOTTOM_MENU";
     public static final String ENABLE_CALL_FILTERING_SHARED_PREF_KEY = "enableCallFiltering";
     public static final String CALL_FILTER_REJECT_CALLS_SHARED_PREF_KEY = "rejectCalls";
@@ -204,7 +205,7 @@ public class SharedPreferencesUtils {
         return getBoolean(SHOULD_ASK_FOR_PERMISSIONS, true, context);
     }
 
-    public static void markPermissionsAksed(Context context) {
+    public static void markPermissionsAsked(Context context) {
         updatePreference(SHOULD_ASK_FOR_PERMISSIONS, false, context);
     }
 
@@ -256,6 +257,10 @@ public class SharedPreferencesUtils {
 
     public static boolean shouldShowUnknownMissedCallNotification(Context context) {
         return getBoolean(SHOULD_SHOW_UNKNOWN_MISSED_CALL_NOTIF_SHARED_PREF_KEY, true, context);
+    }
+
+    public static boolean shouldShowUnknownContactCallerId(Context context) {
+        return getBoolean(SHOULD_SHOW_UNKNOWN_CALLER_ID_SHARED_PREF_KEY, true, context);
     }
 
     public static boolean shouldShowBottomMenu(Context context) {

@@ -8,6 +8,7 @@ import static opencontacts.open.com.opencontacts.utils.DomainUtils.getMissedcall
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.getCallerIdLocationOnScreen;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.saveCallerIdLocationOnScreen;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldAutoCancelMissedCallNotification;
+import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldShowUnknownContactCallerId;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.shouldShowUnknownMissedCallNotification;
 
 import android.app.NotificationManager;
@@ -67,6 +68,7 @@ public class PhoneStateReceiver extends BroadcastReceiver {
             callingContact = ContactsDataStore.getContact(incomingNumber);
             if (callingContact == null)
                 callingContact = new Contact(context.getString(R.string.unknown), incomingNumber);
+            if(callingContact.firstName.equals(context.getString(R.string.unknown)) && !shouldShowUnknownContactCallerId(context)) return;
             drawCallerID(context, callingContact);
         } else if (state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
             removeCallerIdDrawing(context);
