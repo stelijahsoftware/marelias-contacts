@@ -40,3 +40,4 @@ Our community will test the feature, will have basic code review and voila your 
 X - put groups button on top (remove it from inside '...' list)
 X - Remove floating button
 - make the bar on top a bottom bar, put groups button in it (https://gitlab.com/sultanahamer/OpenContacts/-/issues/266)
+- Add goups icon next to contact which has already been added to a group
