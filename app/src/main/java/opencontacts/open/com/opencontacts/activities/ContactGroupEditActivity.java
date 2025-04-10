@@ -85,6 +85,12 @@ public class ContactGroupEditActivity extends ContactChooserActivityBase {
         finish();
     }
 
+    // 1. Get the groups count
+    // 2. If zero, get a list of all contacts not added to a group like so:
+    // List<Contact> selectedContacts = getSelectedContacts(); // Instead choose the contact which haven't been added to a group
+    // 3. Create a group like so (taken from the function above these comments)
+    // createNewGroup(selectedContacts, groupName);
+
     @Override
     public boolean shouldEnableMultiSelect() {
         return true;

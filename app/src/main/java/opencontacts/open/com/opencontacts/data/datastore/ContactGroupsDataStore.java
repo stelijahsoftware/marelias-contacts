@@ -116,6 +116,7 @@ public class ContactGroupsDataStore {
 
     private static void updateVCardTable(Contact contact, List<String> allGroupsOfContact) {
         try {
+            //contact.groups.isEmpty()
             VCardData vCardData = ContactsDBHelper.getVCard(contact.id);
             VCard vcard = VCardUtils.getVCardFromString(vCardData.vcardDataAsString);
             vcard.setCategories(allGroupsOfContact.toArray(new String[]{}));
