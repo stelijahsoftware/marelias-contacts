@@ -10,6 +10,7 @@ import static opencontacts.open.com.opencontacts.orm.VCardData.STATUS_DELETED;
 import static opencontacts.open.com.opencontacts.orm.VCardData.updateVCardData;
 import static opencontacts.open.com.opencontacts.utils.DomainUtils.getPinyinTextFromChinese;
 import static opencontacts.open.com.opencontacts.utils.DomainUtils.getSearchablePhoneNumber;
+import static opencontacts.open.com.opencontacts.utils.DomainUtils.matchesNumber;
 import static opencontacts.open.com.opencontacts.utils.VCardUtils.getCategories;
 import static opencontacts.open.com.opencontacts.utils.VCardUtils.getMobileNumber;
 import static opencontacts.open.com.opencontacts.utils.VCardUtils.getNameFromVCard;
@@ -18,6 +19,8 @@ import static opencontacts.open.com.opencontacts.utils.VCardUtils.isPrimaryPhone
 import static opencontacts.open.com.opencontacts.utils.VCardUtils.markPrimaryPhoneNumberInVCard;
 
 import android.content.Context;
+
+import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 
 import com.github.underscore.U;
@@ -62,7 +65,8 @@ public class ContactsDBHelper {
             callLogEntry.setId((long) -1);
             callLogEntry.save();
         }
-        updateVCardDataForDeletion(VCardData.getVCardData(contactId));
+        VCardData vCardData = VCardData.getVCardData(contactId);
+        if(vCardData != null) updateVCardDataForDeletion(vCardData);
         dbContact.delete();
     }
 
@@ -76,13 +80,16 @@ public class ContactsDBHelper {
         vCardData.save();
     }
 
+    @Nullable
     static Contact getContactFromDB(String phoneNumber) {
         if (isEmpty(phoneNumber)) return null;
         String searchablePhoneNumber = getSearchablePhoneNumber(phoneNumber);
         if (isEmpty(searchablePhoneNumber)) return null;
         List<PhoneNumber> matchingPhoneNumbers = getMatchingNumbers(searchablePhoneNumber);
         if (matchingPhoneNumbers.isEmpty()) return null;
-        return matchingPhoneNumbers.get(0).contact;
+        String searchableDBMatch = getSearchablePhoneNumber(matchingPhoneNumbers.get(0).phoneNumber);
+        if(matchesNumber(searchablePhoneNumber, searchableDBMatch)) return matchingPhoneNumbers.get(0).contact;
+        return null;
     }
 
     static void replacePhoneNumbersInDB(Contact dbContact, VCard vcard, String primaryPhoneNumber) {
