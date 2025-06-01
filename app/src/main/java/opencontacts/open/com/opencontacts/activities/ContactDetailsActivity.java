@@ -17,6 +17,7 @@ import static opencontacts.open.com.opencontacts.utils.DomainUtils.getAddressTyp
 import static opencontacts.open.com.opencontacts.utils.DomainUtils.getMobileNumberTypeTranslatedText;
 import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.isSocialIntegrationEnabled;
 import static opencontacts.open.com.opencontacts.utils.VCardUtils.getMobileNumber;
+import static opencontacts.open.com.opencontacts.utils.VCardUtils.getVCardFromString;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,7 +66,7 @@ public class ContactDetailsActivity extends AppBaseActivity {
     private View.OnClickListener callContact = v -> AndroidUtils.call(getSelectedMobileNumber(v), ContactDetailsActivity.this);
 
     private View.OnClickListener togglePrimaryNumber = v -> {
-        ContactsDataStore.togglePrimaryNumber(getSelectedMobileNumber((View) v.getParent()), contactId);
+        ContactsDataStore.togglePrimaryNumber(getSelectedMobileNumber((View) v.getParent()), contactId, this);
         contact = ContactsDataStore.getContactWithId(contactId);
         fillPhoneNumbers();
     };
@@ -118,7 +119,7 @@ public class ContactDetailsActivity extends AppBaseActivity {
         }
         if (vcardData != null) {
             try {
-                vcard = new VCardReader(vcardData.vcardDataAsString).readNext();
+                vcard = getVCardFromString(vcardData.vcardDataAsString);
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(this, R.string.error_while_parsing_contact_details, Toast.LENGTH_SHORT).show();
