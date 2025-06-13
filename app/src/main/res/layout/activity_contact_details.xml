@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="opencontacts.open.com.opencontacts.activities.ContactDetailsActivity">
+    tools:context="org.marelias.contacts.activities.ContactDetailsActivity">
 
     <include layout="@layout/appbar" />
 
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+                    <org.marelias.contacts.components.ImageButtonWithTint
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_call_black_24dp" />
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+                    <org.marelias.contacts.components.ImageButtonWithTint
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_email_black_24dp" />
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+                    <org.marelias.contacts.components.ImageButtonWithTint
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_location_on_black_24dp" />
@@ -127,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+                    <org.marelias.contacts.components.ImageButtonWithTint
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_content_paste_black_24dp" />
@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+                    <org.marelias.contacts.components.ImageButtonWithTint
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_birthday_black_24dp" />
@@ -179,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+                    <org.marelias.contacts.components.ImageButtonWithTint
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_globe_black_24dp" />
@@ -205,7 +205,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+                    <org.marelias.contacts.components.ImageButtonWithTint
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_group_merge_contacts_24dp" />

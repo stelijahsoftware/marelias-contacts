@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context="opencontacts.open.com.opencontacts.activities.ImportVcardActivity">
+    tools:context="org.marelias.contacts.activities.ImportVcardActivity">
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"

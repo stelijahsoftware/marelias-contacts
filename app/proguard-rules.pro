@@ -26,7 +26,7 @@
 
 # for sugardb to work
 # Ensures entities remain un-obfuscated so table and columns are named correctly
--keep class opencontacts.open.com.opencontacts.orm.** { *; }
+-keep class org.marelias.contacts.orm.** { *; }
 
 #lodash
 -dontwarn com.github.underscore.lodash.*
@@ -49,4 +49,4 @@
 ##okhttp ends
 
 #Keep all the app's source code intact atleast upto names. Optimization might still happen
--keepclasseswithmembers class opencontacts.open.com.opencontacts.** {*;}
+-keepclasseswithmembers class org.marelias.contacts.** {*;}

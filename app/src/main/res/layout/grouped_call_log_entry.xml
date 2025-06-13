@@ -111,7 +111,7 @@
 
     </RelativeLayout>
 
-    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+    <org.marelias.contacts.components.ImageButtonWithTint
         android:id="@+id/button_action1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
         android:layout_centerVertical="true"
         android:src="@drawable/ic_call_black_24dp" />
 
-    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+    <org.marelias.contacts.components.ImageButtonWithTint
         android:id="@+id/button_action2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -131,7 +131,7 @@
         android:layout_marginRight="10dp"
         android:src="@drawable/ic_chat_black_24dp" />
 
-    <opencontacts.open.com.opencontacts.views.SocialAppButton
+    <org.marelias.contacts.views.SocialAppButton
         android:id="@+id/button_social"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

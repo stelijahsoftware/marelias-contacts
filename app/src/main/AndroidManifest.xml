@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:name="opencontacts.open.com.opencontacts.OpenContactsApplication"
+        android:name="org.marelias.contacts.OpenContactsApplication"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -29,7 +29,7 @@
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustNothing"
-            android:name="opencontacts.open.com.opencontacts.activities.MainActivity">
+            android:name="org.marelias.contacts.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -50,13 +50,13 @@
                 <data android:scheme="tel" />
             </intent-filter>
         </activity>
-        <activity android:name="opencontacts.open.com.opencontacts.activities.ContactWidgetChooserActivity" android:exported="true">
+        <activity android:name="org.marelias.contacts.activities.ContactWidgetChooserActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
-        <activity android:name="opencontacts.open.com.opencontacts.activities.GroupsActivity" />
-        <activity android:name="opencontacts.open.com.opencontacts.activities.ContactGroupEditActivity" />
+        <activity android:name="org.marelias.contacts.activities.GroupsActivity" />
+        <activity android:name="org.marelias.contacts.activities.ContactGroupEditActivity" />
 
         <meta-data
             android:name="DATABASE"
@@ -69,17 +69,17 @@
             android:value="true" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="opencontacts.open.com.opencontacts.orm" />
+            android:value="org.marelias.contacts.orm" />
 
-        <activity android:name="opencontacts.open.com.opencontacts.activities.EditContactActivity" />
-        <activity android:name="opencontacts.open.com.opencontacts.activities.AboutActivity" />
-        <activity android:name="opencontacts.open.com.opencontacts.activities.AddToContactActivity" />
-        <activity android:name="opencontacts.open.com.opencontacts.activities.HelpActivity" />
-        <activity android:name="opencontacts.open.com.opencontacts.activities.CrashReportingActivity" />
-        <activity android:name="opencontacts.open.com.opencontacts.activities.CallLogGroupDetailsActivity" />
-        <activity android:name="opencontacts.open.com.opencontacts.activities.MergeContactsActivity" />
+        <activity android:name="org.marelias.contacts.activities.EditContactActivity" />
+        <activity android:name="org.marelias.contacts.activities.AboutActivity" />
+        <activity android:name="org.marelias.contacts.activities.AddToContactActivity" />
+        <activity android:name="org.marelias.contacts.activities.HelpActivity" />
+        <activity android:name="org.marelias.contacts.activities.CrashReportingActivity" />
+        <activity android:name="org.marelias.contacts.activities.CallLogGroupDetailsActivity" />
+        <activity android:name="org.marelias.contacts.activities.MergeContactsActivity" />
         <activity
-            android:name="opencontacts.open.com.opencontacts.activities.DataSourcePermissionsActivity"
+            android:name="org.marelias.contacts.activities.DataSourcePermissionsActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="OPENCONTACTS_DATA_PERMISSION" />
@@ -88,11 +88,11 @@
 
         </activity>
         <activity
-            android:name="opencontacts.open.com.opencontacts.activities.ContactDetailsActivity"
+            android:name="org.marelias.contacts.activities.ContactDetailsActivity"
             android:label="@string/title_activity_contact_details" />
         <activity
             android:exported="true"
-            android:name="opencontacts.open.com.opencontacts.activities.ImportVcardActivity"
+            android:name="org.marelias.contacts.activities.ImportVcardActivity"
             android:label="@string/app_name"
             android:screenOrientation="fullSensor">
             <intent-filter>
@@ -117,14 +117,14 @@
             </intent-filter>
         </activity>
 
-        <receiver android:exported="true" android:name="opencontacts.open.com.opencontacts.broadcast_recievers.PhoneStateReceiver">
+        <receiver android:exported="true" android:name="org.marelias.contacts.broadcast_recievers.PhoneStateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
         <receiver
             android:exported="true"
-            android:name="opencontacts.open.com.opencontacts.widgets.SingleContactDialerWidgetProvider"
+            android:name="org.marelias.contacts.widgets.SingleContactDialerWidgetProvider"
             android:label="@string/app_name"
             android:icon="@mipmap/launcher_icon">
             <intent-filter>
@@ -137,7 +137,7 @@
 
         <service
             android:exported="true"
-            android:name="opencontacts.open.com.opencontacts.activities.services.CallScreeningServiceImplementation"
+            android:name="org.marelias.contacts.activities.services.CallScreeningServiceImplementation"
             android:permission="android.permission.BIND_SCREENING_SERVICE">
             <intent-filter>
                 <action android:name="android.telecom.CallScreeningService" />
@@ -145,14 +145,14 @@
         </service>
         <service
             android:exported="true"
-            android:name="opencontacts.open.com.opencontacts.services.DataSourceService">
+            android:name="org.marelias.contacts.services.DataSourceService">
             <intent-filter>
                 <action android:name="DataSourceService" />
             </intent-filter>
         </service>
 
-        <activity android:name="opencontacts.open.com.opencontacts.activities.CardDavSyncActivity" />
-        <activity android:name="opencontacts.open.com.opencontacts.activities.PreferencesActivity" />
+        <activity android:name="org.marelias.contacts.activities.CardDavSyncActivity" />
+        <activity android:name="org.marelias.contacts.activities.PreferencesActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="@string/file_provider_authority"

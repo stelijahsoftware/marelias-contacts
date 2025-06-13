@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 32
     defaultConfig {
-        applicationId "opencontacts.open.com.opencontacts"
+        applicationId "org.marelias.contacts"
         minSdkVersion 16
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 32
@@ -25,7 +25,7 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
-    namespace 'opencontacts.open.com.opencontacts'
+    namespace 'org.marelias.contacts'
 }
 
 configurations {

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+    <org.marelias.contacts.components.ImageButtonWithTint
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_chat_black_24dp"
@@ -12,7 +12,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <opencontacts.open.com.opencontacts.views.SocialAppButton
+    <org.marelias.contacts.views.SocialAppButton
         style="@style/TransparentImageButton"
         android:visibility="gone"
         android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
         android:layout_toEndOf="@id/button_primary_number"
         android:layout_marginStart="4dp" />
 
-    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+    <org.marelias.contacts.components.ImageButtonWithTint
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_star_empty_24dp"

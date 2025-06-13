@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:id="@+id/activity_tabbed"
-    tools:context="opencontacts.open.com.opencontacts.activities.MainActivity">
+    tools:context="org.marelias.contacts.activities.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"

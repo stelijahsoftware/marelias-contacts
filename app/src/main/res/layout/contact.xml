@@ -35,7 +35,7 @@
             android:id="@+id/textview_phone_number"
             />
     </RelativeLayout>
-    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+    <org.marelias.contacts.components.ImageButtonWithTint
         android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         android:layout_marginEnd="10dp" />
 
 
-    <opencontacts.open.com.opencontacts.components.ImageButtonWithTint
+    <org.marelias.contacts.components.ImageButtonWithTint
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_chat_black_24dp"
@@ -58,7 +58,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="5dp" />
 
-    <opencontacts.open.com.opencontacts.views.SocialAppButton
+    <org.marelias.contacts.views.SocialAppButton
         style="@style/TransparentImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

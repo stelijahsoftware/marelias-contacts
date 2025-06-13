@@ -5,5 +5,5 @@
     android:previewImage="@drawable/single_contact_dialer_widget_preview_40dp"
     android:initialLayout="@layout/widget_single_contact_dialer"
     android:resizeMode="horizontal|vertical"
-    android:configure="opencontacts.open.com.opencontacts.activities.ContactWidgetChooserActivity"
+    android:configure="org.marelias.contacts.activities.ContactWidgetChooserActivity"
     android:widgetCategory="home_screen"></appwidget-provider>
