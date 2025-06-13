@@ -14,6 +14,7 @@ import static opencontacts.open.com.opencontacts.utils.CARDDAVConstants.XML_TAG_
 import static opencontacts.open.com.opencontacts.utils.CARDDAVConstants.XML_TAG_STATUS;
 import static opencontacts.open.com.opencontacts.utils.CARDDAVConstants.XML_TAG_SYNC_TOKEN;
 import static opencontacts.open.com.opencontacts.utils.Common.map;
+import static opencontacts.open.com.opencontacts.utils.VCardUtils.getVCardFromString;
 import static opencontacts.open.com.opencontacts.utils.XMLParsingUtils.createXMLDocument;
 import static opencontacts.open.com.opencontacts.utils.XMLParsingUtils.getText;
 
@@ -118,7 +119,7 @@ public class CardDavUtils {
                 return new Triplet<>(
                     getText(XML_TAG_HREF, XML_NAMESPACE_DAV, node),
                     getText(XML_TAG_GETETAG, XML_NAMESPACE_DAV, node),
-                    new VCardReader(getText(XML_TAG_ADDRESS_DATA, XML_NAMESPACE_CARDDAV, node)).readNext()
+                    getVCardFromString(getText(XML_TAG_ADDRESS_DATA, XML_NAMESPACE_CARDDAV, node))
                 );
             } catch (IOException e) {
                 e.printStackTrace();

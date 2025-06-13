@@ -6,8 +6,8 @@ import static opencontacts.open.com.opencontacts.data.datastore.ContactsDataStor
 import static opencontacts.open.com.opencontacts.orm.VCardData.STATUS_NONE;
 import static opencontacts.open.com.opencontacts.orm.VCardData.STATUS_UPDATED;
 import static opencontacts.open.com.opencontacts.utils.DomainUtils.getPinyinTextFromChinese;
-import static opencontacts.open.com.opencontacts.utils.SharedPreferencesUtils.isT9PinyinEnabled;
 import static opencontacts.open.com.opencontacts.utils.VCardUtils.getNameFromVCard;
+import static opencontacts.open.com.opencontacts.utils.VCardUtils.getVCardFromString;
 import static opencontacts.open.com.opencontacts.utils.VCardUtils.writeVCardToString;
 
 import android.content.Context;
@@ -16,7 +16,6 @@ import androidx.core.util.Pair;
 import java.io.IOException;
 
 import ezvcard.VCard;
-import ezvcard.io.text.VCardReader;
 import opencontacts.open.com.opencontacts.orm.Contact;
 import opencontacts.open.com.opencontacts.orm.VCardData;
 import opencontacts.open.com.opencontacts.utils.Triplet;
@@ -34,7 +33,7 @@ public class ContactsSyncHelper {
     public static void merge(Triplet<String, String, VCard> hrefEtagAndVCard, VCardData vCardData, Context context) {
         VCard vCardInDb = null;
         try {
-            vCardInDb = new VCardReader(vCardData.vcardDataAsString).readNext();
+            vCardInDb = getVCardFromString(vCardData.vcardDataAsString);
         } catch (IOException e) {
             e.printStackTrace();
         }

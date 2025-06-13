@@ -148,18 +148,18 @@ public class ContactsDBHelper {
         return createNewDomainContact(contact, contact.getAllPhoneNumbers());
     }
 
-    static void togglePrimaryNumber(String mobileNumber, opencontacts.open.com.opencontacts.domain.Contact contact) {
+    static void togglePrimaryNumber(String mobileNumber, opencontacts.open.com.opencontacts.domain.Contact contact, Context context) {
         List<PhoneNumber> allDbPhoneNumbersOfContact = PhoneNumber.find(PhoneNumber.class, "contact = ?", contact.id + "");
         if (allDbPhoneNumbersOfContact == null)
             return;
         for (PhoneNumber dbPhoneNumber : allDbPhoneNumbersOfContact) {
             if (dbPhoneNumber.phoneNumber.equals(mobileNumber)) {
-                dbPhoneNumber.isPrimaryNumber = !dbPhoneNumber.isPrimaryNumber;
+                dbPhoneNumber.isPrimaryNumber = true;
             } else
                 dbPhoneNumber.isPrimaryNumber = false;
         }
         PhoneNumber.saveInTx(allDbPhoneNumbersOfContact);
-        markPrimaryPhoneNumberInVCard(contact, getVCard(contact.id).vcardDataAsString);
+        markPrimaryPhoneNumberInVCard(mobileNumber, contact, getVCard(contact.id).vcardDataAsString, context);
     }
 
     static void updateLastAccessed(long contactId, String callTimeStamp) {

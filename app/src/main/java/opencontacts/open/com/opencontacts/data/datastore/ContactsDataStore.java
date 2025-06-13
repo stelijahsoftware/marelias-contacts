@@ -178,8 +178,10 @@ public class ContactsDataStore {
         }.execute();
     }
 
-    public static void togglePrimaryNumber(String mobileNumber, long contactId) {
-        ContactsDBHelper.togglePrimaryNumber(mobileNumber, getContactWithId(contactId));
+    public static void togglePrimaryNumber(String mobileNumber, long contactId, Context context) {
+        Contact contactWithId = getContactWithId(contactId);
+        if(contactWithId == null) return;
+        ContactsDBHelper.togglePrimaryNumber(mobileNumber, contactWithId, context);
         reloadContact(contactId);
     }
 

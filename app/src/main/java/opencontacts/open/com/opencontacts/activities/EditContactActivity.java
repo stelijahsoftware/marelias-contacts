@@ -10,6 +10,7 @@ import static opencontacts.open.com.opencontacts.utils.AndroidUtils.wrapInConfir
 import static opencontacts.open.com.opencontacts.utils.Common.getCalendarInstanceAt;
 import static opencontacts.open.com.opencontacts.utils.DomainUtils.defaultPhoneNumberTypeTranslatedText;
 import static opencontacts.open.com.opencontacts.utils.VCardUtils.getMobileNumber;
+import static opencontacts.open.com.opencontacts.utils.VCardUtils.getVCardFromString;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -103,7 +104,7 @@ public class EditContactActivity extends AppBaseActivity {
             toolbar.setTitle(contact.firstName);
             isTemporaryContactBefore = ContactsDataStore.isTemporary(contact.id);
             try {
-                vcardBeforeEdit = new VCardReader(getVCardData(contact.id).vcardDataAsString).readNext();
+                vcardBeforeEdit = getVCardFromString(getVCardData(contact.id).vcardDataAsString);
             } catch (IOException e) {
                 e.printStackTrace();
             }
