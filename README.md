@@ -9,9 +9,6 @@ We can export / import contacts from Android contacts app into this app.
 Maintains call log as well coz Android call log app would not be able to show name of contact
 Also shows the person name upon recieving call
 
-## Screenshots
-<img src="https://gitlab.com/sultanahamer/OpenContacts/-/raw/master/screenshots/1-Call-log.png" alt="screenshot-1" width=350 > <img src="https://gitlab.com/sultanahamer/OpenContacts/-/raw/master/screenshots/2-Editcontact.png" alt="screenshot-1" width=350> <img src="https://gitlab.com/sultanahamer/OpenContacts/-/raw/master/screenshots/3-Preferences.png" alt="screenshot-1" width=350>
-
 # TODO:
 X - put groups button on top (remove it from inside '...' list)
 X - Remove floating button
