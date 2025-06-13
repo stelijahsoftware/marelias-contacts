@@ -1,4 +1,4 @@
-# OpenContacts for Android Forked from [https://gitlab.com/sultanahamer/OpenContacts](https://gitlab.com/sultanahamer/OpenContacts)
+# Mar-Elias OpenContacts for Android Forked from [https://gitlab.com/sultanahamer/OpenContacts](https://gitlab.com/sultanahamer/OpenContacts)
 
 Privacy to your contacts.
 
