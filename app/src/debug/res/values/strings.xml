@@ -1,3 +1,0 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-  <string name="file_provider_authority">opencontacts.open.com.opencontacts.fileprovider.debug</string>
-</resources>
