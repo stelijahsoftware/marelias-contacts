@@ -96,19 +96,6 @@
                 </TableRow>
             </TableLayout>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_marginTop="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:textAppearanceSearchResultTitle"
-                android:text="@string/contributors_title" />
-
-            <ListView
-                android:nestedScrollingEnabled="true"
-                android:id="@+id/contributors_list"
-                android:layout_width="match_parent"
-                android:layout_marginBottom="16dp"
-                android:layout_height="300dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
