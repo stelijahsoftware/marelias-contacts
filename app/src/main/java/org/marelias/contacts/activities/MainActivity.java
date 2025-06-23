@@ -270,9 +270,6 @@ public class MainActivity extends AppBaseActivity {
         ));
 
         menu.findItem(R.id.action_groups).setOnMenuItemClickListener(getMenuItemClickHandlerFor(this::launchGroupsActivity));
-        menu.findItem(R.id.action_help).setOnMenuItemClickListener(getMenuItemClickHandlerFor(() ->
-            startActivity(new Intent(MainActivity.this, HelpActivity.class))
-        ));
 
         menu.findItem(R.id.action_preferences).setOnMenuItemClickListener(getMenuItemClickHandlerFor(() ->
             startActivityForResult(new Intent(MainActivity.this, PreferencesActivity.class), PREFERENCES_ACTIVITY_RESULT)
@@ -295,9 +292,7 @@ public class MainActivity extends AppBaseActivity {
             }
             return true;
         });
-        menu.findItem(R.id.action_delete_all_contacts).setOnMenuItemClickListener(getMenuItemClickHandlerFor(() ->
-            wrapInConfirmation(() -> DomainUtils.deleteAllContacts(this), this)
-        ));
+
     }
 
     private void launchAddContact() {

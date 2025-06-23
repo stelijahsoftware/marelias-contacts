@@ -556,11 +556,6 @@ public class DomainUtils {
         return addressBuffer.toString();
     }
 
-    public static void deleteAllContacts(Context context) {
-        ContactsDataStore.deleteAllContacts(context);
-        SharedPreferencesUtils.removeSyncProgress(context);
-    }
-
     public static void shareContact(long contactId, Context context) {
         AndroidUtils.shareContact(ContactsDataStore.getVCardData(contactId).vcardDataAsString, context);
     }

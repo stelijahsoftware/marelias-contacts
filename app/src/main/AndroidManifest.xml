@@ -74,7 +74,6 @@
         <activity android:name="org.marelias.contacts.activities.EditContactActivity" />
         <activity android:name="org.marelias.contacts.activities.AboutActivity" />
         <activity android:name="org.marelias.contacts.activities.AddToContactActivity" />
-        <activity android:name="org.marelias.contacts.activities.HelpActivity" />
         <activity android:name="org.marelias.contacts.activities.CrashReportingActivity" />
         <activity android:name="org.marelias.contacts.activities.CallLogGroupDetailsActivity" />
         <activity android:name="org.marelias.contacts.activities.MergeContactsActivity" />

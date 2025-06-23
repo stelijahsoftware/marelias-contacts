@@ -222,21 +222,6 @@ public class ContactsDataStore {
         }
     }
 
-    /**
-     * This method takes care of only removing contacts but there are other
-     * things to do as well when removing all contacts. Call below mentioned one instead
-     *
-     * @deprecated use {@link DomainUtils#deleteAllContacts(Context)} instead.
-     */
-    public static void deleteAllContacts(Context context) {
-        processAsync(() -> {
-            ContactsDBHelper.deleteAllContactsAndRelatedStuff();
-            refreshStore();
-            computeGroupsAsync();
-            toastFromNonUIThread(R.string.deleted_all_contacts, Toast.LENGTH_LONG, context);
-        });
-    }
-
     public static VCardData getVCardData(long contactId) {
         return ContactsDBHelper.getVCard(contactId);
     }

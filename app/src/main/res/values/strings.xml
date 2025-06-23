@@ -42,7 +42,6 @@
     <string name="export_contacts_help_text">On the main screen, click the top right menu and then select export. It would export all the contacts to file and will tell the location of export</string>
     <string name="resync_call_log_with_contacts">Resync call log with contacts</string>
     <string name="callerid">Caller Id</string>
-    <string name="callerid_help_text">Caller id refers to showing the name of contact during an incoming call.\n\nCaller id comes up and by default it sits almost at middle of the screen. But you can very well drag it to any place on screen you want and that position will be saved automatically.\n\n\nSo, after installing the app, try to get a call from any number and drag caller id to place it somewhere you like. But keep in my mind that caller id is draggable only when call comes when screen in unlocked. Android has this issue of not able to take input events on screens created while phone is locked. Hence make sure you unlock your screen before asking someone to call.</string>
     <string name="whats_new">Whats new</string>
     <string name="whatsapp_uri_with_phone_number_placeholder" translatable="false">https://wa.me/%1$s</string>
     <string name="telegram_uri_with_phone_number_placeholder" translatable="false">https://t.me/%1$s</string>
@@ -251,7 +250,6 @@
     <string name="name" tools:ignore="MissingTranslation">Name</string>
     <string name="temp_contact" tools:ignore="MissingTranslation">Temporary contact</string>
     <string name="mark_contact_as_temporary" tools:ignore="MissingTranslation">Mark contact as temporary?</string>
-    <string name="mark_contact_as_temporary_help_text" tools:ignore="MissingTranslation">Contacts marked as temporary will be deleted in a given amount of time. 1 month by default</string>
     <string name="social_app_long_press" tools:ignore="MissingTranslation">Long press social app icon</string>
     <string name="long_press_social_app_help_text" tools:ignore="MissingTranslation">Upon long press of social app icon in call log or contacts, we can access all social app integrations available</string>
     <string name="datasource_permissions_asking_text" tools:ignore="MissingTranslation">App with above details is requesting the following permissions</string>
