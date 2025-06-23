@@ -25,7 +25,7 @@ import static org.marelias.contacts.utils.SharedPreferencesUtils.markPermissions
 //import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldBottomMenuOpenByDefault;
 
 import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldKeyboardResizeViews;
-import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldLaunchDefaultTab;
+//import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldLaunchDefaultTab;
 //import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldShowBottomMenu;
 //import static org.marelias.contacts.utils.ThemeUtils.getPrimaryColor;
 import static org.marelias.contacts.utils.domain.AppShortcuts.TAB_INDEX_INTENT_EXTRA;
@@ -145,7 +145,8 @@ public class MainActivity extends AppBaseActivity {
     protected void onResume() {
         super.onResume();
         refresh();
-        if (shouldLaunchDefaultTab(this)) gotoDefaultTab();
+//        if (shouldLaunchDefaultTab(this))
+        gotoDefaultTab();
     }
 
     private void gotoDefaultTab() {
@@ -241,9 +242,7 @@ public class MainActivity extends AppBaseActivity {
         searchView.setOnSearchClickListener(v -> {
             viewPager.setCurrentItem(CONTACTS_TAB_INDEX);
         });
-        menu.findItem(R.id.action_sync).setOnMenuItemClickListener(getMenuItemClickHandlerFor(() ->
-            startActivity(new Intent(this, CardDavSyncActivity.class))
-        ));
+
         menu.findItem(R.id.action_import).setOnMenuItemClickListener(getMenuItemClickHandlerFor(this::importContacts));
         menu.findItem(R.id.action_merge).setOnMenuItemClickListener(getMenuItemClickHandlerFor(() ->
             startActivity(new Intent(this, MergeContactsActivity.class))
@@ -278,9 +277,7 @@ public class MainActivity extends AppBaseActivity {
         menu.findItem(R.id.action_resync).setOnMenuItemClickListener(getMenuItemClickHandlerFor(() ->
             CallLogDataStore.updateCallLogAsyncForAllContacts(MainActivity.this)
         ));
-        menu.findItem(R.id.action_whats_new).setOnMenuItemClickListener(getMenuItemClickHandlerFor(() ->
-            AndroidUtils.goToUrl(getString(R.string.gitlab_repo_tags_url), MainActivity.this)
-        ));
+
         menu.findItem(R.id.action_export_call_log).setOnMenuItemClickListener(item -> {
             Toast.makeText(this, R.string.started_exporting_call_log, LENGTH_SHORT).show();
             try {

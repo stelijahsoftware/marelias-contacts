@@ -238,7 +238,7 @@ public class PreferencesActivity extends AppBaseActivity {
         private Preference.OnPreferenceChangeListener onSocialIntegrationToggle() {
             return (preference, newValue) -> {
                 if (newValue.equals(false)){
-                    setEnabledForPreference(DEFAULT_SOCIAL_APP, false);
+                    setEnabledForPreference(DEFAULT_SOCIAL_APP, true);
                     return true;
                 }
                 showSetDefaultCountryCodeDialog(activity);

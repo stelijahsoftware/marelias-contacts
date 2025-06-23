@@ -139,12 +139,12 @@ public class SharedPreferencesUtils {
 
     public static boolean isSocialIntegrationEnabled(Context context) {
         return getAppsSharedPreferences(context)
-            .getBoolean(SOCIAL_INTEGRATION_ENABLED_PREFERENCE_KEY, false);
+            .getBoolean(SOCIAL_INTEGRATION_ENABLED_PREFERENCE_KEY, true);
     }
 
     public static String defaultSocialAppEnabled(Context context) {
         return getAppsSharedPreferences(context)
-            .getString(DEFAULT_SOCIAL_APP, TELEGRAM);
+            .getString(DEFAULT_SOCIAL_APP, WHATSAPP);
     }
     public static void setSharedPreferencesChangeListener(SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener, Context context) {
         getAppsSharedPreferences(context).registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
@@ -211,14 +211,14 @@ public class SharedPreferencesUtils {
         updatePreference(SHOULD_ASK_FOR_PERMISSIONS, false, context);
     }
 
-    public static boolean shouldLaunchDefaultTab(Context context) {
-        boolean shouldLaunchDefaultTab = hasItBeen(5, MINUTE, getLong(LAST_DEFAULT_TAB_LAUNCH_TIME_SHARED_PREF_KEY, 0, context));
-        updatePreference(LAST_DEFAULT_TAB_LAUNCH_TIME_SHARED_PREF_KEY, new Date().getTime(), context);
-        return shouldLaunchDefaultTab;
-    }
+//    public static boolean shouldLaunchDefaultTab(Context context) {
+//        boolean shouldLaunchDefaultTab = hasItBeen(5, MINUTE, getLong(LAST_DEFAULT_TAB_LAUNCH_TIME_SHARED_PREF_KEY, 0, context));
+//        updatePreference(LAST_DEFAULT_TAB_LAUNCH_TIME_SHARED_PREF_KEY, new Date().getTime(), context);
+//        return shouldLaunchDefaultTab;
+//    }
 
     public static int getDefaultTab(Context context) {
-        return Integer.parseInt(getStringFromPreferences(DEFAULT_TAB_SHARED_PREF_KEY, "0", context));
+        return Integer.parseInt(getStringFromPreferences(DEFAULT_TAB_SHARED_PREF_KEY, "1", context));
     }
 
     public static boolean shouldToggleContactActions(Context context) {
