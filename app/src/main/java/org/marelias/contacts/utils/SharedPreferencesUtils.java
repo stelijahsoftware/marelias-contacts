@@ -77,7 +77,6 @@ public class SharedPreferencesUtils {
 
     public static final String ENABLE_CALL_FILTERING_SHARED_PREF_KEY = "enableCallFiltering";
     public static final String CALL_FILTER_REJECT_CALLS_SHARED_PREF_KEY = "rejectCalls";
-    public static final String SYNC_DEBUG_LOGS = "SYNC_DEBUG_LOGS";
     public static final String STORAGE_LOCATION = "STORAGE_LOCATION";
 
     public static String getDefaultSocialCountryCode(Context context) {
@@ -311,10 +310,6 @@ public class SharedPreferencesUtils {
 
     public static void saveAuthCode(Context context, String packageName, String authCode) {
         getContactsDataSharePreferences(context).edit().putString(authCodeKey(packageName), authCode).apply();
-    }
-
-    public static boolean debugLogsEnabledForSync(Context context) {
-        return getBoolean(SYNC_DEBUG_LOGS, false, context);
     }
 
     private static String legacyExportLocation() {

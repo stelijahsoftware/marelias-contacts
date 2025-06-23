@@ -1,7 +1,5 @@
 package org.marelias.contacts.utils;
 
-import static org.marelias.contacts.utils.SharedPreferencesUtils.debugLogsEnabledForSync;
-
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -71,7 +69,6 @@ public class NetworkUtils {
     @NonNull
     public static OkHttpClient createHttpClientWithAuth(String username, String password, boolean shouldIgnoreSSL, Context context) {
         HttpLoggingInterceptor logger = new HttpLoggingInterceptor();
-        logger.level(debugLogsEnabledForSync(context) ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         OkHttpClient.Builder okHTTPClientBuilder = shouldIgnoreSSL ? getUnsafeOkHttpClientBuilder() : new OkHttpClient.Builder();
         final Map<String, CachingAuthenticator> authCache = new ConcurrentHashMap<>();
 
