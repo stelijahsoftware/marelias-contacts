@@ -313,7 +313,10 @@ public class MainActivity extends AppBaseActivity {
 
     @Override
     public void onBackPressed() {
-        AppBaseFragment currentFragment = getCurrentFragment();
+        AppBaseFragment currentFragment = null;
+        try {
+            currentFragment = getCurrentFragment();
+        }catch (Exception ignored) {}
         if (currentFragment == null) {
             super.onBackPressed();
             return;
