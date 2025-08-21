@@ -7,8 +7,8 @@ android {
         minSdkVersion 16
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 32
-        versionCode 31
-        versionName "31.0"
+        versionCode 1000
+        versionName "1.0" // x.x.xx
         multiDexEnabled true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
@@ -37,10 +37,10 @@ configurations {
 
 dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    testImplementation('androidx.test.espresso:espresso-core:3.5.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    //implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    //testImplementation('androidx.test.espresso:espresso-core:3.5.1', {
+    //    exclude group: 'com.android.support', module: 'support-annotations'
+    //})
     implementation group: 'net.lingala.zip4j', name: 'zip4j', version: '2.11.5'
     implementation group: 'com.opencsv', name: 'opencsv', version: '5.7.1'
     implementation 'androidx.appcompat:appcompat:1.4.0'
@@ -54,8 +54,9 @@ dependencies {
     implementation 'com.gitlab.sultanahamer:FontScalingAndroid:-SNAPSHOT'
     implementation 'com.gitlab.sultanahamer:OpenContactsDataSourceContract:9e1476690686c383b75b2c8b216cfc3538211514'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.2'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
-    implementation('com.squareup.okhttp3:logging-interceptor:4.9.0')
+    implementation 'androidx.annotation:annotation:1.7.1'
+//    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+//    implementation('com.squareup.okhttp3:logging-interceptor:4.9.0')
     implementation 'io.github.rburgst:okhttp-digest:3.1.0'
     implementation 'com.github.satyan:sugar:1.5'
     implementation 'com.github.javadev:underscore:1.39'
