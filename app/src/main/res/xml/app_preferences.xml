@@ -74,10 +74,6 @@
             android:key="SHOULD_USE_SYSTEM_PHONE_APP"
             android:summary="@string/should_use_system_app_summary"
             android:title="@string/should_use_system_app" />
-        <Preference
-            android:title="@string/custom_font_size_title"
-            android:summary="@string/custom_font_size_description"
-            android:key="TEXT_SIZE_SCALING" />
 
     </PreferenceCategory>
 

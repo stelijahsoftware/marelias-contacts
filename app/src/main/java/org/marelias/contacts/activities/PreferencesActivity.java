@@ -3,7 +3,7 @@ package org.marelias.contacts.activities;
 
 import static android.app.role.RoleManager.ROLE_CALL_SCREENING;
 import static android.widget.Toast.LENGTH_SHORT;
-import static open.fontscaling.SharePrefUtil.TEXT_SIZE_SCALING_SHARED_PREF_KEY;
+//import static open.fontscaling.SharePrefUtil.TEXT_SIZE_SCALING_SHARED_PREF_KEY;
 import static org.marelias.contacts.utils.AndroidUtils.STORAGE_LOCATION_CHOOSER_RESULT;
 import static org.marelias.contacts.utils.AndroidUtils.blockUIUntil;
 import static org.marelias.contacts.utils.AndroidUtils.pickADirectory;
@@ -61,7 +61,7 @@ import com.github.underscore.U;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import open.fontscaling.FontScalePreferenceHandler;
+//import open.fontscaling.FontScalePreferenceHandler;
 import org.marelias.contacts.R;
 import org.marelias.contacts.data.datastore.ContactsDataStore;
 
@@ -109,7 +109,7 @@ public class PreferencesActivity extends AppBaseActivity {
             getPreferenceManager().setSharedPreferencesName(COMMON_SHARED_PREFS_FILE_NAME);
             addPreferencesFromResource(R.xml.app_preferences);
             addConditionalPreferences();
-            initFontScalePreference();
+//            initFontScalePreference();
             initExportPreferences();
         }
 
@@ -121,13 +121,13 @@ public class PreferencesActivity extends AppBaseActivity {
             handlePreferenceUpdates();
         }
 
-        private void initFontScalePreference() {
-            Preference fontScalPreference = ((PreferenceCategory) getPreferenceScreen().findPreference(GENERAL_PREF_GROUP)).findPreference(TEXT_SIZE_SCALING_SHARED_PREF_KEY);
-            fontScalPreference.setOnPreferenceClickListener(preference -> {
-                new FontScalePreferenceHandler(activity).open();
-                return true;
-            });
-        }
+//        private void initFontScalePreference() {
+//            Preference fontScalPreference = ((PreferenceCategory) getPreferenceScreen().findPreference(GENERAL_PREF_GROUP)).findPreference(TEXT_SIZE_SCALING_SHARED_PREF_KEY);
+//            fontScalPreference.setOnPreferenceClickListener(preference -> {
+//                new FontScalePreferenceHandler(activity).open();
+//                return true;
+//            });
+//        }
 
         private void initExportPreferences() {
             Preference autoExport = ((PreferenceCategory) getPreferenceScreen().findPreference(EXPORT_PREF_GROUP)).findPreference(EXPORT_CONTACTS_EVERY_WEEK_SHARED_PREF_KEY);

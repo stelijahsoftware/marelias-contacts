@@ -1,6 +1,6 @@
 package org.marelias.contacts.utils;
 
-import static open.fontscaling.FontScalingUtil.setCustomFontSizeOnViewCreated;
+//import static open.fontscaling.FontScalingUtil.setCustomFontSizeOnViewCreated;
 import static org.marelias.contacts.utils.AndroidUtils.getThemeAttributeColor;
 import static org.marelias.contacts.utils.SharedPreferencesUtils.getCurrentTheme;
 
@@ -37,7 +37,7 @@ public class ThemeUtils {
         int theme = getCurrentTheme(activity);
         activity.getTheme().applyStyle(theme, true);
         TintedDrawablesStore.resetOnThemeMismatch(theme);
-        setCustomFontSizeOnViewCreated(activity);
+//        setCustomFontSizeOnViewCreated(activity);
     }
 
 }
