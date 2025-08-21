@@ -36,31 +36,18 @@ configurations {
 }
 
 dependencies {
-    implementation 'androidx.multidex:multidex:2.0.1'
-    //implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    //testImplementation('androidx.test.espresso:espresso-core:3.5.1', {
-    //    exclude group: 'com.android.support', module: 'support-annotations'
-    //})
-//    implementation group: 'net.lingala.zip4j', name: 'zip4j', version: '2.11.5'
+    implementation 'androidx.multidex:multidex:2.0.1' // lets app use more than 65,536 methods
     implementation group: 'com.opencsv', name: 'opencsv', version: '5.7.1'
-    implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-    //implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.github.xyxyLiu:Edit-Spinner:1.1.0'
     implementation 'com.thomashaertel:multispinner:0.1.1@aar'
-//    implementation 'com.github.sultanahamer:ExpandedMenuView:d57acc9096212a9fb0b9a593781d5d54354273fc'
-//    implementation 'com.gitlab.sultanahamer:FontScalingAndroid:-SNAPSHOT'
     implementation 'com.gitlab.sultanahamer:OpenContactsDataSourceContract:9e1476690686c383b75b2c8b216cfc3538211514'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.2'
     implementation 'androidx.annotation:annotation:1.7.1'
-//    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
-//    implementation('com.squareup.okhttp3:logging-interceptor:4.9.0')
-//    implementation 'io.github.rburgst:okhttp-digest:3.1.0'
     implementation 'com.github.satyan:sugar:1.5'
     implementation 'com.github.javadev:underscore:1.39'
     implementation 'io.michaelrocks:libphonenumber-android:8.13.7'
     implementation group: 'com.belerweb', name: 'pinyin4j', version: '2.5.1'
-//    testImplementation 'junit:junit:4.13.2'
 }
