@@ -96,7 +96,6 @@ public class DomainUtils {
     public static final String EMPTY_STRING = "";
     public static final Pattern NON_NUMERIC_EXCEPT_PLUS_MATCHING_PATTERN = Pattern.compile("[^0-9+]");
     public static final int MINIMUM_NUMBER_OF_DIGITS_IN_MOST_COUNTRIES_PHONE_NUMBERS = 7;
-    public static final int NUMBER_8 = 8;
 
     private static Map<Character, Integer> characterToIntegerMappingForKeyboardLayout;
     private static Map<TelephoneType, String> mobileNumberTypeToTranslatedText;
@@ -268,22 +267,25 @@ public class DomainUtils {
       return numericNumber1.contains(numericNumber2) || numericNumber2.contains(numericNumber1);
     }
 
-    private static String getPhoneNumberWithoutCountryCodeAndFormatting(String phoneNumber) {
-        try {
-            return String.valueOf(U.first(phoneNumberUtil.findNumbers(phoneNumber, countryCodeInUpperCase)).number().getNationalNumber());
+    public static String getPhoneNumberWithoutCountryCodeAndFormatting(String phoneNumber) throws Exception{
+        return String.valueOf(U.first(phoneNumberUtil.findNumbers(phoneNumber, countryCodeInUpperCase)).number().getNationalNumber());
+    }
+
+    public static String getMinimumDigitsOfPhoneNumberToMatch(String phoneNumber) {
+        String allNumericPhoneNumber = getAllNumericPhoneNumber(phoneNumber);
+        if (allNumericPhoneNumber.length() < MINIMUM_NUMBER_OF_DIGITS_IN_MOST_COUNTRIES_PHONE_NUMBERS) {
+            return allNumericPhoneNumber;
         }
-        catch(Exception e) {
-            System.out.println("fallback to old method of max last digits to match");
-            String allNumericPhoneNumber = getAllNumericPhoneNumber(phoneNumber);
-            if (allNumericPhoneNumber.length() < MINIMUM_NUMBER_OF_DIGITS_IN_MOST_COUNTRIES_PHONE_NUMBERS) {
-              return allNumericPhoneNumber;
-            }
-            return allNumericPhoneNumber.length() > NUMBER_8 ? allNumericPhoneNumber.substring(allNumericPhoneNumber.length() - NUMBER_8) : allNumericPhoneNumber;
-        }
+        return allNumericPhoneNumber.length() > MINIMUM_NUMBER_OF_DIGITS_IN_MOST_COUNTRIES_PHONE_NUMBERS ? allNumericPhoneNumber.substring(allNumericPhoneNumber.length() - MINIMUM_NUMBER_OF_DIGITS_IN_MOST_COUNTRIES_PHONE_NUMBERS) : allNumericPhoneNumber;
     }
 
     public static String getSearchablePhoneNumber(String phoneNumber) {
-        return getPhoneNumberWithoutCountryCodeAndFormatting(phoneNumber);
+        try{
+            return getPhoneNumberWithoutCountryCodeAndFormatting(phoneNumber);
+        }
+        catch (Exception e) {
+            return getMinimumDigitsOfPhoneNumberToMatch(phoneNumber);
+        }
     }
 
     public static List<String> cross(List<String> firstSetOfWords, Set<String> secondSetOfWords) {

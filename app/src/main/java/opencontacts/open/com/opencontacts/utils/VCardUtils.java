@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 import ezvcard.VCard;
+import ezvcard.VCardVersion;
 import ezvcard.io.text.VCardReader;
 import ezvcard.property.Address;
 import ezvcard.property.Birthday;
@@ -35,6 +36,7 @@ import ezvcard.property.Url;
 import ezvcard.property.VCardProperty;
 import opencontacts.open.com.opencontacts.R;
 import opencontacts.open.com.opencontacts.domain.Contact;
+import opencontacts.open.com.opencontacts.orm.VCardData;
 
 public class VCardUtils {
 
@@ -91,7 +93,7 @@ public class VCardUtils {
         VCard mergedCard = null;
 
         try {
-            mergedCard = new VCardReader(writeVCardToString(primaryVCard)).readNext();
+            mergedCard = getVCardFromString(writeVCardToString(primaryVCard));
         } catch (IOException e) {
             e.printStackTrace();
 //            TODO: this will crash. Throw this exception and let consumers handle this
@@ -147,7 +149,7 @@ public class VCardUtils {
     }
 
     public static String writeVCardToString(VCard vcard) {
-        return write(vcard).caretEncoding(true).go();
+        return write(vcard).version(VCardVersion.V4_0).caretEncoding(true).go();
     }
 
     public static VCard mergeVCardStrings(String primaryVCardString, String secondaryVCardString, Context context) throws IOException {
@@ -168,19 +170,24 @@ public class VCardUtils {
         return isFavoriteVcardProperty != null && isFavoriteVcardProperty.getValue().equals(String.valueOf(true));
     }
 
-    public static void markPrimaryPhoneNumberInVCard(Contact contact, VCard vcard) {
+    public static void markPrimaryPhoneNumberInVCard(String primaryPhoneNumber, Contact contact, VCard vcard) {
         U.forEach(vcard.getTelephoneNumbers(),
             telephoneNumber -> {
-                if (contact.primaryPhoneNumber.phoneNumber.equals(telephoneNumber.getText()))
+                if (primaryPhoneNumber.equals(telephoneNumber.getText()))
                     telephoneNumber.setPref(PRIMARY_PHONE_NUMBER_PREF);
-                else telephoneNumber.setPref(NON_PRIMARY_PHONE_NUMBER_PREF);
+                else {
+                    telephoneNumber.setPref(null);
+                    telephoneNumber.removeParameter("PREF");
+                }
             }
         );
     }
 
-    public static void markPrimaryPhoneNumberInVCard(Contact contact, String vcardData) {
+    public static void markPrimaryPhoneNumberInVCard(String primaryPhoneNumber, Contact contact, String vcardData, Context context) {
         try {
-            markPrimaryPhoneNumberInVCard(contact, getVCardFromString(vcardData));
+            VCard vcard = getVCardFromString(vcardData);
+            markPrimaryPhoneNumberInVCard(primaryPhoneNumber, contact, vcard);
+            VCardData.updateVCardData(vcard, contact.id, context);
         } catch (IOException e) {
             e.printStackTrace();
         }
