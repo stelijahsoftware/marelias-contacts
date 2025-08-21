@@ -186,9 +186,10 @@ public class DomainUtils {
 
         byte[] plainTextExportBytes = getVCFExportBytes(ContactsDataStore.getAllContacts(), ContactsDataStore.getFavorites());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH-mm-ss");
-        if (hasEncryptingContactsKey(context))
-            exportAsEncryptedZip(context, plainTextExportBytes, simpleDateFormat);
-        else exportAsPlainTextVCFFile(plainTextExportBytes, simpleDateFormat, context);
+//        if (hasEncryptingContactsKey(context))
+//            exportAsEncryptedZip(context, plainTextExportBytes, simpleDateFormat);
+//        else
+        exportAsPlainTextVCFFile(plainTextExportBytes, simpleDateFormat, context);
     }
 
     private static void exportAsPlainTextVCFFile(byte[] plainTextExportBytes, SimpleDateFormat simpleDateFormat, Context context) throws Exception {
@@ -202,10 +203,10 @@ public class DomainUtils {
         }
     }
 
-    private static void exportAsEncryptedZip(Context context, byte[] plainTextExportBytes, SimpleDateFormat simpleDateFormat) throws Exception {
-        OutputStream exportFileOutStream = getExportFileOutStream("Contacts_" + simpleDateFormat.format(new Date()) + ".zip", context);
-        ZipUtils.exportZip(getEncryptingContactsKey(context), plainTextExportBytes, exportFileOutStream);
-    }
+//    private static void exportAsEncryptedZip(Context context, byte[] plainTextExportBytes, SimpleDateFormat simpleDateFormat) throws Exception {
+//        OutputStream exportFileOutStream = getExportFileOutStream("Contacts_" + simpleDateFormat.format(new Date()) + ".zip", context);
+//        ZipUtils.exportZip(getEncryptingContactsKey(context), plainTextExportBytes, exportFileOutStream);
+//    }
 
     private static OutputStream getExportFileOutStream(String fileName, Context context) throws Exception {
         if(Build.VERSION.SDK_INT < 21) {
