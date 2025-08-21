@@ -66,8 +66,8 @@ import org.marelias.contacts.interfaces.SelectableTab;
 import org.marelias.contacts.utils.AndroidUtils;
 import org.marelias.contacts.utils.DomainUtils;
 import org.marelias.contacts.utils.SharedPreferencesUtils;
-import pro.midev.expandedmenulibrary.ExpandedMenuItem;
-import pro.midev.expandedmenulibrary.ExpandedMenuView;
+//import pro.midev.expandedmenulibrary.ExpandedMenuItem;
+//import pro.midev.expandedmenulibrary.ExpandedMenuView;
 
 
 public class MainActivity extends AppBaseActivity {
@@ -83,7 +83,7 @@ public class MainActivity extends AppBaseActivity {
     private ContactsFragment contactsFragment;
     private DialerFragment dialerFragment;
     private MenuItem searchItem;
-    private ExpandedMenuView bottomMenu;
+//    private ExpandedMenuView bottomMenu;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
