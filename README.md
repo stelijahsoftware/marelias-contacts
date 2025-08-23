@@ -13,7 +13,7 @@ Also shows the person name upon recieving call
 X - put groups button on top (remove it from inside '...' list)
 X - Remove floating button
 - Remove call log
-- verify the cursor commit
+X - verify the cursor commit (removed, does not actually delete groups)
 
 - make the bar on top a bottom bar, put groups button in it (https://gitlab.com/sultanahamer/OpenContacts/-/issues/266)
 - Add goups icon next to contact which has already been added to a group
