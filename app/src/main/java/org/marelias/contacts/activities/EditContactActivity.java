@@ -16,9 +16,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
@@ -26,7 +23,6 @@ import androidx.core.util.Pair;
 
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,10 +31,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.underscore.U;
-import org.marelias.contacts.adapters.GroupsSelectionAdapter;
+import com.thomashaertel.widget.MultiSpinner;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -61,7 +56,7 @@ import org.marelias.contacts.domain.Contact;
 import org.marelias.contacts.domain.ContactGroup;
 import org.marelias.contacts.utils.AndroidUtils;
 import org.marelias.contacts.utils.DomainUtils;
-
+import org.marelias.contacts.utils.SpinnerUtil;
 import org.marelias.contacts.utils.VCardUtils;
 
 public class EditContactActivity extends AppBaseActivity {
@@ -82,8 +77,7 @@ public class EditContactActivity extends AppBaseActivity {
     private TextInputEditText dateOfBirthTextInputEditText;
     private AppCompatCheckBox temporaryContactCheckbox;
     private Date selectedBirthDay;
-    private TextInputEditText groupsTextInputEditText;
-    private List<String> selectedGroups = new ArrayList<>();
+    private MultiSpinner groupsSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +141,7 @@ public class EditContactActivity extends AppBaseActivity {
         notesTextInputEditText = findViewById(R.id.notes);
         websiteTextInputEditText = findViewById(R.id.website);
         dateOfBirthTextInputEditText = findViewById(R.id.date_of_birth);
-        groupsTextInputEditText = findViewById(R.id.groups);
+        groupsSpinner = findViewById(R.id.groups);
         temporaryContactCheckbox = findViewById(R.id.temp_contact_checkbox);
     }
 
@@ -178,45 +172,13 @@ public class EditContactActivity extends AppBaseActivity {
     }
 
     private void fillGroups() {
-        if (contact != null) {
-            selectedGroups = new ArrayList<>(contact.getGroupNames());
-        }
-        updateGroupsDisplay();
-        
-        // Set click listener to open groups selection dialog
-        groupsTextInputEditText.setOnClickListener(v -> showGroupsSelectionDialog());
-    }
-    
-    private void updateGroupsDisplay() {
-        if (selectedGroups.isEmpty()) {
-            groupsTextInputEditText.setText("");
-        } else {
-            groupsTextInputEditText.setText(String.join(", ", selectedGroups));
-        }
-    }
-    
-    private void showGroupsSelectionDialog() {
+        ArrayAdapter<String> groupsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
+        groupsSpinner.setAdapter(groupsAdapter, false, selected -> {
+        });
         List<String> allGroups = getAllGroupNames();
-        
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_groups_selection, null);
-        RecyclerView recyclerView = dialogView.findViewById(R.id.groups_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        
-        GroupsSelectionAdapter adapter = new GroupsSelectionAdapter(allGroups, selectedGroups, 
-            selectedGroupsList -> {
-                selectedGroups = selectedGroupsList;
-                updateGroupsDisplay();
-            });
-        
-        recyclerView.setAdapter(adapter);
-        
-        AlertDialog dialog = new AlertDialog.Builder(this)
-            .setView(dialogView)
-            .setPositiveButton(android.R.string.ok, null)
-            .setNegativeButton(android.R.string.cancel, null)
-            .create();
-        
-        dialog.show();
+        groupsAdapter.addAll(allGroups);
+        if (contact == null) return;
+        SpinnerUtil.setSelection(contact.getGroupNames(), allGroups, groupsSpinner);
     }
 
     private List<String> getAllGroupNames() {
@@ -312,8 +274,9 @@ public class EditContactActivity extends AppBaseActivity {
     }
 
     private void addGroupsToNewVCard(VCard newVCard) {
-        if (selectedGroups.isEmpty()) return;
-        VCardUtils.setCategories(selectedGroups, newVCard);
+        List<String> newGroupNames = SpinnerUtil.getSelectedItems(groupsSpinner, getAllGroupNames());
+        if (newGroupNames.isEmpty()) return;
+        VCardUtils.setCategories(newGroupNames, newVCard);
     }
 
     private void addDateOfBirthFromFieldsToNewVCard(VCard newVCard) {
