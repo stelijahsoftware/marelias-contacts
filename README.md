@@ -18,3 +18,6 @@ X - verify the cursor commit (removed, does not actually delete groups)
 - make the bar on top a bottom bar, put groups button in it (https://gitlab.com/sultanahamer/OpenContacts/-/issues/266)
 - Add goups icon next to contact which has already been added to a group
 - Add category to display all names not added to a group
+
+# License:
+GPLv3. In addition to the licenses of the used libraries ./app/build.gradle
