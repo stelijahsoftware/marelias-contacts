@@ -19,7 +19,7 @@
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android:icon="@mipmap/launcher_icon"
+        android:icon="@mipmap/saints"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar.Customized"
@@ -125,7 +125,7 @@
             android:exported="true"
             android:name="org.marelias.contacts.widgets.SingleContactDialerWidgetProvider"
             android:label="@string/app_name"
-            android:icon="@mipmap/launcher_icon">
+            android:icon="@mipmap/saints">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
