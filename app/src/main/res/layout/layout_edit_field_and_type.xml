@@ -18,13 +18,11 @@
             android:id="@+id/edit_field" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.reginald.editspinner.EditSpinner
+    <Spinner
         android:layout_centerVertical="true"
-        app:dropDownDrawable="@drawable/ic_arrow_drop_down_black_24dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/type_spinner"
-        android:spinnerMode="dropdown"
         android:layout_width="100dp"
         android:layout_height="wrap_content" />
 </RelativeLayout>

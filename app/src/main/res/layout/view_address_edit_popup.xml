@@ -4,9 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="8dp">
 
-    <com.reginald.editspinner.EditSpinner
+    <Spinner
         android:id="@+id/address_types"
-        app:dropDownDrawable="@drawable/ic_arrow_drop_down_black_24dp"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:entries="@array/address_types" />

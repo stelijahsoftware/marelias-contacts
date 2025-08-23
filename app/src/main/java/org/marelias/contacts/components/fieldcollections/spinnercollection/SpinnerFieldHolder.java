@@ -5,8 +5,7 @@ import static org.marelias.contacts.utils.SpinnerUtil.setupSpinner;
 
 import android.content.Context;
 import android.view.View;
-
-import com.reginald.editspinner.EditSpinner;
+import android.widget.Spinner;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ import org.marelias.contacts.components.fieldcollections.FieldViewHolder;
 
 public class SpinnerFieldHolder extends FieldViewHolder {
 
-    private final EditSpinner spinner;
+    private final Spinner spinner;
     private final List<String> options;
     private final ImageButtonWithTint deleteButton;
     private View fieldView;
@@ -25,7 +24,7 @@ public class SpinnerFieldHolder extends FieldViewHolder {
         spinner = fieldView.findViewById(R.id.spinner);
         deleteButton = fieldView.findViewById(R.id.delete);
         this.fieldView = fieldView;
-        if (editDisabled) spinner.setEditable(false);
+        if (editDisabled) spinner.setEnabled(false);
         this.options = options;
         setupSpinner(options, spinner, context);
     }
@@ -40,7 +39,10 @@ public class SpinnerFieldHolder extends FieldViewHolder {
 
     @Override
     public String getValue() {
-        return spinner.getText().toString();
+        if (spinner.getSelectedItem() != null) {
+            return spinner.getSelectedItem().toString();
+        }
+        return "";
     }
 
     @Override
