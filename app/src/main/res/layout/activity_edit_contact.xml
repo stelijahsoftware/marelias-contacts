@@ -147,13 +147,22 @@
                 android:text="@string/groups"
                 android:layout_below="@id/date_of_birth_text_input_layout" />
 
-            <com.thomashaertel.widget.MultiSpinner
-                android:id="@+id/groups"
-                android:hint="@string/groups"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/groups_text_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/groups"
                 android:layout_below="@id/groups_title"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/groups"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp" />
+            </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
     </ScrollView>
 
