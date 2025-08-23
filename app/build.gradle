@@ -45,7 +45,6 @@ dependencies {
     implementation 'com.opencsv:opencsv:5.7.1'
     implementation 'com.github.xyxyLiu:Edit-Spinner:1.1.0'
     implementation 'com.thomashaertel:multispinner:0.1.1@aar'
-    implementation 'com.gitlab.sultanahamer:OpenContactsDataSourceContract:9e1476690686c383b75b2c8b216cfc3538211514'
     implementation 'com.github.satyan:sugar:1.5'
     implementation 'com.github.javadev:underscore:1.39'
     implementation 'io.michaelrocks:libphonenumber-android:8.13.7'
