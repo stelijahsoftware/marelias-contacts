@@ -52,6 +52,32 @@
                 <TableRow android:gravity="fill">
                     <TextView
                         android:padding="3dp"
+                        android:text="Website"
+                        android:textAppearance="?android:textAppearanceSearchResultTitle"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:autoLink="web"
+                        android:padding="3dp"
+                        android:text="https://stelijah.com/products/marelias-contacts.html" />
+                </TableRow>
+
+                <TableRow android:gravity="fill">
+                    <TextView
+                        android:padding="3dp"
+                        android:text="Privacy Policy"
+                        android:textAppearance="?android:textAppearanceSearchResultTitle"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:autoLink="web"
+                        android:padding="3dp"
+                        android:text="https://stelijah.com/products/marelias-contacts/PRIVACY-POLICY.html" />
+                </TableRow>
+
+                <TableRow android:gravity="fill">
+                    <TextView
+                        android:padding="3dp"
                         android:text="Source Code"
                         android:textAppearance="?android:textAppearanceSearchResultTitle"
                         android:textSize="18sp" />
