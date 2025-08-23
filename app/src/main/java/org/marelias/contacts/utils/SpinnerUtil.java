@@ -1,12 +1,14 @@
 package org.marelias.contacts.utils;
 
+
 import static org.marelias.contacts.components.TintedDrawablesStore.getTintedDrawable;
+import static org.marelias.contacts.utils.PrimitiveDataTypeUtils.toPrimitiveBools;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import com.github.underscore.U;
+import com.reginald.editspinner.EditSpinner;
 
 import java.util.List;
 
@@ -14,24 +16,15 @@ import org.marelias.contacts.R;
 
 public class SpinnerUtil {
 
-    public static void setItem(String text, List<String> items, Spinner spinner) {
+    public static void setItem(String text, List<String> items, EditSpinner editSpinner) {
         int indexOfType = items.indexOf(text);
-        if (indexOfType == -1) {
-            // If text is not in the list, add it temporarily and select it
-            ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
-            if (adapter != null) {
-                adapter.add(text);
-                spinner.setSelection(adapter.getCount() - 1);
-            }
-        } else {
-            spinner.setSelection(indexOfType);
-        }
+        if (indexOfType == -1) editSpinner.setText(text);
+        else editSpinner.selectItem(indexOfType);
     }
 
-    public static void setupSpinner(List<String> items, Spinner spinner, Context context) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, items);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        if (items.size() > 0) spinner.setSelection(0);
+    public static void setupSpinner(List<String> items, EditSpinner spinner, Context context) {
+        spinner.setDropDownDrawable(getTintedDrawable(R.drawable.ic_arrow_drop_down_black_24dp, context));
+        spinner.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, items));
+        if (items.size() > 0) spinner.selectItem(0);
     }
 }

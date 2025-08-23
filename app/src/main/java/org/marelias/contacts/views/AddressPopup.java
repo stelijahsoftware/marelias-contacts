@@ -12,7 +12,8 @@ import androidx.core.util.Consumer;
 import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Spinner;
+
+import com.reginald.editspinner.EditSpinner;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class AddressPopup {
     private TextInputEditText cityTextInput;
     private TextInputEditText stateTextInput;
     private TextInputEditText countryTextInput;
-    private Spinner addressTypeSpinner;
+    private EditSpinner addressTypeSpinner;
     private List<String> types;
 
     public AddressPopup(Address address, Consumer<Address> onSave, Runnable onDismiss, Context context) {
@@ -84,9 +85,7 @@ public class AddressPopup {
     }
 
     private void updateAddressType() {
-        String selectedText = addressTypeSpinner.getSelectedItem() != null ?
-            addressTypeSpinner.getSelectedItem().toString() : "";
-        AddressType addressType = getAddressType(selectedText, context);
+        AddressType addressType = getAddressType(addressTypeSpinner.getText().toString(), context);
         List<AddressType> existingAddressTypes = address.getTypes();
         if (existingAddressTypes.isEmpty()) existingAddressTypes.add(addressType);
         else existingAddressTypes.set(0, addressType);

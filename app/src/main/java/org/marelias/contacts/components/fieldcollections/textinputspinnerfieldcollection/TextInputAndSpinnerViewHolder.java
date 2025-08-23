@@ -9,7 +9,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.core.util.Pair;
 import android.view.View;
-import android.widget.Spinner;
+
+import com.reginald.editspinner.EditSpinner;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import org.marelias.contacts.components.fieldcollections.FieldViewHolder;
 
 public class TextInputAndSpinnerViewHolder extends FieldViewHolder {
     public TextInputEditText editText;
-    public Spinner spinner;
+    public EditSpinner spinner;
     private List<String> types;
     private View fieldView;
 
@@ -54,9 +55,9 @@ public class TextInputAndSpinnerViewHolder extends FieldViewHolder {
     }
 
     public Pair<String, String> getValueAndTypeAsPair() {
-        int indexOfSelectedValue = spinner.getSelectedItemPosition();
+        int indexOfSelectedValue = spinner.getListSelection();
         return new Pair<>(getValue(), indexOfSelectedValue == -1 ?
-            (spinner.getSelectedItem() != null ? spinner.getSelectedItem().toString() : "")
+            spinner.getText().toString()
             : types.get(indexOfSelectedValue));
     }
 }
