@@ -19,7 +19,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/content_about" />
+                android:text="@string/content_about"
+                android:autoLink="none"
+                android:linksClickable="true"/>
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -27,18 +29,17 @@
                 android:layout_marginTop="30dp"
                 android:shrinkColumns="1">
 
-                <TableRow>
+<!--                <TableRow>-->
+<!--                    <TextView-->
+<!--                        android:padding="3dp"-->
+<!--                        android:text="@string/author_label"-->
+<!--                        android:textAppearance="?android:textAppearanceSearchResultTitle"-->
+<!--                        android:textSize="18sp" />-->
 
-                    <TextView
-                        android:padding="3dp"
-                        android:text="@string/author_label"
-                        android:textAppearance="?android:textAppearanceSearchResultTitle"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:padding="3dp"
-                        android:text="@string/my_name" />
-                </TableRow>
+<!--                    <TextView-->
+<!--                        android:padding="3dp"-->
+<!--                        android:text="@string/my_name" />-->
+<!--                </TableRow>-->
 
                 <TableRow>
 
@@ -54,46 +55,45 @@
                 </TableRow>
 
                 <TableRow android:gravity="fill">
-
                     <TextView
                         android:padding="3dp"
-                        android:text="@string/issues_label"
+                        android:text="Source Code"
                         android:textAppearance="?android:textAppearanceSearchResultTitle"
                         android:textSize="18sp" />
 
                     <TextView
                         android:autoLink="web"
                         android:padding="3dp"
-                        android:text="@string/issues_link" />
+                        android:text="https://github.com/stelijahsoftware/marelias-contacts" />
                 </TableRow>
 
                 <TableRow android:gravity="fill">
-
                     <TextView
                         android:padding="3dp"
-                        android:text="@string/chat"
+                        android:text="OpenContacts"
                         android:textAppearance="?android:textAppearanceSearchResultTitle"
                         android:textSize="18sp" />
 
                     <TextView
                         android:autoLink="web"
                         android:padding="3dp"
-                        android:text="@string/chat_link" />
+                        android:text="https://gitlab.com/sultanahamer/OpenContacts" />
                 </TableRow>
 
                 <TableRow android:gravity="fill">
-
                     <TextView
                         android:padding="3dp"
-                        android:text="@string/more_apps"
+                        android:text="LICENSE"
                         android:textAppearance="?android:textAppearanceSearchResultTitle"
                         android:textSize="18sp" />
 
                     <TextView
                         android:autoLink="web"
                         android:padding="3dp"
-                        android:text="@string/more_apps_link" />
+                        android:text="GNU GENERAL PUBLIC LICENSE v3" />
                 </TableRow>
+
+
             </TableLayout>
 
         </LinearLayout>
