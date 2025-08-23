@@ -16,6 +16,13 @@
             android:orientation="vertical"
             android:padding="10dp">
 
+            <ImageView
+                android:id="@+id/app_icon"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/saints_fg"
+                android:layout_marginBottom="0dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,18 +35,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
                 android:shrinkColumns="1">
-
-<!--                <TableRow>-->
-<!--                    <TextView-->
-<!--                        android:padding="3dp"-->
-<!--                        android:text="@string/author_label"-->
-<!--                        android:textAppearance="?android:textAppearanceSearchResultTitle"-->
-<!--                        android:textSize="18sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:padding="3dp"-->
-<!--                        android:text="@string/my_name" />-->
-<!--                </TableRow>-->
 
                 <TableRow>
 
