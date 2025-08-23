@@ -8,7 +8,6 @@ import static org.marelias.contacts.orm.PhoneNumber.getMatchingNumbers;
 import static org.marelias.contacts.orm.VCardData.STATUS_CREATED;
 import static org.marelias.contacts.orm.VCardData.STATUS_DELETED;
 import static org.marelias.contacts.orm.VCardData.updateVCardData;
-import static org.marelias.contacts.utils.DomainUtils.getPinyinTextFromChinese;
 import static org.marelias.contacts.utils.DomainUtils.getSearchablePhoneNumber;
 import static org.marelias.contacts.utils.DomainUtils.matchesNumber;
 import static org.marelias.contacts.utils.VCardUtils.getCategories;
@@ -108,7 +107,7 @@ public class ContactsDBHelper {
         dbContact.firstName = nameFromVCard.first;
         dbContact.lastName = nameFromVCard.second;
         dbContact.groups = getGroupsNamesCSVString(getCategories(vCard));
-        dbContact.pinyinName = getPinyinTextFromChinese(dbContact.getFullName());
+        dbContact.pinyinName = dbContact.getFullName();
         dbContact.save();
         replacePhoneNumbersInDB(dbContact, vCard, primaryNumber);
         updateVCardData(vCard, dbContact.getId(), context);
@@ -237,7 +236,7 @@ public class ContactsDBHelper {
         Pair<String, String> name = getNameFromVCard(vcard, context);
         Contact contact = new Contact(name.first, name.second);
         contact.groups = getGroupsNamesCSVString(getCategories(vcard));
-        contact.pinyinName = getPinyinTextFromChinese(contact.getFullName());
+        contact.pinyinName = contact.getFullName();
         contact.save();
         return contact;
     }

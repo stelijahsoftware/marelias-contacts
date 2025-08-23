@@ -15,7 +15,6 @@ import static org.marelias.contacts.interfaces.DataStoreChangeListener.REFRESH;
 import static org.marelias.contacts.interfaces.DataStoreChangeListener.UPDATION;
 import static org.marelias.contacts.utils.AndroidUtils.processAsync;
 import static org.marelias.contacts.utils.AndroidUtils.toastFromNonUIThread;
-import static org.marelias.contacts.utils.DomainUtils.getPinyinTextFromChinese;
 import static org.marelias.contacts.utils.SharedPreferencesUtils.isT9PinyinEnabled;
 import static org.marelias.contacts.utils.VCardUtils.markFavoriteInVCard;
 import static org.marelias.contacts.utils.VCardUtils.mergeVCardStrings;
@@ -243,7 +242,7 @@ public class ContactsDataStore {
     public static void writePinyinToDb(Context context) {
         List<org.marelias.contacts.orm.Contact> dbContacts = org.marelias.contacts.orm.Contact.listAll(org.marelias.contacts.orm.Contact.class);
         U.forEach(dbContacts, dbContact -> {
-            dbContact.pinyinName = getPinyinTextFromChinese(dbContact.getFullName());
+            dbContact.pinyinName = dbContact.getFullName();
             dbContact.save();
         });
         refreshStoreAsync();

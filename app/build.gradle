@@ -48,5 +48,4 @@ dependencies {
     implementation 'com.github.chennaione:sugar:1.5' // MIT https://github.com/chennaione/sugar
     implementation 'com.github.javadev:underscore:1.39' // MIT https://github.com/javadev/underscore-java/blob/main/LICENSE
     implementation 'io.michaelrocks:libphonenumber-android:8.13.7' // APACHE https://github.com/MichaelRocks/libphonenumber-android/blob/master/LICENSE.txt
-    implementation 'com.belerweb:pinyin4j:2.5.1' // GPLv2 https://github.com/belerweb/pinyin4j https://sourceforge.net/projects/pinyin4j/
 }

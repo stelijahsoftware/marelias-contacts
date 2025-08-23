@@ -5,7 +5,6 @@ import static org.marelias.contacts.data.datastore.ContactsDBHelper.replacePhone
 import static org.marelias.contacts.data.datastore.ContactsDataStore.updateContact;
 import static org.marelias.contacts.orm.VCardData.STATUS_NONE;
 import static org.marelias.contacts.orm.VCardData.STATUS_UPDATED;
-import static org.marelias.contacts.utils.DomainUtils.getPinyinTextFromChinese;
 import static org.marelias.contacts.utils.VCardUtils.getNameFromVCard;
 import static org.marelias.contacts.utils.VCardUtils.getVCardFromString;
 import static org.marelias.contacts.utils.VCardUtils.writeVCardToString;
@@ -43,7 +42,7 @@ public class ContactsSyncHelper {
         Pair<String, String> nameFromVCard = getNameFromVCard(mergedCard, context);
         dbContact.firstName = nameFromVCard.first;
         dbContact.lastName = nameFromVCard.second;
-        dbContact.pinyinName = getPinyinTextFromChinese(dbContact.getFullName());
+        dbContact.pinyinName = dbContact.getFullName();
         dbContact.save();
         replacePhoneNumbersInDB(dbContact, hrefEtagAndVCard.z, getContact(vCardData.contact.getId()).primaryPhoneNumber.phoneNumber);
         vCardData.vcardDataAsString = writeVCardToString(mergedCard);
