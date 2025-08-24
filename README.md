@@ -20,4 +20,11 @@ X - verify the cursor commit (removed, does not actually delete groups)
 - Add category to display all names not added to a group
 
 # License:
-GPLv3. In addition to the licenses of the used libraries ./app/build.gradle
+GPLv3. In addition to the licenses of the used libraries ./app/build.gradle, namely:
+- com.googlecode.ez-vcard:ez-vcard:0.11.2 (<a href="https://mvnrepository.com/artifact/com.googlecode.ez-vcard/ez-vcard">BSD</a>)
+- com.opencsv:opencsv:5.7.1 (<a href="https://mvnrepository.com/artifact/com.opencsv/opencsv">APACHE 2.0</a>)
+- com.github.xyxyLiu:Edit-Spinner:1.1.0 (<a href="https://github.com/xyxyLiu/Edit-Spinner/blob/master/LICENSE">APACHE</a>)
+- com.thomashaertel:multispinner:0.1.1@aar (<a href="https://github.com/thomashaertel/MultiSpinner/blob/master/LICENSE">MIT</a>)
+- com.github.chennaione:sugar:1.5 (<a href="https://github.com/chennaione/sugar">MIT</a>)
+- com.github.javadev:underscore:1.39 (<a href="https://github.com/javadev/underscore-java/blob/main/LICENSE">MIT</a>)
+- io.michaelrocks:libphonenumber-android:8.13.7 (<a href="https://github.com/MichaelRocks/libphonenumber-android/blob/master/LICENSE.txt">APACHE</a>)
