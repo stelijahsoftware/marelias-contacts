@@ -41,18 +41,8 @@
         app:showAsAction="never">
 
     <item
-        android:id="@+id/action_export_call_log"
-        android:title="@string/export_call_log"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_merge"
         android:title="@string/merge"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_resync"
-        android:title="@string/resync_call_log_with_contacts"
         app:showAsAction="never" />
 
     <item

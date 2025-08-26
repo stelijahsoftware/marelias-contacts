@@ -39,7 +39,6 @@ import ezvcard.VCard;
 import org.marelias.contacts.R;
 import org.marelias.contacts.domain.Contact;
 import org.marelias.contacts.interfaces.DataStoreChangeListener;
-import org.marelias.contacts.orm.CallLogEntry;
 import org.marelias.contacts.orm.Favorite;
 import org.marelias.contacts.orm.TemporaryContact;
 import org.marelias.contacts.orm.VCardData;
@@ -90,7 +89,6 @@ public class ContactsDataStore {
         contacts.add(addedDomainContact);
         ContactGroupsDataStore.handleNewContactAddition(addedDomainContact);
         notifyListenersAsync(ADDITION, addedDomainContact);
-        CallLogDataStore.updateCallLogAsyncForNewContact(addedDomainContact);
         return newContactWithDatabaseId.getId();
     }
 
@@ -117,7 +115,6 @@ public class ContactsDataStore {
         ContactsDBHelper.updateContactInDBWith(contactId, primaryNumber, vCard, context);
         reloadContact(contactId);
         ContactGroupsDataStore.handleContactUpdate(getContactWithId(contactId));
-        CallLogDataStore.updateCallLogAsyncForNewContact(getContactWithId(contactId));
     }
 
     private static void reloadContact(long contactId) {
@@ -159,22 +156,6 @@ public class ContactsDataStore {
         if (indexOfContact == -1)
             return null;
         return contacts.get(indexOfContact);
-    }
-
-    public static void updateContactsAccessedDateAsync(final List<CallLogEntry> newCallLogEntries) {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                for (CallLogEntry callLogEntry : newCallLogEntries) {
-                    long contactId = callLogEntry.getContactId();
-                    if (getContactWithId(contactId) == null)
-                        continue;
-                    ContactsDBHelper.updateLastAccessed(contactId, callLogEntry.getDate());
-                }
-                refreshStoreAsync();
-                return null;
-            }
-        }.execute();
     }
 
     public static void togglePrimaryNumber(String mobileNumber, long contactId, Context context) {

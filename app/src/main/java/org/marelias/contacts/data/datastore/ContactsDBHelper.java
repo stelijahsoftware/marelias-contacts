@@ -1,7 +1,6 @@
 package org.marelias.contacts.data.datastore;
 
 import static android.text.TextUtils.isEmpty;
-import static org.marelias.contacts.data.datastore.CallLogDBHelper.getCallLogEntriesFor;
 import static org.marelias.contacts.domain.Contact.createNewDomainContact;
 import static org.marelias.contacts.domain.Contact.getGroupsNamesCSVString;
 import static org.marelias.contacts.orm.PhoneNumber.getMatchingNumbers;
@@ -33,7 +32,6 @@ import java.util.UUID;
 
 import ezvcard.VCard;
 import ezvcard.property.Telephone;
-import org.marelias.contacts.orm.CallLogEntry;
 import org.marelias.contacts.orm.Contact;
 import org.marelias.contacts.orm.Favorite;
 import org.marelias.contacts.orm.PhoneNumber;
@@ -59,11 +57,7 @@ public class ContactsDBHelper {
         List<PhoneNumber> dbPhoneNumbers = dbContact.getAllPhoneNumbers();
         for (PhoneNumber dbPhoneNumber : dbPhoneNumbers)
             dbPhoneNumber.delete();
-        List<CallLogEntry> callLogEntries = getCallLogEntriesFor(contactId);
-        for (CallLogEntry callLogEntry : callLogEntries) {
-            callLogEntry.setId((long) -1);
-            callLogEntry.save();
-        }
+
         VCardData vCardData = VCardData.getVCardData(contactId);
         if(vCardData != null) updateVCardDataForDeletion(vCardData);
         dbContact.delete();
@@ -178,7 +172,6 @@ public class ContactsDBHelper {
         PhoneNumber.deleteAll(PhoneNumber.class);
         VCardData.deleteAll(VCardData.class);
         Favorite.deleteAll(Favorite.class);
-        CallLogDataStore.removeAllContactsLinking();
     }
 
     public static Contact addContact(VCard vcard, Context context) {

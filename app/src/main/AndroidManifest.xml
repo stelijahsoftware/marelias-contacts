@@ -4,15 +4,14 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+<!--    <uses-permission android:name="android.permission.WAKE_LOCK"/>-->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+<!--    <uses-permission android:name="android.permission.INTERNET" />-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.READ_CALL_LOG" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+<!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+<!--    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />-->
+<!--    <uses-permission android:name="android.permission.CALL_PHONE" />-->
 
     <application
         android:name="org.marelias.contacts.OpenContactsApplication"
@@ -75,7 +74,6 @@
         <activity android:name="org.marelias.contacts.activities.AboutActivity" />
         <activity android:name="org.marelias.contacts.activities.AddToContactActivity" />
         <activity android:name="org.marelias.contacts.activities.CrashReportingActivity" />
-        <activity android:name="org.marelias.contacts.activities.CallLogGroupDetailsActivity" />
         <activity android:name="org.marelias.contacts.activities.MergeContactsActivity" />
         <activity
             android:name="org.marelias.contacts.activities.DataSourcePermissionsActivity"
@@ -134,14 +132,15 @@
                 android:resource="@xml/single_contact_dialer_widget_provider_metadata" />
         </receiver>
 
-        <service
-            android:exported="true"
-            android:name="org.marelias.contacts.activities.services.CallScreeningServiceImplementation"
-            android:permission="android.permission.BIND_SCREENING_SERVICE">
-            <intent-filter>
-                <action android:name="android.telecom.CallScreeningService" />
-            </intent-filter>
-        </service>
+<!--        <service-->
+<!--            android:exported="true"-->
+<!--            android:name="org.marelias.contacts.activities.services.CallScreeningServiceImplementation"-->
+<!--            android:permission="android.permission.BIND_SCREENING_SERVICE">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.telecom.CallScreeningService" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+
         <service
             android:exported="true"
             android:name="org.marelias.contacts.services.DataSourceService">

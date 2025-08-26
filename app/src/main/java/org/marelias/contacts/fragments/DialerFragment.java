@@ -2,8 +2,6 @@ package org.marelias.contacts.fragments;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static org.marelias.contacts.activities.CallLogGroupDetailsActivity.getIntentToShowCallLogEntries;
-import static org.marelias.contacts.data.datastore.CallLogDataStore.getUnLabelledCallLogEntriesMatching;
 import static org.marelias.contacts.data.datastore.ContactsDataStore.getContactsMatchingT9;
 import static org.marelias.contacts.domain.Contact.createDummyContact;
 import static org.marelias.contacts.utils.AndroidUtils.getASpaceOfHeight;
@@ -92,13 +90,11 @@ public class DialerFragment extends AppBaseFragment implements SelectableTab {
                     hideSearchListAndUpdateUIForRest();
                     return;
                 }
-                List<Contact> unLabelledCallLogEntriesMatchingText = new U<>(getUnLabelledCallLogEntriesMatching(t9Text))
-                    .map(callLogEntry -> createDummyContact(unknownContactString, "", callLogEntry.getPhoneNumber(), callLogEntry.getDate()));
                 List<Contact> contactsMatchingT9 = getContactsMatchingT9(t9Text);
-                if (contactsMatchingT9.isEmpty() && unLabelledCallLogEntriesMatchingText.isEmpty())
+                if (contactsMatchingT9.isEmpty())
                     hideSearchListAndUpdateUIForRest();
                 else {
-                    List<Contact> finalListOfContacts = U.flatten(Arrays.asList(unLabelledCallLogEntriesMatchingText, contactsMatchingT9));
+                    List<Contact> finalListOfContacts = U.flatten(Arrays.asList(contactsMatchingT9));
                     Collections.sort(finalListOfContacts, DomainUtils.getContactComparatorBasedOnLastAccessed());
                     searchListAdapter.clear();
                     searchListAdapter.addAll(finalListOfContacts);
@@ -137,9 +133,7 @@ public class DialerFragment extends AppBaseFragment implements SelectableTab {
         searchListAdapter.setContactsListActionsListener(new DefaultContactsListActions(context) {
             @Override
             public void onShowDetails(Contact contact) {
-                if (contact.id == -1) {
-                    startActivity(getIntentToShowCallLogEntries(contact.primaryPhoneNumber.phoneNumber, getContext()));
-                } else startActivity(getIntentToShowContactDetails(contact.id, getContext()));
+                startActivity(getIntentToShowContactDetails(contact.id, getContext()));
             }
 
             @Override

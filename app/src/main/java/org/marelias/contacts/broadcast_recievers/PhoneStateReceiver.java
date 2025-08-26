@@ -20,7 +20,6 @@ import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Handler;
-import android.provider.CallLog;
 import android.provider.Settings;
 import androidx.core.app.NotificationCompat;
 import android.telephony.TelephonyManager;
@@ -35,9 +34,7 @@ import java.util.Random;
 
 import org.marelias.contacts.R;
 import org.marelias.contacts.activities.MainActivity;
-import org.marelias.contacts.data.datastore.CallLogDataStore;
 import org.marelias.contacts.data.datastore.ContactsDataStore;
-import org.marelias.contacts.orm.CallLogEntry;
 import org.marelias.contacts.orm.Contact;
 import org.marelias.contacts.utils.AndroidUtils;
 
@@ -86,12 +83,7 @@ public class PhoneStateReceiver extends BroadcastReceiver {
 
     private void notifyAboutMissedCall(Context context) {
         if (callingContact == null) return; //#98 issue with marshmallow.
-        try {
-            CallLogEntry callLogEntry = CallLogDataStore.getMostRecentCallLogEntry(context);
-            if (callLogEntry == null || !callLogEntry.getCallType().equals(String.valueOf(CallLog.Calls.MISSED_TYPE)))
-                return;
-        } catch (Exception e) {
-        }
+
         PendingIntent pendingIntentToLaunchApp = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         PendingIntent pendingIntentToCall = PendingIntent.getActivity(context, 0, AndroidUtils.getIntentToCall(incomingNumber, context), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         PendingIntent pendingIntentToMessage = PendingIntent.getActivity(context, 0, AndroidUtils.getIntentToMessage(incomingNumber), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);

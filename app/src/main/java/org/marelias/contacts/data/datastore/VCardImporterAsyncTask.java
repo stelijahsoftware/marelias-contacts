@@ -123,7 +123,6 @@ public class VCardImporterAsyncTask extends AsyncTask<Void, Object, List<Pair<VC
                 ContactsDataStore.requestResumeUpdates();
                 ContactsDataStore.refreshStoreAsync();
                 invalidateGroups();
-                CallLogDataStore.updateCallLogAsyncForAllContacts(contextWeakReference.get());
                 break;
             case PROGRESS_TOTAL_NUMBER_OF_VCARDS:
                 importProgressListener.onTotalNumberOfCardsToBeImportedDetermined((Integer) values[1]);

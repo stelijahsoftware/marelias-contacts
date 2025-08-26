@@ -39,7 +39,6 @@
     <string name="search_contacts">Search contacts</string>
     <string name="help">Help</string>
     <string name="export_contacts_help_text">On the main screen, click the top right menu and then select export. It would export all the contacts to file and will tell the location of export</string>
-    <string name="resync_call_log_with_contacts">Resync call log with contacts</string>
     <string name="callerid">Caller Id</string>
     <string name="whats_new">Whats new</string>
     <string name="whatsapp_uri_with_phone_number_placeholder" translatable="false">https://wa.me/%1$s</string>
@@ -93,7 +92,6 @@
     <string name="grant_phone_permission_detail">Grant manage phone permission to be able to read call log, know when someone is calling and call a number from the app</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
-    <string name="calllog">Call log</string>
     <string name="contacts">Contacts</string>
     <string name="no_valid_export_location" tools:ignore="MissingTranslation">Valid export directory not set</string>
     <string name="whatsapp_integration">Whatsapp Integration</string>
@@ -176,10 +174,6 @@
     <string name="default_sim_calls_preference_title">Default Sim for calls</string>
     <string name="error_importing_contacts">Error importing contacts</string>
     <string name="reporting_import_errors_help_text">In case you face error importing contacts, you could report those errors through \'Report errors\' button after the import fails. Also keep in mind that error information would also include the contacts information that you were trying to import. In case you do not want to include that in report, you could edit that after copying the report and then paste that it on gitlab.</string>
-    <string name="export_call_log">Export call log</string>
-    <string name="failed_exporting_call_log">Failed exporting call log</string>
-    <string name="exported_call_log_successfully">Exported call log successfully</string>
-    <string name="started_exporting_call_log" tools:ignore="MissingTranslation">Started exporting call log</string>
     <string name="sort_using_first_name">Sort using first name</string>
     <string name="lock_to_portrait" tools:ignore="MissingTranslation">Keep screen upright</string>
     <string name="lock_to_portrait_summary" tools:ignore="MissingTranslation">Don\'t rotate app when phone\'s rotated</string>
@@ -228,7 +222,6 @@
     <string name="chat">Chat</string>
     <string name="chat_link" translatable="false">https://t.me/joinchat/CCdV7RFz8VE24KqFmhBWrg</string>
     <string name="no_app_found_for_action_open_document">Could not find file manager app that can look for documents</string>
-    <string name="failed_fetching_recent_calllog">Could not fetch recent call log</string>
     <string name="auto_export_contacts_title">Auto export contacts</string>
     <string name="auto_export_contacts_summary">Will export contacts every week</string>
     <string name="encrypt_contacts_export_password_title">Encryption password</string>
@@ -268,7 +261,6 @@
         <item>Mobile</item>
         <item>Work</item>
         <item>Home</item>
-        <item>Fax</item>
     </string-array>
     <string-array name="email_types">
         <item>Home</item>
@@ -291,14 +283,12 @@
         <item>1</item>
     </string-array>
     <string-array name="tabs_list">
-        <item>Call log</item>
         <item>Contacts</item>
         <item>Dialer</item>
     </string-array>
     <string-array name="tabs_values">
         <item>0</item>
         <item>1</item>
-        <item>2</item>
     </string-array>
 
     <string-array name="theme_preferences">

@@ -57,9 +57,7 @@ import java.util.List;
 
 import org.marelias.contacts.R;
 import org.marelias.contacts.actions.ExportMenuItemClickHandler;
-import org.marelias.contacts.data.datastore.CallLogDataStore;
 import org.marelias.contacts.fragments.AppBaseFragment;
-import org.marelias.contacts.fragments.CallLogFragment;
 import org.marelias.contacts.fragments.ContactsFragment;
 import org.marelias.contacts.fragments.DialerFragment;
 import org.marelias.contacts.interfaces.SelectableTab;
@@ -71,15 +69,13 @@ import org.marelias.contacts.utils.SharedPreferencesUtils;
 
 
 public class MainActivity extends AppBaseActivity {
-    public static final int CALLLOG_TAB_INDEX = 0;
-    public static final int CONTACTS_TAB_INDEX = 1;
-    public static final int DIALER_TAB_INDEX = 2;
+    public static final int CONTACTS_TAB_INDEX = 0;
+    public static final int DIALER_TAB_INDEX = 1;
     public static final String INTENT_EXTRA_LONG_CONTACT_ID = "contact_id";
     private static final int PREFERENCES_ACTIVITY_RESULT = 773;
     private static final int IMPORT_FILE_CHOOSER_RESULT = 467;
     private ViewPager viewPager;
     private SearchView searchView;
-    private CallLogFragment callLogFragment;
     private ContactsFragment contactsFragment;
     private DialerFragment dialerFragment;
     private MenuItem searchItem;
@@ -144,8 +140,6 @@ public class MainActivity extends AppBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        refresh();
-//        if (shouldLaunchDefaultTab(this))
         gotoDefaultTab();
     }
 
@@ -274,22 +268,6 @@ public class MainActivity extends AppBaseActivity {
             startActivityForResult(new Intent(MainActivity.this, PreferencesActivity.class), PREFERENCES_ACTIVITY_RESULT)
         ));
 
-        menu.findItem(R.id.action_resync).setOnMenuItemClickListener(getMenuItemClickHandlerFor(() ->
-            CallLogDataStore.updateCallLogAsyncForAllContacts(MainActivity.this)
-        ));
-
-        menu.findItem(R.id.action_export_call_log).setOnMenuItemClickListener(item -> {
-            Toast.makeText(this, R.string.started_exporting_call_log, LENGTH_SHORT).show();
-            try {
-                DomainUtils.exportCallLog(this);
-                Toast.makeText(this, R.string.exported_call_log_successfully, Toast.LENGTH_LONG).show();
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, R.string.failed_exporting_call_log, Toast.LENGTH_LONG).show();
-            }
-            return true;
-        });
-
     }
 
     private void launchAddContact() {
@@ -339,33 +317,24 @@ public class MainActivity extends AppBaseActivity {
         }
     }
 
-    private void refresh() {
-        CallLogDataStore.loadRecentCallLogEntriesAsync(MainActivity.this);
-    }
-
     private void setupTabs() {
         viewPager = findViewById(R.id.view_pager);
         List<Fragment> fragmentsList = getSupportFragmentManager().getFragments();
         if (!fragmentsList.isEmpty()) {
-            callLogFragment = U.find(fragmentsList, frag -> frag instanceof CallLogFragment).map(f -> (CallLogFragment)f ).or(new CallLogFragment());
             contactsFragment = U.find(fragmentsList, frag -> frag instanceof ContactsFragment).map(f -> (ContactsFragment)f ).or(new ContactsFragment());
             dialerFragment = U.find(fragmentsList, frag -> frag instanceof DialerFragment).map(f -> (DialerFragment)f ).or(new DialerFragment());
         } else {
-            callLogFragment = new CallLogFragment();
             contactsFragment = new ContactsFragment();
             dialerFragment = new DialerFragment();
         }
-        callLogFragment.setEditNumberBeforeCallHandler(number -> {
-            dialerFragment.setNumber(number);
-            viewPager.setCurrentItem(DIALER_TAB_INDEX);
-        });
-        final List<SelectableTab> fragments = new ArrayList<>(Arrays.asList(callLogFragment, contactsFragment, dialerFragment));
-        final List<String> tabTitles = Arrays.asList(getString(R.string.calllog), getString(R.string.contacts), "");
+
+        final List<SelectableTab> fragments = new ArrayList<>(Arrays.asList(contactsFragment, dialerFragment));
+        final List<String> tabTitles = Arrays.asList(getString(R.string.contacts), "");
 
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public int getCount() {
-                return 3;
+                return 2;
             }
 
             @Override
@@ -379,7 +348,7 @@ public class MainActivity extends AppBaseActivity {
             }
         };
         viewPager.setAdapter(fragmentPagerAdapter);
-        viewPager.setOffscreenPageLimit(3); //crazy shit with viewPager in case used with tablayout
+        viewPager.setOffscreenPageLimit(2); //crazy with viewPager in case used with tablayout
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);

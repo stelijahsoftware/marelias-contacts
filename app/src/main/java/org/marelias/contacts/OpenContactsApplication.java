@@ -11,7 +11,6 @@ import androidx.multidex.MultiDexApplication;
 import com.orm.SugarContext;
 
 import org.marelias.contacts.actions.ContactsHouseKeeping;
-import org.marelias.contacts.data.datastore.CallLogDataStore;
 import org.marelias.contacts.data.datastore.ContactsDataStore;
 import org.marelias.contacts.utils.CrashUtils;
 import org.marelias.contacts.utils.DomainUtils;
@@ -25,7 +24,6 @@ public class OpenContactsApplication extends MultiDexApplication {
         super.onCreate();
         SugarContext.init(this);
         ContactsDataStore.init(getApplicationContext());
-        CallLogDataStore.init(getApplicationContext());
         DomainUtils.init(getApplicationContext());
         createNotificationChannels();
         CrashUtils.setUpCrashHandler(getApplicationContext());

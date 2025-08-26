@@ -161,14 +161,6 @@ public class SharedPreferencesUtils {
         return getBoolean(T9_PINYIN_ENABLED_SHARED_PREF_KEY, false, context);
     }
 
-    public static String getLastSavedCallLogDate(Context context) {
-        return getStringFromPreferences(LAST_CALL_LOG_READ_TIMESTAMP_SHARED_PREF_KEY, "0", context);
-    }
-
-    public static void setLastSavedCallLogDate(String date, Context context) {
-        updatePreference(LAST_CALL_LOG_READ_TIMESTAMP_SHARED_PREF_KEY, date, context);
-    }
-
     public static String getPreferredSim(Context context) {
         return getStringFromPreferences(SIM_PREFERENCE_SHARED_PREF_KEY, DEFAULT_SIM_SELECTION_SYSTEM_DEFAULT, context);
     }
