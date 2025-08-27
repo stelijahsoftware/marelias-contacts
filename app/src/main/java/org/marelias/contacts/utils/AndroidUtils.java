@@ -257,8 +257,10 @@ public class AndroidUtils {
         }
         if (shouldUseSystemCallingApp(context)) {
             ResolveInfo resolveInfo = context.getPackageManager().resolveActivity(callIntent, PackageManager.MATCH_SYSTEM_ONLY);
-            ActivityInfo targetActivityInfo = resolveInfo.activityInfo;
-            callIntent.setComponent(new ComponentName(targetActivityInfo.packageName, targetActivityInfo.name));
+            if (resolveInfo != null && resolveInfo.activityInfo != null) {
+                ActivityInfo targetActivityInfo = resolveInfo.activityInfo;
+                callIntent.setComponent(new ComponentName(targetActivityInfo.packageName, targetActivityInfo.name));
+            }
         }
         return callIntent;
     }
