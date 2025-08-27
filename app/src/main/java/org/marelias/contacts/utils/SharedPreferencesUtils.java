@@ -5,10 +5,10 @@ import static android.content.res.Configuration.UI_MODE_NIGHT_MASK;
 import static android.content.res.Configuration.UI_MODE_NIGHT_YES;
 import static android.text.TextUtils.isEmpty;
 import static java.util.Calendar.HOUR;
-import static java.util.Calendar.MINUTE;
-import static java.util.Collections.emptySet;
+//import static java.util.Calendar.MINUTE;
+//import static java.util.Collections.emptySet;
 import static org.marelias.contacts.utils.AndroidUtils.getBoolean;
-import static org.marelias.contacts.utils.AndroidUtils.getLong;
+//import static org.marelias.contacts.utils.AndroidUtils.getLong;
 import static org.marelias.contacts.utils.AndroidUtils.getStringFromPreferences;
 import static org.marelias.contacts.utils.AndroidUtils.updatePreference;
 import static org.marelias.contacts.utils.Common.hasItBeen;
@@ -22,9 +22,9 @@ import android.os.Environment;
 import android.text.TextUtils;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+//import java.util.HashSet;
+//import java.util.List;
+//import java.util.Set;
 
 import org.marelias.contacts.BuildConfig;
 import org.marelias.contacts.R;
@@ -35,16 +35,16 @@ public class SharedPreferencesUtils {
     public static final String CALLER_ID_X_POSITION_ON_SCREEN_PREFERENCE_KEY = "CALLER_ID_X_POSITION_ON_SCREEN";
     public static final String CALLER_ID_Y_POSITION_ON_SCREEN_PREFERENCE_KEY = "CALLER_ID_Y_POSITION_ON_SCREEN";
     public static final String SOCIAL_INTEGRATION_ENABLED_PREFERENCE_KEY = "SOCIAL_INTEGRATION_ENABLED";//also hard coded in xml
-    public static final String ADDRESSBOOK_URL_SHARED_PREFS_KEY = "ADDRESSBOOK_URL";
-    public static final String BASE_SYNC_URL_SHARED_PREFS_KEY = "BASE_SYNC_URL";
-    public static final String CARD_DAV_SERVER_TYPE_SHARED_PREFS_KEY = "CARD_DAV_SERVER_TYPE";
+//    public static final String ADDRESSBOOK_URL_SHARED_PREFS_KEY = "ADDRESSBOOK_URL";
+//    public static final String BASE_SYNC_URL_SHARED_PREFS_KEY = "BASE_SYNC_URL";
+//    public static final String CARD_DAV_SERVER_TYPE_SHARED_PREFS_KEY = "CARD_DAV_SERVER_TYPE";
     public static final String PREFTIMEFORMAT_12_HOURS_SHARED_PREF_KEY = "preftimeformat12hours";//also hard coded in xml
-    public static final String SYNC_TOKEN_SHARED_PREF_KEY = "sync_token";
+//    public static final String SYNC_TOKEN_SHARED_PREF_KEY = "sync_token";
     public static final String T9_SEARCH_ENABLED_SHARED_PREF_KEY = "t9searchenabled";//also hard coded in xml
     public static final String T9_PINYIN_ENABLED_SHARED_PREF_KEY = "T9_PINYIN_ENABLED";//also hard coded in xml
-    public static final String LAST_CALL_LOG_READ_TIMESTAMP_SHARED_PREF_KEY = "preference_last_call_log_saved_date";
+//    public static final String LAST_CALL_LOG_READ_TIMESTAMP_SHARED_PREF_KEY = "preference_last_call_log_saved_date";
     public static final String COMMON_SHARED_PREFS_FILE_NAME = "OpenContacts";
-    public static final String DATA_SHARE_SHARED_PREFS_FILE_NAME = "DATASHARE";
+//    public static final String DATA_SHARE_SHARED_PREFS_FILE_NAME = "DATASHARE";
     public static final String SIM_PREFERENCE_SHARED_PREF_KEY = "defaultCallingSim";
     public static final String EXPORT_CONTACTS_EVERY_WEEK_SHARED_PREF_KEY = "exportContactsEveryWeek";
     public static final String LAST_EXPORT_TIME_STAMP = "lastExportTimeStamp";
@@ -54,8 +54,8 @@ public class SharedPreferencesUtils {
     public static final String LOCK_TO_PORTRAIT = "lockToPortrait";
     public static final String SINGLE_CONTACT_WIDGET_TO_CONTACT_MAPPING = "singleContactWidgetToContactMapping";
     public static final String SHOULD_ASK_FOR_PERMISSIONS = "SHOULD_ASK_FOR_PERMISSIONS";
-    public static final String LAST_DEFAULT_TAB_LAUNCH_TIME_SHARED_PREF_KEY = "LAST_DEFAULT_TAB_LAUNCH_TIME";
-    public static final String DEFAULT_TAB_SHARED_PREF_KEY = "DEFAULT_TAB";
+//    public static final String LAST_DEFAULT_TAB_LAUNCH_TIME_SHARED_PREF_KEY = "LAST_DEFAULT_TAB_LAUNCH_TIME";
+//    public static final String DEFAULT_TAB_SHARED_PREF_KEY = "DEFAULT_TAB";
     public static final String TOGGLE_CONTACT_ACTIONS = "TOGGLE_CONTACT_ACTIONS";
     public static final String DEFAULT_SIM_SELECTION_SYSTEM_DEFAULT = "-2";
     public static final String DEFAULT_SIM_SELECTION_ALWAYS_ASK = "-1";
@@ -69,8 +69,8 @@ public class SharedPreferencesUtils {
     public static final String SIGNAL = "Signal";
     public static final String WHATSAPP = "Whatsapp";
 
-    public static final String SHOULD_AUTO_CANCEL_MISSED_CALL_NOTIF_SHARED_PREF_KEY = "SHOULD_AUTO_CANCEL_MISSED_CALL_NOTIF";
-    public static final String SHOULD_SHOW_UNKNOWN_MISSED_CALL_NOTIF_SHARED_PREF_KEY = "SHOULD_SHOW_UNKNOWN_MISSED_CALL_NOTIF";
+//    public static final String SHOULD_AUTO_CANCEL_MISSED_CALL_NOTIF_SHARED_PREF_KEY = "SHOULD_AUTO_CANCEL_MISSED_CALL_NOTIF";
+//    public static final String SHOULD_SHOW_UNKNOWN_MISSED_CALL_NOTIF_SHARED_PREF_KEY = "SHOULD_SHOW_UNKNOWN_MISSED_CALL_NOTIF";
 
     public static final String SHOULD_SHOW_UNKNOWN_CALLER_ID_SHARED_PREF_KEY = "SHOULD_SHOW_UNKNOWN_CALLER_ID";
 //    public static final String SHOULD_SHOW_BOTTOM_MENU_SHARED_PREF_KEY = "SHOULD_SHOW_BOTTOM_MENU";
@@ -89,9 +89,9 @@ public class SharedPreferencesUtils {
         return context.getSharedPreferences(COMMON_SHARED_PREFS_FILE_NAME, MODE_PRIVATE);
     }
 
-    public static SharedPreferences getContactsDataSharePreferences(Context context) {
-        return context.getSharedPreferences(DATA_SHARE_SHARED_PREFS_FILE_NAME, MODE_PRIVATE);
-    }
+//    public static SharedPreferences getContactsDataSharePreferences(Context context) {
+//        return context.getSharedPreferences(DATA_SHARE_SHARED_PREFS_FILE_NAME, MODE_PRIVATE);
+//    }
 
     public static void saveCallerIdLocationOnScreen(int x, int y, Context context) {
         getAppsSharedPreferences(context)
@@ -209,7 +209,7 @@ public class SharedPreferencesUtils {
 //    }
 
     public static int getDefaultTab(Context context) {
-        return Integer.parseInt(getStringFromPreferences(DEFAULT_TAB_SHARED_PREF_KEY, "1", context));
+        return 0; //Integer.parseInt(getStringFromPreferences(DEFAULT_TAB_SHARED_PREF_KEY, "0", context));
     }
 
     public static boolean shouldToggleContactActions(Context context) {
@@ -217,7 +217,7 @@ public class SharedPreferencesUtils {
     }
 
     public static boolean shouldUseSystemCallingApp(Context context) {
-        return getBoolean(SHOULD_USE_SYSTEM_PHONE_APP, false, context);
+        return true; //getBoolean(SHOULD_USE_SYSTEM_PHONE_APP, false, context);
     }
 
     public static boolean dynamicShortcutsAddedAlready(Context context) {
@@ -245,31 +245,31 @@ public class SharedPreferencesUtils {
     }
 
     public static boolean shouldAutoCancelMissedCallNotification(Context context) {
-        return getBoolean(SHOULD_AUTO_CANCEL_MISSED_CALL_NOTIF_SHARED_PREF_KEY, false, context);
+        return true; // getBoolean(SHOULD_AUTO_CANCEL_MISSED_CALL_NOTIF_SHARED_PREF_KEY, false, context);
     }
 
     public static boolean shouldShowUnknownMissedCallNotification(Context context) {
-        return getBoolean(SHOULD_SHOW_UNKNOWN_MISSED_CALL_NOTIF_SHARED_PREF_KEY, true, context);
+        return false; // getBoolean(SHOULD_SHOW_UNKNOWN_MISSED_CALL_NOTIF_SHARED_PREF_KEY, true, context);
     }
 
     public static boolean shouldShowUnknownContactCallerId(Context context) {
-        return getBoolean(SHOULD_SHOW_UNKNOWN_CALLER_ID_SHARED_PREF_KEY, true, context);
+        return true; // getBoolean(SHOULD_SHOW_UNKNOWN_CALLER_ID_SHARED_PREF_KEY, true, context);
     }
 
 //    public static boolean shouldShowBottomMenu(Context context) {
 //        return getBoolean(SHOULD_SHOW_BOTTOM_MENU_SHARED_PREF_KEY, false, context);
 //    }
 
-    public static void removeSyncProgress(Context context) {
-        updatePreference(SYNC_TOKEN_SHARED_PREF_KEY, "", context);
-    }
+//    public static void removeSyncProgress(Context context) {
+//        updatePreference(SYNC_TOKEN_SHARED_PREF_KEY, "", context);
+//    }
 
     public static void enableCallFiltering(Context context) {
         updatePreference(ENABLE_CALL_FILTERING_SHARED_PREF_KEY, true, context);
     }
 
     public static boolean isCallFilteringEnabled(Context context) {
-        return getBoolean(ENABLE_CALL_FILTERING_SHARED_PREF_KEY, false, context);
+        return false; // getBoolean(ENABLE_CALL_FILTERING_SHARED_PREF_KEY, false, context);
     }
 
     public static boolean shouldBlockCalls(Context context) {
@@ -284,25 +284,25 @@ public class SharedPreferencesUtils {
         return packageName + "-permissions";
     }
 
-    public static boolean isValidAuthCode(Context context, String packageName, String authCode) {
-        return getContactsDataSharePreferences(context).getString(authCodeKey(packageName), "").equals(authCode);
-    }
-
-    public static Set<String> permissions(Context context, String packageName) {
-        return getContactsDataSharePreferences(context).getStringSet(permissionsKeyForPackage(packageName), emptySet());
-    }
-
-    public static void savePermissionsGranted(Context context, String packageName, List<String> permissions) {
-        SharedPreferences contactsDataSharePreferences = getContactsDataSharePreferences(context);
-        String permissionsKeyForPackage = permissionsKeyForPackage(packageName);
-        Set<String> permissionsSet = new HashSet<>(contactsDataSharePreferences.getStringSet(permissionsKeyForPackage, new HashSet<>()));
-        permissionsSet.addAll(permissions);
-        contactsDataSharePreferences.edit().putStringSet(permissionsKeyForPackage, permissionsSet).apply();
-    }
-
-    public static void saveAuthCode(Context context, String packageName, String authCode) {
-        getContactsDataSharePreferences(context).edit().putString(authCodeKey(packageName), authCode).apply();
-    }
+//    public static boolean isValidAuthCode(Context context, String packageName, String authCode) {
+//        return getContactsDataSharePreferences(context).getString(authCodeKey(packageName), "").equals(authCode);
+//    }
+//
+//    public static Set<String> permissions(Context context, String packageName) {
+//        return getContactsDataSharePreferences(context).getStringSet(permissionsKeyForPackage(packageName), emptySet());
+//    }
+//
+//    public static void savePermissionsGranted(Context context, String packageName, List<String> permissions) {
+//        SharedPreferences contactsDataSharePreferences = getContactsDataSharePreferences(context);
+//        String permissionsKeyForPackage = permissionsKeyForPackage(packageName);
+//        Set<String> permissionsSet = new HashSet<>(contactsDataSharePreferences.getStringSet(permissionsKeyForPackage, new HashSet<>()));
+//        permissionsSet.addAll(permissions);
+//        contactsDataSharePreferences.edit().putStringSet(permissionsKeyForPackage, permissionsSet).apply();
+//    }
+//
+//    public static void saveAuthCode(Context context, String packageName, String authCode) {
+//        getContactsDataSharePreferences(context).edit().putString(authCodeKey(packageName), authCode).apply();
+//    }
 
     private static String legacyExportLocation() {
         return Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + LEGACY_STORAGE_DIRECTORY_NAME;

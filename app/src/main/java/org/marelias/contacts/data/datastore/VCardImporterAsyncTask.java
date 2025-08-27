@@ -1,8 +1,6 @@
 package org.marelias.contacts.data.datastore;
 
 import static org.marelias.contacts.data.datastore.ContactGroupsDataStore.invalidateGroups;
-import static org.marelias.contacts.utils.SharedPreferencesUtils.getEncryptingContactsKey;
-import static org.marelias.contacts.utils.SharedPreferencesUtils.hasEncryptingContactsKey;
 
 import android.content.Context;
 import android.net.Uri;
@@ -143,9 +141,5 @@ public class VCardImporterAsyncTask extends AsyncTask<Void, Object, List<Pair<VC
 
         void onFinish(List<Pair<VCard, Throwable>> vCardsAndTheirExceptions);
     }
-
-}
-
-class NoPasswordFoundException extends Exception {
 
 }
