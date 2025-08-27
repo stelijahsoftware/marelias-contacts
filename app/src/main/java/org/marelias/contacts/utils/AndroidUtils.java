@@ -408,15 +408,15 @@ public class AndroidUtils {
                     .create()
                     .show();
             }
-            if (activity.checkSelfPermission(READ_CALL_LOG) != PERMISSION_GRANTED || activity.checkSelfPermission(READ_PHONE_STATE) != PERMISSION_GRANTED || activity.checkSelfPermission(CALL_PHONE) != PERMISSION_GRANTED) {
-                new AlertDialog.Builder(activity)
-                    .setTitle(R.string.grant_phone_permission)
-                    .setMessage(R.string.grant_phone_permission_detail)
-                    .setNeutralButton(R.string.okay, null)
-                    .setOnDismissListener(dialog -> activity.requestPermissions(new String[]{READ_CALL_LOG, READ_PHONE_STATE, CALL_PHONE}, 123))
-                    .create()
-                    .show();
-            }
+//            if (activity.checkSelfPermission(READ_CALL_LOG) != PERMISSION_GRANTED || activity.checkSelfPermission(READ_PHONE_STATE) != PERMISSION_GRANTED || activity.checkSelfPermission(CALL_PHONE) != PERMISSION_GRANTED) {
+//                new AlertDialog.Builder(activity)
+//                    .setTitle(R.string.grant_phone_permission)
+//                    .setMessage(R.string.grant_phone_permission_detail)
+//                    .setNeutralButton(R.string.okay, null)
+//                    .setOnDismissListener(dialog -> activity.requestPermissions(new String[]{READ_CALL_LOG, READ_PHONE_STATE, CALL_PHONE}, 123))
+//                    .create()
+//                    .show();
+//            }
             if (activity.checkSelfPermission(WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED) {
                 new AlertDialog.Builder(activity)
                     .setTitle(R.string.grant_storage_permission)
