@@ -1,7 +1,7 @@
 package org.marelias.contacts.utils;
 
 import static android.Manifest.permission.CALL_PHONE;
-import static android.Manifest.permission.READ_CALL_LOG;
+// import static android.Manifest.permission.READ_CALL_LOG;
 import static android.Manifest.permission.READ_PHONE_STATE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.content.Intent.ACTION_SENDTO;
@@ -451,7 +451,7 @@ public class AndroidUtils {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             return false;
         return ContextCompat.checkSelfPermission(context, WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED
-            || ContextCompat.checkSelfPermission(context, READ_CALL_LOG) != PERMISSION_GRANTED
+            // || ContextCompat.checkSelfPermission(context, READ_CALL_LOG) != PERMISSION_GRANTED
             || ContextCompat.checkSelfPermission(context, READ_PHONE_STATE) != PERMISSION_GRANTED
             || !Settings.canDrawOverlays(context);
 
