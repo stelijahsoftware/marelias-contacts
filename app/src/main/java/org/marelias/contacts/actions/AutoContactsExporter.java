@@ -10,6 +10,7 @@ import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldExportCon
 
 import android.Manifest;
 import android.content.Context;
+import android.os.Build;
 
 import java.util.List;
 
@@ -21,7 +22,18 @@ public class AutoContactsExporter implements ContactsHouseKeepingAction {
 
     @Override
     public void perform(List<Contact> contacts, Context context) {
-        if (!hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) return;
+        // Check permissions based on Android version
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // For Android 11+, we use Storage Access Framework - no runtime permissions needed
+            // Just check if export location is set
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // For Android 6-10, we need WRITE_EXTERNAL_STORAGE permission
+            if (!hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) {
+                return;
+            }
+        }
+        // For Android 5 and below, permissions are granted at install time
+
         if (!hasExportLocation(context)) return;
         if (!(shouldExportContactsEveryWeek(context) && hasItBeenAWeekSinceLastExportOfContacts(context))) return;
         try {

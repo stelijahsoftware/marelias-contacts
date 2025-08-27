@@ -245,18 +245,33 @@ public class MainActivity extends AppBaseActivity {
         if (contactsFragment != null)
             contactsFragment.configureSearchInMenu(searchView);
         menu.findItem(R.id.action_export).setOnMenuItemClickListener(item -> {
-            if (!hasPermission(WRITE_EXTERNAL_STORAGE, this)) {
-                Toast.makeText(this, R.string.grant_storage_permisson_detail, Toast.LENGTH_LONG).show();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, 123);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                // For Android 11+, we need to use Storage Access Framework
+                if (!hasExportLocation(this)) {
+                    Toast.makeText(this, R.string.choose_create_export_location, Toast.LENGTH_LONG).show();
+                    return true;
                 }
-                return true;
+                return new ExportMenuItemClickHandler(this).onMenuItemClick(item);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // For Android 6-10, we need WRITE_EXTERNAL_STORAGE permission
+                if (!hasPermission(WRITE_EXTERNAL_STORAGE, this)) {
+                    Toast.makeText(this, R.string.grant_storage_permisson_detail, Toast.LENGTH_LONG).show();
+                    requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, 123);
+                    return true;
+                }
+                if(!hasExportLocation(this)) {
+                    Toast.makeText(this, R.string.choose_create_export_location, Toast.LENGTH_LONG).show();
+                    return true;
+                }
+                return new ExportMenuItemClickHandler(this).onMenuItemClick(item);
+            } else {
+                // For Android 5 and below, permissions are granted at install time
+                if(!hasExportLocation(this)) {
+                    Toast.makeText(this, R.string.choose_create_export_location, Toast.LENGTH_LONG).show();
+                    return true;
+                }
+                return new ExportMenuItemClickHandler(this).onMenuItemClick(item);
             }
-            if(!hasExportLocation(this)) {
-                Toast.makeText(this, R.string.choose_create_export_location, Toast.LENGTH_LONG).show();
-                return true;
-            }
-            return new ExportMenuItemClickHandler(this).onMenuItemClick(item);
         });
         menu.findItem(R.id.action_about).setOnMenuItemClickListener(getMenuItemClickHandlerFor(() ->
             startActivity(new Intent(MainActivity.this, AboutActivity.class))
