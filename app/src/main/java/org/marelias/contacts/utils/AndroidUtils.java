@@ -1,7 +1,7 @@
 package org.marelias.contacts.utils;
 
 import static android.Manifest.permission.CALL_PHONE;
-// import static android.Manifest.permission.READ_CALL_LOG;
+import static android.Manifest.permission.READ_CALL_LOG;
 import static android.Manifest.permission.READ_PHONE_STATE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.content.Intent.ACTION_SENDTO;
@@ -410,15 +410,15 @@ public class AndroidUtils {
                     .create()
                     .show();
             }
-//            if (activity.checkSelfPermission(READ_CALL_LOG) != PERMISSION_GRANTED || activity.checkSelfPermission(READ_PHONE_STATE) != PERMISSION_GRANTED || activity.checkSelfPermission(CALL_PHONE) != PERMISSION_GRANTED) {
-//                new AlertDialog.Builder(activity)
-//                    .setTitle(R.string.grant_phone_permission)
-//                    .setMessage(R.string.grant_phone_permission_detail)
-//                    .setNeutralButton(R.string.okay, null)
-//                    .setOnDismissListener(dialog -> activity.requestPermissions(new String[]{READ_CALL_LOG, READ_PHONE_STATE, CALL_PHONE}, 123))
-//                    .create()
-//                    .show();
-//            }
+            if (activity.checkSelfPermission(READ_PHONE_STATE) != PERMISSION_GRANTED || activity.checkSelfPermission(READ_CALL_LOG) != PERMISSION_GRANTED || activity.checkSelfPermission(CALL_PHONE) != PERMISSION_GRANTED) {
+                new AlertDialog.Builder(activity)
+                    .setTitle(R.string.grant_phone_permission)
+                    .setMessage(R.string.grant_phone_permission_detail)
+                    .setNeutralButton(R.string.okay, null)
+                    .setOnDismissListener(dialog -> activity.requestPermissions(new String[]{READ_PHONE_STATE, READ_CALL_LOG, CALL_PHONE}, 123))
+                    .create()
+                    .show();
+            }
             if (activity.checkSelfPermission(WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED) {
                 new AlertDialog.Builder(activity)
                     .setTitle(R.string.grant_storage_permission)
@@ -451,7 +451,7 @@ public class AndroidUtils {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             return false;
         return ContextCompat.checkSelfPermission(context, WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED
-            // || ContextCompat.checkSelfPermission(context, READ_CALL_LOG) != PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(context, READ_CALL_LOG) != PERMISSION_GRANTED
             || ContextCompat.checkSelfPermission(context, READ_PHONE_STATE) != PERMISSION_GRANTED
             || !Settings.canDrawOverlays(context);
 
