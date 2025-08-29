@@ -15,6 +15,8 @@ X - Remove floating button
 - Remove call log
 X - verify the cursor commit (removed, does not actually delete groups)
 
+X - PUT ALL LICENCES BELOW IN APP
+
 - make the bar on top a bottom bar, put groups button in it (https://gitlab.com/sultanahamer/OpenContacts/-/issues/266)
 - Add goups icon next to contact which has already been added to a group
 - Add category to display all names not added to a group

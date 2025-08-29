@@ -105,14 +105,14 @@
                 <TableRow android:gravity="fill">
                     <TextView
                         android:padding="3dp"
-                        android:text="LICENSE"
+                        android:text="LICENSES"
                         android:textAppearance="?android:textAppearanceSearchResultTitle"
                         android:textSize="18sp" />
 
                     <TextView
                         android:autoLink="web"
                         android:padding="3dp"
-                        android:text="GNU GENERAL PUBLIC LICENSE v3" />
+                        android:text="GNU GPLv3: Code base\nBSD: https://mvnrepository.com/artifact/com.googlecode.ez-vcard/ez-vcard\nAPACHE 2.0: https://mvnrepository.com/artifact/com.opencsv/opencsv\nAPACHE 2.0: https://github.com/xyxyLiu/Edit-Spinner\nAPACHE 2.0: https://github.com/MichaelRocks/libphonenumber-android\nMIT: https://github.com/thomashaertel/MultiSpinner\nMIT: https://github.com/chennaione/sugar\nMIT: https://github.com/javadev/underscore-java" />
                 </TableRow>
 
 
