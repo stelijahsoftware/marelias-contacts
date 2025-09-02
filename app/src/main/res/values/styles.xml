@@ -1,8 +1,10 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
     <!--themes-->
     <style name="Theme.AppCompat.Light.NoActionBar.Customized">
         <item name="imageButtonWithTint">@style/TransparentImageButton</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:ignore="NewApi">true</item>
     </style>
 
     <style name="Theme.AppCompat.NoActionBar.Customized">

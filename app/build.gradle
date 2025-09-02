@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
     defaultConfig {
         applicationId "org.marelias.contacts"
-        minSdkVersion 31
+        minSdkVersion 24
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode 1007
         versionName "1.0.7" // x.x.xx
         multiDexEnabled true
