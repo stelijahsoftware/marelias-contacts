@@ -4,16 +4,12 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
-<!--    <uses-permission android:name="android.permission.WAKE_LOCK"/>-->
-<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
-<!--    <uses-permission android:name="android.permission.INTERNET" />-->
-<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
-<!--    <uses-permission android:name="android.permission.CALL_PHONE" />-->
 
     <application
         android:name="org.marelias.contacts.OpenContactsApplication"
@@ -67,7 +63,7 @@
             android:value="17" />
         <meta-data
             android:name="QUERY_LOG"
-            android:value="true" />
+            android:value="false" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="org.marelias.contacts.orm" />
@@ -77,23 +73,15 @@
         <activity android:name="org.marelias.contacts.activities.AddToContactActivity" />
         <activity android:name="org.marelias.contacts.activities.CrashReportingActivity" />
         <activity android:name="org.marelias.contacts.activities.MergeContactsActivity" />
-        <activity
-            android:name="org.marelias.contacts.activities.DataSourcePermissionsActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="OPENCONTACTS_DATA_PERMISSION" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
 
-        </activity>
         <activity
             android:name="org.marelias.contacts.activities.ContactDetailsActivity"
             android:label="@string/title_activity_contact_details" />
         <activity
             android:exported="true"
             android:name="org.marelias.contacts.activities.ImportVcardActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="fullSensor">
+            android:label="@string/app_name">
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -104,6 +92,7 @@
                 <data android:mimeType="text/*" />
                 <data android:mimeType="application/zip" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -121,6 +110,7 @@
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
+
         <receiver
             android:exported="true"
             android:name="org.marelias.contacts.widgets.SingleContactDialerWidgetProvider"
@@ -134,24 +124,6 @@
                 android:resource="@xml/single_contact_dialer_widget_provider_metadata" />
         </receiver>
 
-<!--        <service-->
-<!--            android:exported="true"-->
-<!--            android:name="org.marelias.contacts.activities.services.CallScreeningServiceImplementation"-->
-<!--            android:permission="android.permission.BIND_SCREENING_SERVICE">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.telecom.CallScreeningService" />-->
-<!--            </intent-filter>-->
-<!--        </service>-->
-
-        <service
-            android:exported="true"
-            android:name="org.marelias.contacts.services.DataSourceService">
-            <intent-filter>
-                <action android:name="DataSourceService" />
-            </intent-filter>
-        </service>
-
-        <activity android:name="org.marelias.contacts.activities.CardDavSyncActivity" />
         <activity android:name="org.marelias.contacts.activities.PreferencesActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"
