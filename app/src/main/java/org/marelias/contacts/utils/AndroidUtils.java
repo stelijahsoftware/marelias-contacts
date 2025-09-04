@@ -410,7 +410,9 @@ public class AndroidUtils {
                     .create()
                     .show();
             }
-            if (activity.checkSelfPermission(READ_PHONE_STATE) != PERMISSION_GRANTED || activity.checkSelfPermission(READ_CALL_LOG) != PERMISSION_GRANTED || activity.checkSelfPermission(CALL_PHONE) != PERMISSION_GRANTED) {
+            if (activity.checkSelfPermission(READ_PHONE_STATE) != PERMISSION_GRANTED ||
+                activity.checkSelfPermission(READ_CALL_LOG) != PERMISSION_GRANTED ||
+                activity.checkSelfPermission(CALL_PHONE) != PERMISSION_GRANTED) {
                 new AlertDialog.Builder(activity)
                     .setTitle(R.string.grant_phone_permission)
                     .setMessage(R.string.grant_phone_permission_detail)
@@ -421,12 +423,22 @@ public class AndroidUtils {
             }
             if (activity.checkSelfPermission(WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED) {
                 new AlertDialog.Builder(activity)
-                    .setTitle(R.string.grant_storage_permission)
-                    .setMessage(R.string.grant_storage_permisson_detail)
-                    .setNeutralButton(R.string.okay, null)
-                    .setOnDismissListener(dialog -> activity.requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, 123))
-                    .create()
-                    .show();
+                        .setTitle(R.string.grant_storage_permission)
+                        .setMessage(R.string.grant_storage_permisson_detail)
+                        .setNeutralButton(R.string.okay, null)
+                        .setOnDismissListener(dialog -> activity.requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, 123))
+                        .create()
+                        .show();
+            }
+            // Grant permission to notifications
+            if (activity.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                new AlertDialog.Builder(activity)
+                        .setTitle(R.string.grant_notification_permission)
+                        .setMessage(R.string.grant_notification_permission_detail)
+                        .setNeutralButton(R.string.okay, null)
+                        .setOnDismissListener(dialog -> activity.requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 456))
+                        .create()
+                        .show();
             }
         }
     }

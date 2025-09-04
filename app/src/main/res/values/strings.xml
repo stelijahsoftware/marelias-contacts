@@ -32,7 +32,7 @@
     </string>
     <string name="learn_more_about_star">Tap to learn more about the star.</string>
     <string name="invalid_number">Invalid number</string>
-    <string name="import_contacts">Import contacts</string>
+    <string name="import_contacts">Import</string>
     <string name="import_contacts_help_text">To import contacts into this app, goto default contacts app, export contacts. Try opening a file explorer and tap on exported file. In the list of open with apps, tap on open contacts, Open contacts would import all the contacts</string>
     <string name="search_contacts_help_text">Tap on search icon in the menu. T9 Keyboard would pop out with only numbers but small letters three on each would be present and covers all the alphabets. Use the numeric keys to input name.\nExample: To search for contact \'john\', type 5646 because letter j is present on number 5, o is on 6 and so on. It might look a bit new but would be better than normal full keyboard search.\nYou could also search for phone number by entering the required number with the help of same keyboard.\nIn case you want to go back to traditional search, you can do so by going into menu and selecting Toggle T9 search</string>
     <string name="search_contacts">Search contacts</string>
@@ -105,6 +105,8 @@
     <string name="auto_cancel_missed_call_notifs">Should auto cancel missed call notifications</string>
     <string name="show_unknown_missed_call_notifs" tools:ignore="MissingTranslation">Show missed call notifications for unknown contacts</string>
     <string name="show_unknown_caller_id" tools:ignore="MissingTranslation">Show caller id for unknown contacts</string>
+    <string name="grant_notification_permission">Grant permission to notifications</string>
+    <string name="grant_notification_permission_detail">Allow app to show missed call notifications</string>
 
 
     <!--careful while editing below group. Each item in array should also be present in normal string-->
