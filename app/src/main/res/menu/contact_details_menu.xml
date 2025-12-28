@@ -10,10 +10,10 @@
         android:id="@+id/image_button_delete_contact"
         android:icon="@drawable/delete"
         android:title="@string/delete"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/image_button_export_to_contacts_app"
         android:icon="@drawable/import_export"
         android:title="@string/export"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>
