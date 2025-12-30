@@ -171,7 +171,7 @@ public class GroupsActivity extends AppBaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(R.string.add_group)
             .setIcon(R.drawable.ic_add_24dp)
-            .setShowAsActionFlags(SHOW_AS_ACTION_IF_ROOM)
+            .setShowAsActionFlags(SHOW_AS_ACTION_ALWAYS)
             .setOnMenuItemClickListener(getMenuItemClickHandlerFor(() ->
                 startActivity(new Intent(GroupsActivity.this, ContactGroupEditActivity.class))
             ));
@@ -188,7 +188,7 @@ public class GroupsActivity extends AppBaseActivity {
                 return true;
             });
         menu.add(R.string.message)
-            .setShowAsActionFlags(SHOW_AS_ACTION_IF_ROOM)
+            .setShowAsActionFlags(SHOW_AS_ACTION_ALWAYS)
             .setIcon(R.drawable.ic_chat_black_24dp)
             .setOnMenuItemClickListener(item -> {
                 ContactGroup selectedGroup = (ContactGroup) groupNameSpinner.getSelectedItem();
@@ -201,7 +201,7 @@ public class GroupsActivity extends AppBaseActivity {
             .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS)
             .setActionView(searchView);
         menu.add(R.string.delete)
-            .setShowAsActionFlags(SHOW_AS_ACTION_IF_ROOM)
+            .setShowAsActionFlags(SHOW_AS_ACTION_ALWAYS)
             .setIcon(R.drawable.delete)
             .setOnMenuItemClickListener(getMenuItemClickHandlerFor(this::confirmAndDeleteGroup));
         return super.onCreateOptionsMenu(menu);

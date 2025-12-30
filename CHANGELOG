@@ -1,2 +1,12 @@
-v1.1.0
+# Upcoming:
+- remove hidden options from groups screen
+
+# v1.1.0
 Increase icon sizes
+
+# Earlier versions:
+X - put groups button on top (remove it from inside '...' list)
+X - Remove floating button
+X - verify the cursor commit (removed, does not actually delete groups)
+X - PUT ALL LICENCES BELOW IN APP
+X - Remove call log

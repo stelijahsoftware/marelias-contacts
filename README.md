@@ -10,12 +10,9 @@ Maintains call log as well coz Android call log app would not be able to show na
 Also shows the person name upon recieving call
 
 # TODO:
-X - put groups button on top (remove it from inside '...' list)
-X - Remove floating button
-- Remove call log
-X - verify the cursor commit (removed, does not actually delete groups)
-
-X - PUT ALL LICENCES BELOW IN APP
+- Add modification date to each contact
+- Sort by mod date
+- Groups: inc size of down arrow
 
 [h] - Add birthday notifications (1 day early)
 [h] - Add category to display all names not added to a group
