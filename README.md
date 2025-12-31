@@ -6,7 +6,6 @@ This app saves contacts in its own database seperate from android contacts. This
 
 # TODO:
 - Add creation date to each contact (should be visible)
-- Add birthday notifications (1 day early), should display a banner inside the app.
 - make the bar on top a bottom bar, put groups button in it (https://gitlab.com/sultanahamer/OpenContacts/-/issues/266)
 
 # License:

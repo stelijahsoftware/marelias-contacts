@@ -1,5 +1,6 @@
 # v1.2.1:
 - Add version to exported vcf file
+- Add birthday notifications, should display a banner inside the app.
 
 # v1.2.0:
 - remove hidden options from groups screen
