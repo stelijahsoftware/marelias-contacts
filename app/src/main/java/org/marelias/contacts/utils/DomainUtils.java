@@ -432,6 +432,21 @@ public class DomainUtils {
         };
     }
 
+    @NonNull
+    public static Comparator<Contact> getContactComparatorBasedOnCreationDate() {
+        return (contact1, contact2) -> {
+            // Lower IDs indicate older contacts (created earlier) in SugarRecord
+            // Sort in descending order (newest first) - recently added on top
+            return Long.compare(contact2.id, contact1.id);
+        };
+    }
+
+    public static List<Contact> sortContactsBasedOnCreationDate(Collection<Contact> contacts, Context context) {
+        List<Contact> newContactsList = U.copyOf(contacts);
+        Collections.sort(newContactsList, getContactComparatorBasedOnCreationDate());
+        return newContactsList;
+    }
+
     public static List<Contact> filterContactsBasedOnT9Text(CharSequence t9Text, List<Contact> contacts) {
         ArrayList<Contact> filteredContacts = new ArrayList<>();
         for (Contact contact : contacts) {
