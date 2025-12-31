@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -127,6 +128,11 @@ public class ContactsListViewAdapter extends ArrayAdapter<Contact> {
             socialIcon.setVisibility(VISIBLE);
             socialIcon.setContentDescription(defaultSocialAppEnabled(context) + " " + contact.name);
         } else socialIcon.setVisibility(GONE);
+        ImageView groupIndicator = convertView.findViewById(R.id.group_indicator);
+        if (groupIndicator != null) {
+            boolean hasGroups = contact != null && !contact.getGroupNames().isEmpty();
+            groupIndicator.setVisibility(hasGroups ? VISIBLE : GONE);
+        }
         convertView.setTag(contact);
         View contactDetails = convertView.findViewById(R.id.contact_details);
         contactDetails.setOnClickListener(showContactDetails);
