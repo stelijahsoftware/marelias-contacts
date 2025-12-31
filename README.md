@@ -2,17 +2,12 @@
 Privacy to your contacts.
 
 # About
-This app saves contacts in its own database seperate from android contacts. This way no other app would be able to access contacts. Can be used in place of your default phone(dialer) app.
-
-We can export / import contacts from Android contacts app into this app.
-Maintains call log as well coz Android call log app would not be able to show name of contact
-Also shows the person name upon recieving call
+This app saves contacts in its own database seperate from android contacts. This way no other app would be able to access contacts. Can be used in place of your default phone(dialer) app. We can export / import contacts from Android contacts app into this app. Maintains call log as well coz Android call log app would not be able to show name of contact. Also shows the person name upon recieving call
 
 # TODO:
-[h] - Add modification date to each contact
-[h] - Add birthday notifications (1 day early)
-[h] - Add category to display all names not added to a group
-[m] - make the bar on top a bottom bar, put groups button in it (https://gitlab.com/sultanahamer/OpenContacts/-/issues/266)
+- Add modification date to each contact
+- Add birthday notifications (1 day early)
+- make the bar on top a bottom bar, put groups button in it (https://gitlab.com/sultanahamer/OpenContacts/-/issues/266)
 
 # License:
 GPLv3. In addition to the licenses of the used libraries ./app/build.gradle, namely:

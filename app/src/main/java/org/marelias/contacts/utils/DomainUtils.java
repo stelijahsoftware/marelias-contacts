@@ -5,6 +5,7 @@ import static android.text.TextUtils.isEmpty;
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 import static org.marelias.contacts.BuildConfig.DEBUG;
+import org.marelias.contacts.BuildConfig;
 import static org.marelias.contacts.utils.AndroidUtils.isValidDirectory;
 import static org.marelias.contacts.utils.AndroidUtils.processAsync;
 import static org.marelias.contacts.utils.AndroidUtils.takePersistablePermissionsOnUri;
@@ -171,7 +172,8 @@ public class DomainUtils {
     private static void exportAsPlainTextVCFFile(byte[] plainTextExportBytes, SimpleDateFormat simpleDateFormat, Context context) throws Exception {
         OutputStream fileOutputStream = null;
         try {
-            String fileName = "Contacts_" + simpleDateFormat.format(new Date()) + ".vcf";
+            String baseFileName = "Contacts_" + simpleDateFormat.format(new Date());
+            String fileName = baseFileName + "-v" + BuildConfig.VERSION_NAME + ".vcf";
             fileOutputStream = getExportFileOutStream(fileName, context);
             fileOutputStream.write(plainTextExportBytes);
         } finally {
