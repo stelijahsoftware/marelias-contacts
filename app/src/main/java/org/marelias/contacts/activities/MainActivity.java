@@ -29,6 +29,8 @@ import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldKeyboardR
 //import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldShowBottomMenu;
 //import static org.marelias.contacts.utils.ThemeUtils.getPrimaryColor;
 import static org.marelias.contacts.utils.domain.AppShortcuts.TAB_INDEX_INTENT_EXTRA;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -64,6 +66,10 @@ import org.marelias.contacts.interfaces.SelectableTab;
 import org.marelias.contacts.utils.AndroidUtils;
 import org.marelias.contacts.utils.DomainUtils;
 import org.marelias.contacts.utils.SharedPreferencesUtils;
+import org.marelias.contacts.domain.Contact;
+import org.marelias.contacts.interfaces.SampleDataStoreChangeListener;
+import org.marelias.contacts.data.datastore.ContactsDataStore;
+import androidx.appcompat.widget.AppCompatTextView;
 //import pro.midev.expandedmenulibrary.ExpandedMenuItem;
 //import pro.midev.expandedmenulibrary.ExpandedMenuView;
 
@@ -141,6 +147,7 @@ public class MainActivity extends AppBaseActivity {
     protected void onResume() {
         super.onResume();
         gotoDefaultTab();
+        updateBirthdayBanner();
     }
 
     private void gotoDefaultTab() {
@@ -172,8 +179,84 @@ public class MainActivity extends AppBaseActivity {
                 getWindow().setSoftInputMode(SOFT_INPUT_ADJUST_RESIZE);
             if (handleIntent(getIntent())) ;
             else gotoDefaultTab();
+            setupBirthdayBannerListener();
+            updateBirthdayBanner();
         }
         markPermissionsAsked(this);
+    }
+
+    private void setupBirthdayBannerListener() {
+        // Listen for when contacts are loaded/refreshed to update banner
+        ContactsDataStore.addDataChangeListener(new SampleDataStoreChangeListener<Contact>() {
+            @Override
+            public void onStoreRefreshed() {
+                updateBirthdayBanner();
+            }
+        });
+    }
+
+    private void updateBirthdayBanner() {
+        // Process in background to avoid blocking UI
+        AndroidUtils.processAsync(() -> {
+            List<Contact> contactsWithBirthdayToday = DomainUtils.getContactsWithBirthdayToday(this);
+            android.util.Log.d("MainActivity", "Found " + contactsWithBirthdayToday.size() + " contacts with birthday today");
+
+            // Update UI on main thread
+            runOnMainDelayed(() -> {
+                View birthdayBanner = findViewById(R.id.birthday_banner);
+
+                if (birthdayBanner == null) {
+                    android.util.Log.e("MainActivity", "Birthday banner view not found!");
+                    return;
+                }
+
+                if (contactsWithBirthdayToday.isEmpty()) {
+                    birthdayBanner.setVisibility(GONE);
+                    android.util.Log.d("MainActivity", "No birthdays today, hiding banner");
+                    return;
+                }
+
+                // Show banner with all contact names
+                AppCompatTextView bannerText = birthdayBanner.findViewById(R.id.birthday_banner_text);
+                if (bannerText != null) {
+                    StringBuilder namesBuilder = new StringBuilder();
+                    for (int i = 0; i < contactsWithBirthdayToday.size(); i++) {
+                        Contact contact = contactsWithBirthdayToday.get(i);
+                        String firstName = contact.firstName != null ? contact.firstName : "";
+                        String lastName = contact.lastName != null ? contact.lastName : "";
+                        String fullName = (firstName + " " + lastName).trim();
+                        if (fullName.isEmpty()) {
+                            fullName = contact.name != null ? contact.name : "";
+                        }
+
+                        if (i > 0) {
+                            if (i == contactsWithBirthdayToday.size() - 1) {
+                                namesBuilder.append(" and ");
+                            } else {
+                                namesBuilder.append(", ");
+                            }
+                        }
+                        namesBuilder.append(fullName);
+                    }
+
+                    String bannerMessage = getString(R.string.birthday_banner_prefix) + " " + namesBuilder.toString();
+                    bannerText.setText(bannerMessage);
+
+                    // Set up close button
+                    androidx.appcompat.widget.AppCompatImageButton closeButton = birthdayBanner.findViewById(R.id.birthday_banner_close);
+                    if (closeButton != null) {
+                        closeButton.setOnClickListener(v -> {
+                            birthdayBanner.setVisibility(GONE);
+                        });
+                    }
+
+                    birthdayBanner.setVisibility(VISIBLE);
+                    android.util.Log.d("MainActivity", "Birthday banner shown for: " + bannerMessage);
+                } else {
+                    android.util.Log.e("MainActivity", "Birthday banner text view not found!");
+                }
+            }, 0);
+        });
     }
 
 /*

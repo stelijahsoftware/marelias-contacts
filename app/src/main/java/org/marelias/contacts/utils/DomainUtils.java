@@ -54,6 +54,7 @@ import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -73,6 +74,7 @@ import ezvcard.parameter.AddressType;
 import ezvcard.parameter.EmailType;
 import ezvcard.parameter.TelephoneType;
 import ezvcard.property.Address;
+import ezvcard.property.Birthday;
 import ezvcard.property.StructuredName;
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil;
 import org.marelias.contacts.R;
@@ -514,5 +516,45 @@ public class DomainUtils {
             takePersistablePermissionsOnUri(intent, context);
             setExportLocation(uri.toString(), context);
         }, ignore -> makeText(context, R.string.failure_setting_export_directory, Toast.LENGTH_LONG).show());
+    }
+
+    public static List<Contact> getContactsWithBirthdayToday(Context context) {
+        List<Contact> contactsWithBirthdayToday = new ArrayList<>();
+        List<Contact> allContacts = ContactsDataStore.getAllContactsSync();
+        Calendar today = Calendar.getInstance();
+        int todayMonth = today.get(Calendar.MONTH);
+        int todayDay = today.get(Calendar.DAY_OF_MONTH);
+
+        android.util.Log.d("DomainUtils", "Checking birthdays for " + allContacts.size() + " contacts. Today: month=" + todayMonth + ", day=" + todayDay);
+
+        for (Contact contact : allContacts) {
+            VCardData vCardData = ContactsDataStore.getVCardData(contact.id);
+            if (vCardData == null) continue;
+
+            try {
+                VCard vcard = getVCardFromString(vCardData.vcardDataAsString);
+                Birthday birthday = vcard.getBirthday();
+                if (birthday != null && birthday.getDate() != null) {
+                    Calendar birthdayCalendar = Common.getCalendarInstanceAt(birthday.getDate().getTime());
+                    int birthdayMonth = birthdayCalendar.get(Calendar.MONTH);
+                    int birthdayDay = birthdayCalendar.get(Calendar.DAY_OF_MONTH);
+
+                    android.util.Log.d("DomainUtils", "Contact " + contact.name + " birthday: month=" + birthdayMonth + ", day=" + birthdayDay);
+
+                    if (birthdayMonth == todayMonth && birthdayDay == todayDay) {
+                        contactsWithBirthdayToday.add(contact);
+                        android.util.Log.d("DomainUtils", "Found birthday match for: " + contact.name);
+                    }
+                }
+            } catch (IOException e) {
+                // Skip contacts with invalid VCard data
+                android.util.Log.w("DomainUtils", "Error parsing VCard for contact " + contact.id + ": " + e.getMessage());
+                continue;
+            }
+        }
+
+        android.util.Log.d("DomainUtils", "Total contacts with birthday today: " + contactsWithBirthdayToday.size());
+
+        return contactsWithBirthdayToday;
     }
 }

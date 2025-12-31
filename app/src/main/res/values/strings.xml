@@ -140,6 +140,7 @@
     <string name="invalid_username_or_password_or_url">Invalid username or password or url</string>
     <string name="switch_t9_search">Toggle T9 Search</string>
     <string name="calendar_event_title_birthday">%1$s\'s Birthday</string>
+    <string name="birthday_banner_prefix">Birthday:</string>
     <string name="website">Website</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="invalid_url">Invalid url</string>
