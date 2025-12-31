@@ -3,17 +3,21 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 35
     defaultConfig {
+        resValue "string", "manifest_package_id", "org.marelias.contacts"
         applicationId "org.marelias.contacts"
+        versionName "1.2.0" // x.x.xx
+        versionCode 1200
+
+        multiDexEnabled true
         minSdkVersion 24
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 35
-        versionCode 1200
-        versionName "1.2.0" // x.x.xx
-        multiDexEnabled true
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        setProperty("archivesBaseName", applicationId + "-v" + versionCode + "-" + versionName) // This will set the output compiled name
     }
+
     signingConfigs {
     }
+
     buildTypes {
         release {
             minifyEnabled true
