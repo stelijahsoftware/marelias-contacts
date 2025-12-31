@@ -201,7 +201,7 @@
     <string name="dialer">Dialer</string>
     <string name="view_more">View more</string>
     <string name="more">More</string>
-    <string name="groups">Groups</string>
+    <string name="groups"></string>
     <string name="group_name">Group name</string>
     <string name="add_contacts">Add contacts</string>
     <string name="edit_group">Edit group</string>
