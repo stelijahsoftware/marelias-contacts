@@ -1,14 +1,17 @@
+# v1.2.1:
+- Add version to exported vcf file
+
 # v1.2.0:
-X - remove hidden options from groups screen
-X - Add goups icon next to contact which has already been added to a group
-X - Sort contacts by mod date
+- remove hidden options from groups screen
+- Add goups icon next to contact which has already been added to a group
+- Sort contacts by mod date
 
 # v1.1.0
-X - Increase icon sizes
+- Increase icon sizes
 
 # Earlier versions:
-X - put groups button on top (remove it from inside '...' list)
-X - Remove floating button
-X - verify the cursor commit (removed, does not actually delete groups)
-X - PUT ALL LICENCES BELOW IN APP
-X - Remove call log
+- put groups button on top (remove it from inside '...' list)
+- Remove floating button
+- verify the cursor commit (removed, does not actually delete groups)
+- PUT ALL LICENCES BELOW IN APP
+- Remove call log
