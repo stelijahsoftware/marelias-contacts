@@ -16,7 +16,6 @@ Also shows the person name upon recieving call
 [h] - Add birthday notifications (1 day early)
 [h] - Add category to display all names not added to a group
 
-[h] - Add goups icon next to contact which has already been added to a group
 - make the bar on top a bottom bar, put groups button in it (https://gitlab.com/sultanahamer/OpenContacts/-/issues/266)
 
 # License:

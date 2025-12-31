@@ -1,8 +1,9 @@
-# Upcoming:
-- remove hidden options from groups screen
+# v1.2.0:
+X - remove hidden options from groups screen
+X - Add goups icon next to contact which has already been added to a group
 
 # v1.1.0
-Increase icon sizes
+X - Increase icon sizes
 
 # Earlier versions:
 X - put groups button on top (remove it from inside '...' list)
