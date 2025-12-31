@@ -1,5 +1,4 @@
 # Mar-Elias OpenContacts for Android Forked from [https://gitlab.com/sultanahamer/OpenContacts](https://gitlab.com/sultanahamer/OpenContacts)
-
 Privacy to your contacts.
 
 # About
@@ -11,12 +10,9 @@ Also shows the person name upon recieving call
 
 # TODO:
 [h] - Add modification date to each contact
-[h] - Sort contacts by mod date
-
 [h] - Add birthday notifications (1 day early)
 [h] - Add category to display all names not added to a group
-
-- make the bar on top a bottom bar, put groups button in it (https://gitlab.com/sultanahamer/OpenContacts/-/issues/266)
+[m] - make the bar on top a bottom bar, put groups button in it (https://gitlab.com/sultanahamer/OpenContacts/-/issues/266)
 
 # License:
 GPLv3. In addition to the licenses of the used libraries ./app/build.gradle, namely:
