@@ -10,15 +10,14 @@ Maintains call log as well coz Android call log app would not be able to show na
 Also shows the person name upon recieving call
 
 # TODO:
-- Add modification date to each contact
-- Sort by mod date
-- Groups: inc size of down arrow
+[h] - Add modification date to each contact
+[h] - Sort contacts by mod date
 
 [h] - Add birthday notifications (1 day early)
 [h] - Add category to display all names not added to a group
 
+[h] - Add goups icon next to contact which has already been added to a group
 - make the bar on top a bottom bar, put groups button in it (https://gitlab.com/sultanahamer/OpenContacts/-/issues/266)
-- Add goups icon next to contact which has already been added to a group
 
 # License:
 GPLv3. In addition to the licenses of the used libraries ./app/build.gradle, namely:
