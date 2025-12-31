@@ -37,6 +37,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -362,6 +365,8 @@ public class MainActivity extends AppBaseActivity {
 
         menu.findItem(R.id.action_groups).setOnMenuItemClickListener(getMenuItemClickHandlerFor(this::launchGroupsActivity));
 
+        menu.findItem(R.id.action_birthdays).setOnMenuItemClickListener(getMenuItemClickHandlerFor(this::showBirthdaysDialog));
+
         menu.findItem(R.id.action_preferences).setOnMenuItemClickListener(getMenuItemClickHandlerFor(() ->
             startActivityForResult(new Intent(MainActivity.this, PreferencesActivity.class), PREFERENCES_ACTIVITY_RESULT)
         ));
@@ -376,6 +381,53 @@ public class MainActivity extends AppBaseActivity {
 
     private void launchGroupsActivity() {
         startActivity(new Intent(MainActivity.this, GroupsActivity.class));
+    }
+
+    private void showBirthdaysDialog() {
+        AndroidUtils.processAsync(() -> {
+            List<DomainUtils.ContactWithBirthday> contactsWithBirthdays = DomainUtils.getAllContactsWithBirthdays(this);
+
+            runOnMainDelayed(() -> {
+                if (contactsWithBirthdays.isEmpty()) {
+                    Toast.makeText(this, R.string.no_birthdays_found, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Create list of SpannableStrings for the dialog with bold dates
+                List<CharSequence> birthdayItems = new ArrayList<>();
+                for (DomainUtils.ContactWithBirthday item : contactsWithBirthdays) {
+                    String firstName = item.contact.firstName != null ? item.contact.firstName : "";
+                    String lastName = item.contact.lastName != null ? item.contact.lastName : "";
+                    String fullName = (firstName + " " + lastName).trim();
+                    if (fullName.isEmpty()) {
+                        fullName = item.contact.name != null ? item.contact.name : "";
+                    }
+                    String fullText = fullName + " - " + item.formattedDate;
+                    SpannableString spannableString = new SpannableString(fullText);
+                    // Make the date part bold
+                    int dateStartIndex = fullText.indexOf(item.formattedDate);
+                    if (dateStartIndex >= 0) {
+                        spannableString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),
+                            dateStartIndex, dateStartIndex + item.formattedDate.length(),
+                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                    birthdayItems.add(spannableString);
+                }
+
+                // Create and show dialog
+                new androidx.appcompat.app.AlertDialog.Builder(this)
+                    .setTitle(R.string.birthdays)
+                    .setItems(birthdayItems.toArray(new CharSequence[0]), (dialog, which) -> {
+                        DomainUtils.ContactWithBirthday selected = contactsWithBirthdays.get(which);
+                        // Open contact details when clicked
+                        Intent intent = new Intent(this, ContactDetailsActivity.class);
+                        intent.putExtra(INTENT_EXTRA_LONG_CONTACT_ID, selected.contact.id);
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("OK", null)
+                    .show();
+            }, 0);
+        });
     }
 
     private void searchContacts() {

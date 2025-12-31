@@ -557,4 +557,49 @@ public class DomainUtils {
 
         return contactsWithBirthdayToday;
     }
+
+    public static class ContactWithBirthday {
+        public final Contact contact;
+        public final Calendar birthday;
+        public final String formattedDate;
+
+        public ContactWithBirthday(Contact contact, Calendar birthday, String formattedDate) {
+            this.contact = contact;
+            this.birthday = birthday;
+            this.formattedDate = formattedDate;
+        }
+    }
+
+    public static List<ContactWithBirthday> getAllContactsWithBirthdays(Context context) {
+        List<ContactWithBirthday> contactsWithBirthdays = new ArrayList<>();
+        List<Contact> allContacts = ContactsDataStore.getAllContactsSync();
+        Calendar today = Calendar.getInstance();
+
+        for (Contact contact : allContacts) {
+            VCardData vCardData = ContactsDataStore.getVCardData(contact.id);
+            if (vCardData == null) continue;
+
+            try {
+                VCard vcard = getVCardFromString(vCardData.vcardDataAsString);
+                Birthday birthday = vcard.getBirthday();
+                if (birthday != null && birthday.getDate() != null) {
+                    Calendar birthdayCalendar = Common.getCalendarInstanceAt(birthday.getDate().getTime());
+                    String formattedDate = AndroidUtils.getFormattedDate(birthday.getDate());
+                    contactsWithBirthdays.add(new ContactWithBirthday(contact, birthdayCalendar, formattedDate));
+                }
+            } catch (IOException e) {
+                // Skip contacts with invalid VCard data
+                continue;
+            }
+        }
+
+        // Sort by month and day (ignoring year)
+        Collections.sort(contactsWithBirthdays, (a, b) -> {
+            int monthCompare = Integer.compare(a.birthday.get(Calendar.MONTH), b.birthday.get(Calendar.MONTH));
+            if (monthCompare != 0) return monthCompare;
+            return Integer.compare(a.birthday.get(Calendar.DAY_OF_MONTH), b.birthday.get(Calendar.DAY_OF_MONTH));
+        });
+
+        return contactsWithBirthdays;
+    }
 }
