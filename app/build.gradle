@@ -7,8 +7,8 @@ android {
         minSdkVersion 24
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 35
-        versionCode 1100
-        versionName "1.1.0" // x.x.xx
+        versionCode 1200
+        versionName "1.2.0" // x.x.xx
         multiDexEnabled true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
