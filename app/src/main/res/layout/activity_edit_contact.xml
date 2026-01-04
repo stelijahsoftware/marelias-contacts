@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/last_name_text_input_layout"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="8dp"
                 android:entries="@array/phone_number_types"
                 android:hint="@string/phone_number"
                 android:inputType="phone" />
@@ -80,22 +80,32 @@
                 android:text="@string/groups"
                 android:layout_below="@id/phonenumbers" />
 
-            <com.thomashaertel.widget.MultiSpinner
-                android:id="@+id/groups"
-                android:hint="@string/groups"
+            <FrameLayout
+                android:id="@+id/groups_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/groups_title"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:minHeight="32dp"
+                android:background="@drawable/groups_spinner_border"
+                android:padding="8dp">
+
+                <com.thomashaertel.widget.MultiSpinner
+                    android:id="@+id/groups"
+                    android:hint="@string/groupss"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" />
+            </FrameLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/notes_text_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/notes"
-                android:layout_below="@id/groups"
-                android:layout_marginTop="20dp">
+                android:layout_below="@id/groups_container"
+                android:layout_marginTop="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/notes"
