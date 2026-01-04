@@ -1,3 +1,13 @@
+# v1.3.1:
+- Hide seldom used buttons
+- Fix title of add group window
+- Add option to main menu to sort contacts by name
+- Add separate entries for groups in contact name
+- Delete old group when renaming it
+- Make groups unclickable in the contacts edit screen
+- Change ordering of contact details
+- Add border to groups wheel
+
 # v1.3.0:
 - Add version to exported vcf file
 - Add birthday notifications, should display a banner inside the app.
