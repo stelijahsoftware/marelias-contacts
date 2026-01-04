@@ -98,7 +98,8 @@ public class ContactGroupEditActivity extends ContactChooserActivityBase {
 
     @Override
     public int title() {
-        return R.string.edit_group;
+        String groupName = getEmptyStringIfNull(getIntent().getStringExtra(GROUP_NAME_INTENT_EXTRA));
+        return isEmpty(groupName) ? R.string.add_group : R.string.edit_group;
     }
 
 }
