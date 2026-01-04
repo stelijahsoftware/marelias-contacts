@@ -187,21 +187,23 @@ public class GroupsActivity extends AppBaseActivity {
                 );
                 return true;
             });
-        menu.add(R.string.message)
-            .setShowAsActionFlags(SHOW_AS_ACTION_ALWAYS)
+        menu.add(R.string.messageall)
+            .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER)
             .setIcon(R.drawable.ic_chat_black_24dp)
             .setOnMenuItemClickListener(item -> {
                 ContactGroup selectedGroup = (ContactGroup) groupNameSpinner.getSelectedItem();
                 message(U.map(selectedGroup.contacts, contact -> contact.primaryPhoneNumber.phoneNumber), this);
                 return true;
             });
-        SearchView searchView = new SearchView(this);
-        bindSearchViewToContacts(searchView);
-        menu.add(R.string.search)
-            .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS)
-            .setActionView(searchView);
-        menu.add(R.string.delete)
-            .setShowAsActionFlags(SHOW_AS_ACTION_ALWAYS)
+
+//        SearchView searchView = new SearchView(this);
+//        bindSearchViewToContacts(searchView);
+//        menu.add(R.string.search)
+//            .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER)
+//            .setActionView(searchView);
+
+        menu.add(R.string.deletegroup)
+            .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER)
             .setIcon(R.drawable.delete)
             .setOnMenuItemClickListener(getMenuItemClickHandlerFor(this::confirmAndDeleteGroup));
         return super.onCreateOptionsMenu(menu);

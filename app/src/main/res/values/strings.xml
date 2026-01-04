@@ -14,8 +14,11 @@
     <string name="exporting_contacts_started">Started exporting contacts</string>
     <string name="title_activity_tabbed">TabbedActivity</string>
     <string name="export">Export</string>
+    <string name="exporttophonecontacts">Export to contacts app</string>
     <string name="add_contact">Add contact</string>
     <string name="delete">Delete</string>
+    <string name="deletecontact">Delete contact</string>
+    <string name="deletegroup">Delete group</string>
     <string name="edit_contact">Edit contact</string>
     <string name="add_to_contact">Add to Contact</string>
     <string name="search">Search</string>
@@ -84,6 +87,7 @@
     <string name="missed_call_from">Missed call from %1$s %2$s</string>
     <string name="call">Call</string>
     <string name="message">Message</string>
+    <string name="messageall">Message all</string>
     <string name="unknown">Unknown</string>
     <string name="enable_draw_over_apps">Enable draw over apps</string>
     <string name="enable_draw_over_apps_detail">This will allow app to show the calling person\'s name on screen during call</string>

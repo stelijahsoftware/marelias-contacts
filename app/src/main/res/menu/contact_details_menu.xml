@@ -9,11 +9,11 @@
     <item
         android:id="@+id/image_button_delete_contact"
         android:icon="@drawable/delete"
-        android:title="@string/delete"
-        app:showAsAction="always" />
+        android:title="@string/deletecontact"
+        app:showAsAction="never" />
     <item
         android:id="@+id/image_button_export_to_contacts_app"
         android:icon="@drawable/import_export"
-        android:title="@string/export"
-        app:showAsAction="always" />
+        android:title="@string/exporttophonecontacts"
+        app:showAsAction="never" />
 </menu>
