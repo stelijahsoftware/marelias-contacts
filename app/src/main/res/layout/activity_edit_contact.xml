@@ -71,31 +71,31 @@
                 android:hint="@string/phone_number"
                 android:inputType="phone" />
 
-
-            <org.marelias.contacts.components.fieldcollections.textinputspinnerfieldcollection.TextInputAndSpinnerFieldCollection
-                android:id="@+id/emails"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/groups_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/phonenumbers"
-                android:layout_marginBottom="20dp"
-                android:entries="@array/email_types"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress" />
+                android:layout_marginTop="20dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:text="@string/groups"
+                android:layout_below="@id/phonenumbers" />
 
-            <org.marelias.contacts.components.fieldcollections.addressfieldcollection.AddressFieldCollection
-                android:id="@+id/addresses"
+            <com.thomashaertel.widget.MultiSpinner
+                android:id="@+id/groups"
+                android:hint="@string/groups"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/emails"
-                android:layout_marginBottom="20dp"
-                android:title="@string/address" />
+                android:layout_below="@id/groups_title"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/notes_text_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/notes"
-                android:layout_below="@id/addresses">
+                android:layout_below="@id/groups"
+                android:layout_marginTop="20dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/notes"
@@ -105,25 +105,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/website_text_input_layout"
-                android:layout_below="@id/notes_text_input_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:hint="@string/website"
-                android:layout_marginTop="21dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/website"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textUri" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/date_of_birth_text_input_layout"
-                android:layout_below="@id/website_text_input_layout"
+                android:layout_below="@id/notes_text_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -138,22 +121,41 @@
                     android:focusable="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/groups_title"
+            <org.marelias.contacts.components.fieldcollections.textinputspinnerfieldcollection.TextInputAndSpinnerFieldCollection
+                android:id="@+id/emails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/date_of_birth_text_input_layout"
                 android:layout_marginTop="20dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:text="@string/groups"
-                android:layout_below="@id/date_of_birth_text_input_layout" />
+                android:layout_marginBottom="20dp"
+                android:entries="@array/email_types"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress" />
 
-            <com.thomashaertel.widget.MultiSpinner
-                android:id="@+id/groups"
-                android:hint="@string/groups"
+            <org.marelias.contacts.components.fieldcollections.addressfieldcollection.AddressFieldCollection
+                android:id="@+id/addresses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/groups_title"
-                android:layout_marginTop="8dp" />
+                android:layout_below="@id/emails"
+                android:layout_marginBottom="20dp"
+                android:title="@string/address" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/website_text_input_layout"
+                android:layout_below="@id/addresses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:hint="@string/website"
+                android:layout_marginTop="21dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/website"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textUri" />
+            </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
     </ScrollView>
 
