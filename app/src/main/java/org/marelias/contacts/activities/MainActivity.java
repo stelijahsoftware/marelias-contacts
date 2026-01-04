@@ -19,9 +19,10 @@ import static org.marelias.contacts.utils.AndroidUtils.setColorFilterUsingColor;
 import static org.marelias.contacts.utils.AndroidUtils.wrapInConfirmation;
 import static org.marelias.contacts.utils.DomainUtils.handleExportLocationChooserResult;
 import static org.marelias.contacts.utils.SharedPreferencesUtils.getDefaultTab;
-
 import static org.marelias.contacts.utils.SharedPreferencesUtils.hasExportLocation;
 import static org.marelias.contacts.utils.SharedPreferencesUtils.markPermissionsAsked;
+import static org.marelias.contacts.utils.SharedPreferencesUtils.setSortContactsByName;
+import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldSortContactsByName;
 //import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldBottomMenuOpenByDefault;
 
 import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldKeyboardResizeViews;
@@ -367,6 +368,21 @@ public class MainActivity extends AppBaseActivity {
 
         menu.findItem(R.id.action_birthdays).setOnMenuItemClickListener(getMenuItemClickHandlerFor(this::showBirthdaysDialog));
 
+        MenuItem sortMenuItem = menu.findItem(R.id.action_sort_by_name);
+        if (sortMenuItem != null) {
+            updateSortMenuItemTitle(sortMenuItem);
+            sortMenuItem.setOnMenuItemClickListener(item -> {
+                boolean currentSortByName = shouldSortContactsByName(this);
+                setSortContactsByName(!currentSortByName, this);
+                updateSortMenuItemTitle(item);
+                // Refresh the contacts list
+                if (contactsFragment != null && contactsFragment.getContactsListView() != null) {
+                    contactsFragment.getContactsListView().refreshSorting();
+                }
+                return true;
+            });
+        }
+
         menu.findItem(R.id.action_preferences).setOnMenuItemClickListener(getMenuItemClickHandlerFor(() ->
             startActivityForResult(new Intent(MainActivity.this, PreferencesActivity.class), PREFERENCES_ACTIVITY_RESULT)
         ));
@@ -544,6 +560,12 @@ public class MainActivity extends AppBaseActivity {
     public void collapseSearchView() {
         if (searchItem != null)
             searchItem.collapseActionView(); // happens when app hasn't even got menu items callback
+    }
+
+    private void updateSortMenuItemTitle(MenuItem item) {
+        if (item != null) {
+            item.setTitle(shouldSortContactsByName(this) ? R.string.sort_by_date : R.string.sort_by_name);
+        }
     }
 
 /*

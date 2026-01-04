@@ -4,6 +4,8 @@ import static android.text.TextUtils.isEmpty;
 import static org.marelias.contacts.utils.AndroidUtils.getASpaceOfHeight;
 import static org.marelias.contacts.utils.DomainUtils.getContactComparatorBasedOnName;
 import static org.marelias.contacts.utils.DomainUtils.sortContactsBasedOnCreationDate;
+import static org.marelias.contacts.utils.DomainUtils.sortContactsBasedOnName;
+import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldSortContactsByName;
 
 import android.content.Context;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -105,13 +107,21 @@ public class ContactsListView extends ListView implements DataStoreChangeListene
 
     @Override
     public void onStoreRefreshed() {
-        contacts = sortContactsBasedOnCreationDate(ContactsDataStore.getAllContacts(), context);
+        if (shouldSortContactsByName(context)) {
+            contacts = sortContactsBasedOnName(ContactsDataStore.getAllContacts(), context);
+        } else {
+            contacts = sortContactsBasedOnCreationDate(ContactsDataStore.getAllContacts(), context);
+        }
         moveFavoritesToTop();
         post(() -> {
             addContactsToAdapter();
             updateHeaderWithContactsCount();
             adapter.contactsListFilter.mapAsync(contacts);
         });
+    }
+
+    public void refreshSorting() {
+        onStoreRefreshed();
     }
 
     private void moveFavoritesToTop() {

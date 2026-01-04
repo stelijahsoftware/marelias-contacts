@@ -51,6 +51,7 @@ public class SharedPreferencesUtils {
     public static final int WEEKS_TIME_IN_HOURS = 24 * 7;
     public static final String ENCRYPTING_CONTACTS_EXPORT_KEY = "encryptingContactsExportKey";
     public static final String SORT_USING_FIRST_NAME = "sortUsingFirstName";
+    public static final String SORT_CONTACTS_BY_NAME = "sortContactsByName";
     public static final String LOCK_TO_PORTRAIT = "lockToPortrait";
     public static final String SINGLE_CONTACT_WIDGET_TO_CONTACT_MAPPING = "singleContactWidgetToContactMapping";
     public static final String SHOULD_ASK_FOR_PERMISSIONS = "SHOULD_ASK_FOR_PERMISSIONS";
@@ -188,6 +189,14 @@ public class SharedPreferencesUtils {
 
     public static boolean shouldSortUsingFirstName(Context context) {
         return getBoolean(SORT_USING_FIRST_NAME, true, context);
+    }
+
+    public static boolean shouldSortContactsByName(Context context) {
+        return getBoolean(SORT_CONTACTS_BY_NAME, false, context);
+    }
+
+    public static void setSortContactsByName(boolean sortByName, Context context) {
+        updatePreference(SORT_CONTACTS_BY_NAME, sortByName, context);
     }
 
     public static boolean shouldLockToPortrait(Context context) {

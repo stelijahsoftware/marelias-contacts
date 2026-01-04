@@ -77,6 +77,10 @@ public class ContactsFragment extends AppBaseFragment implements SelectableTab {
         });
     }
 
+    public ContactsListView getContactsListView() {
+        return contactsListView;
+    }
+
     @Override
     public void onDestroy() {
         contactsListView.onDestroy();
