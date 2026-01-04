@@ -8,6 +8,7 @@ import static org.marelias.contacts.utils.SharedPreferencesUtils.defaultSocialAp
 import static org.marelias.contacts.utils.SharedPreferencesUtils.isT9SearchEnabled;
 import static org.marelias.contacts.utils.SharedPreferencesUtils.isSocialIntegrationEnabled;
 import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldToggleContactActions;
+import static org.marelias.contacts.utils.AndroidUtils.getThemeAttributeColor;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -17,9 +18,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.marelias.contacts.components.ImageButtonWithTint;
 import org.marelias.contacts.domain.Contact;
@@ -128,11 +132,50 @@ public class ContactsListViewAdapter extends ArrayAdapter<Contact> {
             socialIcon.setVisibility(VISIBLE);
             socialIcon.setContentDescription(defaultSocialAppEnabled(context) + " " + contact.name);
         } else socialIcon.setVisibility(GONE);
-        ImageView groupIndicator = convertView.findViewById(R.id.group_indicator);
-        if (groupIndicator != null) {
-            boolean hasGroups = contact != null && !contact.getGroupNames().isEmpty();
-            groupIndicator.setVisibility(hasGroups ? VISIBLE : GONE);
+
+        // Handle groups display - each group on a separate line
+        LinearLayout groupsContainer = convertView.findViewById(R.id.groups_container);
+        if (groupsContainer != null) {
+            List<String> groupNames = contact != null ? contact.getGroupNames() : Collections.emptyList();
+            boolean hasGroups = !groupNames.isEmpty();
+
+            if (hasGroups) {
+                // Remove all existing group views
+                groupsContainer.removeAllViews();
+
+                // Create a row for each group
+                int iconSize = (int) android.util.TypedValue.applyDimension(android.util.TypedValue.COMPLEX_UNIT_DIP, 14, context.getResources().getDisplayMetrics());
+                int iconMargin = (int) android.util.TypedValue.applyDimension(android.util.TypedValue.COMPLEX_UNIT_DIP, 4, context.getResources().getDisplayMetrics());
+
+                for (String groupName : groupNames) {
+                    LinearLayout groupRow = new LinearLayout(context);
+                    groupRow.setOrientation(LinearLayout.HORIZONTAL);
+                    groupRow.setGravity(android.view.Gravity.CENTER_VERTICAL);
+
+                    ImageView groupIcon = new ImageView(context);
+                    groupIcon.setImageResource(R.drawable.ic_group_merge_contacts_24dp);
+                    LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(iconSize, iconSize);
+                    iconParams.setMarginEnd(iconMargin);
+                    iconParams.setMarginStart(0);
+                    groupIcon.setLayoutParams(iconParams);
+                    groupIcon.setContentDescription(context.getString(R.string.group_indicator));
+
+                    TextView groupTextView = new TextView(context);
+                    groupTextView.setText(groupName);
+                    groupTextView.setTextAppearance(androidx.appcompat.R.style.TextAppearance_AppCompat_Caption);
+                    groupTextView.setTextColor(getThemeAttributeColor(android.R.attr.textColorSecondary, context));
+
+                    groupRow.addView(groupIcon);
+                    groupRow.addView(groupTextView);
+                    groupsContainer.addView(groupRow);
+                }
+
+                groupsContainer.setVisibility(VISIBLE);
+            } else {
+                groupsContainer.setVisibility(GONE);
+            }
         }
+
         convertView.setTag(contact);
         View contactDetails = convertView.findViewById(R.id.contact_details);
         contactDetails.setOnClickListener(showContactDetails);

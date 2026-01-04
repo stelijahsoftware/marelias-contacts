@@ -16,40 +16,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
-        <LinearLayout
-            android:id="@+id/name_container"
+        <TextView
+            android:id="@+id/textview_full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textview_full_name"
-                android:text="name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="?android:textColorPrimary"
-                />
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:id="@+id/group_indicator"
-                android:src="@drawable/ic_group_merge_contacts_24dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginStart="6dp"
-                android:contentDescription="@string/group_indicator"
-                android:visibility="gone" />
-        </LinearLayout>
+            android:text="name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="?android:textColorPrimary"
+            />
 
         <TextView
-            android:layout_below="@id/name_container"
+            android:layout_below="@id/textview_full_name"
             android:text="phone_number"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textview_phone_number"
             />
+
+        <LinearLayout
+            android:id="@+id/groups_container"
+            android:layout_below="@id/textview_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" />
     </RelativeLayout>
     <org.marelias.contacts.components.ImageButtonWithTint
         android:layout_marginLeft="5dp"
