@@ -161,7 +161,10 @@ public class ContactDetailsActivity extends AppBaseActivity {
         groupsCard.setVisibility(VISIBLE);
         AppCompatTextView groupsTextView = groupsCard.findViewById(R.id.text_view);
         groupsTextView.setText(Contact.getGroupsNamesCSVString(categories).replaceAll(",", ", "));
-        groupsTextView.setOnClickListener(v -> startActivity(new Intent(this, GroupsActivity.class)));
+        groupsTextView.setClickable(false);
+        groupsTextView.setFocusable(false);
+        groupsTextView.setBackground(null);
+        groupsTextView.setOnClickListener(null);
     }
 
     private void fillWebsite() {
