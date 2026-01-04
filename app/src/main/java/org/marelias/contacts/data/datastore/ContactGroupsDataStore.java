@@ -1,6 +1,7 @@
 package org.marelias.contacts.data.datastore;
 
 
+import static org.marelias.contacts.data.datastore.ContactsDataStore.getAllContactsSync;
 import static org.marelias.contacts.utils.AndroidUtils.processAsync;
 import static org.marelias.contacts.utils.AndroidUtils.toastFromNonUIThread;
 import static org.marelias.contacts.utils.Common.getOrDefault;
@@ -78,9 +79,31 @@ public class ContactGroupsDataStore {
     }
 
     public static void updateGroup(List<Contact> newContacts, String newGroupName, ContactGroup group) {
-        if (!newGroupName.equals(group.getName())) {
-            destroyGroup(group);
+        String oldGroupName = group.getName();
+        if (!newGroupName.equals(oldGroupName)) {
+            // When renaming, we need to replace the old group name with the new one in all contacts
+            // Get ALL contacts from database to ensure we catch all contacts with the old group name
+            List<Contact> allContacts = ContactsDataStore.getAllContactsSync();
+
+            // Find all contacts that have the old group name and remove it
+            U.chain(allContacts)
+                .filter(contact -> contact.getGroupNames().contains(oldGroupName))
+                .forEach(contact -> {
+                    // Remove the old group name from the contact
+                    contact.removeGroup(oldGroupName);
+                    updateContactTable(contact);
+                    updateVCardTable(contact, contact.getGroupNames());
+                });
+
+            // Remove old group from map
+            groupsMap.remove(oldGroupName);
+
+            // Create new group with new name and add contacts
             createNewGroup(newContacts, newGroupName);
+
+            // Invalidate groups cache so it gets recomputed from database
+            invalidateGroups();
+            computeGroupsAsync();
             return;
         }
         Collection<Contact> removedContacts = U.reject(group.contacts, newContacts::contains);
