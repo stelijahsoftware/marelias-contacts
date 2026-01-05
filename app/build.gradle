@@ -5,8 +5,8 @@ android {
     defaultConfig {
         resValue "string", "manifest_package_id", "org.marelias.contacts"
         applicationId "org.marelias.contacts"
-        versionName "1.3.1" // x.x.xx
-        versionCode 1301
+        versionName "1.3.2" // x.x.xx
+        versionCode 1302
 
         multiDexEnabled true
         minSdkVersion 24
