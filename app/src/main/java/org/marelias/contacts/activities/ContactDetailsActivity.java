@@ -144,7 +144,6 @@ public class ContactDetailsActivity extends AppBaseActivity {
         if (vcard == null) return;
         fillPhoneNumbers();
         fillEmailAddress();
-        fillAddress();
         fillNotes();
         fillDateOfBirth();
         fillWebsite();
@@ -161,9 +160,6 @@ public class ContactDetailsActivity extends AppBaseActivity {
         groupsCard.setVisibility(VISIBLE);
         AppCompatTextView groupsTextView = groupsCard.findViewById(R.id.text_view);
         groupsTextView.setText(Contact.getGroupsNamesCSVString(categories).replaceAll(",", ", "));
-        groupsTextView.setClickable(false);
-        groupsTextView.setFocusable(false);
-        groupsTextView.setBackground(null);
         groupsTextView.setOnClickListener(null);
     }
 
@@ -177,7 +173,7 @@ public class ContactDetailsActivity extends AppBaseActivity {
         websiteCard.setVisibility(VISIBLE);
         AppCompatTextView websiteTextView = websiteCard.findViewById(R.id.text_view);
         websiteTextView.setText(url.getValue());
-        websiteTextView.setOnClickListener(v -> AndroidUtils.goToUrl(url.getValue(), this));
+        websiteTextView.setOnClickListener(v -> copyToClipboard(url.getValue(), true, this));
     }
 
     private void fillDateOfBirth() {
@@ -190,10 +186,7 @@ public class ContactDetailsActivity extends AppBaseActivity {
         birthDayCard.setVisibility(VISIBLE);
         AppCompatTextView birthDayTextView = birthDayCard.findViewById(R.id.text_view);
         birthDayTextView.setText(getFormattedDate(birthday.getDate()));
-        birthDayTextView.setOnClickListener(v -> {
-            Intent intent = getIntentToAddFullDayEventOnCalendar(birthday.getDate(), getString(R.string.calendar_event_title_birthday, contact.name));
-            startActivity(intent);
-        });
+        birthDayTextView.setOnClickListener(null);
     }
 
 
@@ -213,22 +206,6 @@ public class ContactDetailsActivity extends AppBaseActivity {
         notesCard.setVisibility(VISIBLE);
     }
 
-    private void fillAddress() {
-        if (U.isEmpty(vcard.getAddresses())) {
-            findViewById(R.id.address_card).setVisibility(GONE);
-            return;
-        }
-        findViewById(R.id.address_card).setVisibility(VISIBLE);
-        addressLinearLayout.removeAllViews();
-        List<Address> addresses = vcard.getAddresses();
-        ExpandedList addressesExpandedListView = new ExpandedList.Builder(this)
-            .withOnItemClickListener(index -> openMap(addresses.get(index).getStreetAddress(), this))
-            .withItems(U.map(addresses, address -> new Pair<>(formatAddressToAMultiLineString(address, this), getAddressTypeTranslatedText(address, this))))
-            .withOnItemLongClickListener(index -> copyToClipboard(formatAddressToAMultiLineString(addresses.get(index), this), true, this))
-            .build();
-        addressLinearLayout.addView(addressesExpandedListView);
-    }
-
     private void fillEmailAddress() {
         if (U.isEmpty(vcard.getEmails())) {
             findViewById(R.id.email_card).setVisibility(GONE);
@@ -238,9 +215,8 @@ public class ContactDetailsActivity extends AppBaseActivity {
         emailAddressLinearLayout.removeAllViews();
         List<Email> emails = vcard.getEmails();
         ExpandedList emailsExpandedListView = new ExpandedList.Builder(this)
-            .withOnItemClickListener(index -> AndroidUtils.email(emails.get(index).getValue(), this))
+            .withOnItemClickListener(index -> copyToClipboard(emails.get(index).getValue(), true, this))
             .withItems(U.map(emails, email -> new Pair<>(email.getValue(), DomainUtils.getEmailTypeTranslatedText(email.getTypes(), this))))
-            .withOnItemLongClickListener(index -> copyToClipboard(emails.get(index).getValue(), true, this))
             .build();
         emailAddressLinearLayout.addView(emailsExpandedListView);
     }
