@@ -20,7 +20,6 @@ import java.util.UUID;
 import ezvcard.VCard;
 import ezvcard.VCardVersion;
 import ezvcard.io.text.VCardReader;
-import ezvcard.property.Address;
 import ezvcard.property.Birthday;
 import ezvcard.property.Categories;
 import ezvcard.property.Email;
@@ -100,7 +99,6 @@ public class VCardUtils {
         }
 
         mergedCard.getTelephoneNumbers().addAll(getExtraVCardProperties(primaryVCard, secondaryVcard, Telephone.class));
-        mergedCard.getAddresses().addAll(getExtraVCardProperties(primaryVCard, secondaryVcard, Address.class));
         mergedCard.getNotes().addAll(getExtraVCardTextProperties(primaryVCard, secondaryVcard, Note.class));
         mergedCard.getEmails().addAll(getExtraVCardTextProperties(primaryVCard, secondaryVcard, Email.class));
         mergedCard.getUrls().addAll(getExtraVCardTextProperties(primaryVCard, secondaryVcard, Url.class));
@@ -205,13 +203,6 @@ public class VCardUtils {
 
     public static void setCategories(List<String> categories, VCard vcard) {
         vcard.setCategories(categories.toArray(new String[]{}));
-    }
-
-    public static boolean isEmptyAddress(Address address) {
-        if (address == null) return true;
-        Address tempAddressToRemoveTypes = address.copy();
-        tempAddressToRemoveTypes.getTypes().clear();
-        return new Address().equals(tempAddressToRemoveTypes);
     }
 
 }
