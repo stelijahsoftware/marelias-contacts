@@ -48,7 +48,6 @@ import ezvcard.property.StructuredName;
 import ezvcard.property.Telephone;
 import ezvcard.property.Url;
 import org.marelias.contacts.R;
-import org.marelias.contacts.components.fieldcollections.addressfieldcollection.AddressFieldCollection;
 import org.marelias.contacts.components.fieldcollections.textinputspinnerfieldcollection.TextInputAndSpinnerFieldCollection;
 import org.marelias.contacts.data.datastore.ContactGroupsDataStore;
 import org.marelias.contacts.data.datastore.ContactsDataStore;
@@ -71,7 +70,7 @@ public class EditContactActivity extends AppBaseActivity {
     private VCard vcardBeforeEdit;
     private TextInputAndSpinnerFieldCollection phoneNumbersInputCollection;
     private TextInputAndSpinnerFieldCollection emailsInputCollection;
-    private AddressFieldCollection addressesInputCollection;
+//    private AddressFieldCollection addressesInputCollection;
     private TextInputEditText notesTextInputEditText;
     private TextInputEditText websiteTextInputEditText;
     private TextInputEditText dateOfBirthTextInputEditText;
@@ -137,7 +136,7 @@ public class EditContactActivity extends AppBaseActivity {
         editText_lastName = findViewById(R.id.editLastName);
         phoneNumbersInputCollection = findViewById(R.id.phonenumbers);
         emailsInputCollection = findViewById(R.id.emails);
-        addressesInputCollection = findViewById(R.id.addresses);
+//        addressesInputCollection = findViewById(R.id.addresses);
         notesTextInputEditText = findViewById(R.id.notes);
         websiteTextInputEditText = findViewById(R.id.website);
         dateOfBirthTextInputEditText = findViewById(R.id.date_of_birth);
@@ -158,7 +157,7 @@ public class EditContactActivity extends AppBaseActivity {
     private void fillFieldsFromVCard() {
         fillTelephoneNumbers();
         fillEmails();
-        fillAddress();
+//        fillAddress();
         fillNotes();
         fillWebsite();
         fillDateOfBirth();
@@ -205,9 +204,9 @@ public class EditContactActivity extends AppBaseActivity {
         notesTextInputEditText.setText(note.getValue());
     }
 
-    private void fillAddress() {
-        addressesInputCollection.setAddresses(vcardBeforeEdit.getAddresses());
-    }
+//    private void fillAddress() {
+//        addressesInputCollection.setAddresses(vcardBeforeEdit.getAddresses());
+//    }
 
     private void fillEmails() {
         List<Email> emails = vcardBeforeEdit.getEmails();
@@ -265,7 +264,7 @@ public class EditContactActivity extends AppBaseActivity {
         newVCard.setStructuredName(getStructuredName(firstName, lastName));
         addTelephoneNumbersFromFieldsToNewVCard(newVCard);
         addEmailsFromFieldsToNewVCard(newVCard);
-        addAddressFromFieldsToNewVCard(newVCard);
+//        addAddressFromFieldsToNewVCard(newVCard);
         addNotesFromFieldsToNewVCard(newVCard);
         addWebsiteFromFieldsToNewVCard(newVCard);
         addDateOfBirthFromFieldsToNewVCard(newVCard);
@@ -299,11 +298,11 @@ public class EditContactActivity extends AppBaseActivity {
         newVCard.addNote(notes);
     }
 
-    private void addAddressFromFieldsToNewVCard(VCard newVCard) {
-        if (addressesInputCollection.isEmpty()) return;
-        U.chain(addressesInputCollection.getAllAddresses())
-            .forEach(newVCard::addAddress);
-    }
+//    private void addAddressFromFieldsToNewVCard(VCard newVCard) {
+//        if (addressesInputCollection.isEmpty()) return;
+//        U.chain(addressesInputCollection.getAllAddresses())
+//            .forEach(newVCard::addAddress);
+//    }
 
     private void addEmailsFromFieldsToNewVCard(VCard newVCard) {
         if (emailsInputCollection.isEmpty()) return;

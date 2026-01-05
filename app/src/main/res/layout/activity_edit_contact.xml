@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/groups_title"
                 android:layout_marginTop="0dp"
-                android:layout_marginBottom="0dp"
+                android:layout_marginBottom="8dp"
                 android:minHeight="32dp"
                 android:background="@drawable/groups_spinner_border"
                 android:padding="8dp">
@@ -142,23 +142,15 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress" />
 
-            <org.marelias.contacts.components.fieldcollections.addressfieldcollection.AddressFieldCollection
-                android:id="@+id/addresses"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/emails"
-                android:layout_marginBottom="20dp"
-                android:title="@string/address" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/website_text_input_layout"
-                android:layout_below="@id/addresses"
+                android:layout_below="@id/emails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:hint="@string/website"
-                android:layout_marginTop="21dp">
+                android:layout_marginTop="8dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/website"
