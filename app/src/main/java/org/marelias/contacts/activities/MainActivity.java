@@ -21,8 +21,11 @@ import static org.marelias.contacts.utils.DomainUtils.handleExportLocationChoose
 import static org.marelias.contacts.utils.SharedPreferencesUtils.getDefaultTab;
 import static org.marelias.contacts.utils.SharedPreferencesUtils.hasExportLocation;
 import static org.marelias.contacts.utils.SharedPreferencesUtils.markPermissionsAsked;
-import static org.marelias.contacts.utils.SharedPreferencesUtils.setSortContactsByName;
-import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldSortContactsByName;
+import static org.marelias.contacts.utils.SharedPreferencesUtils.getSortContactsMode;
+import static org.marelias.contacts.utils.SharedPreferencesUtils.setSortContactsMode;
+import static org.marelias.contacts.utils.SharedPreferencesUtils.SORT_MODE_NAME;
+import static org.marelias.contacts.utils.SharedPreferencesUtils.SORT_MODE_DATE;
+import static org.marelias.contacts.utils.SharedPreferencesUtils.SORT_MODE_GROUP;
 //import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldBottomMenuOpenByDefault;
 
 import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldKeyboardResizeViews;
@@ -43,6 +46,7 @@ import android.text.Spanned;
 import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.Toast;
 
@@ -368,17 +372,28 @@ public class MainActivity extends AppBaseActivity {
 
         menu.findItem(R.id.action_birthdays).setOnMenuItemClickListener(getMenuItemClickHandlerFor(this::showBirthdaysDialog));
 
-        MenuItem sortMenuItem = menu.findItem(R.id.action_sort_by_name);
-        if (sortMenuItem != null) {
-            updateSortMenuItemTitle(sortMenuItem);
-            sortMenuItem.setOnMenuItemClickListener(item -> {
-                boolean currentSortByName = shouldSortContactsByName(this);
-                setSortContactsByName(!currentSortByName, this);
-                updateSortMenuItemTitle(item);
-                // Refresh the contacts list
-                if (contactsFragment != null && contactsFragment.getContactsListView() != null) {
-                    contactsFragment.getContactsListView().refreshSorting();
-                }
+        // Set up sort menu items
+        MenuItem sortByMenuItem = menu.findItem(R.id.action_sort_by);
+        if (sortByMenuItem != null && sortByMenuItem.getSubMenu() != null) {
+            SubMenu sortSubMenu = sortByMenuItem.getSubMenu();
+            updateSortMenuItems(sortSubMenu);
+
+            sortSubMenu.findItem(R.id.action_sort_by_name).setOnMenuItemClickListener(item -> {
+                setSortContactsMode(SORT_MODE_NAME, this);
+                updateSortMenuItems(sortSubMenu);
+                refreshContactsList();
+                return true;
+            });
+            sortSubMenu.findItem(R.id.action_sort_by_date).setOnMenuItemClickListener(item -> {
+                setSortContactsMode(SORT_MODE_DATE, this);
+                updateSortMenuItems(sortSubMenu);
+                refreshContactsList();
+                return true;
+            });
+            sortSubMenu.findItem(R.id.action_sort_by_group).setOnMenuItemClickListener(item -> {
+                setSortContactsMode(SORT_MODE_GROUP, this);
+                updateSortMenuItems(sortSubMenu);
+                refreshContactsList();
                 return true;
             });
         }
@@ -562,9 +577,33 @@ public class MainActivity extends AppBaseActivity {
             searchItem.collapseActionView(); // happens when app hasn't even got menu items callback
     }
 
-    private void updateSortMenuItemTitle(MenuItem item) {
+    private void updateSortMenuItems(SubMenu sortSubMenu) {
+        String currentSortMode = getSortContactsMode(this);
+        MenuItem nameItem = sortSubMenu.findItem(R.id.action_sort_by_name);
+        MenuItem dateItem = sortSubMenu.findItem(R.id.action_sort_by_date);
+        MenuItem groupItem = sortSubMenu.findItem(R.id.action_sort_by_group);
+
+        updateMenuItemTitle(nameItem, R.string.sort_by_name, SORT_MODE_NAME.equals(currentSortMode));
+        updateMenuItemTitle(dateItem, R.string.sort_by_date, SORT_MODE_DATE.equals(currentSortMode));
+        updateMenuItemTitle(groupItem, R.string.sort_by_group, SORT_MODE_GROUP.equals(currentSortMode));
+    }
+
+    private void updateMenuItemTitle(MenuItem item, int stringResId, boolean isSelected) {
         if (item != null) {
-            item.setTitle(shouldSortContactsByName(this) ? R.string.sort_by_date : R.string.sort_by_name);
+            String title = getString(stringResId);
+            if (isSelected) {
+                SpannableString spannableTitle = new SpannableString(title);
+                spannableTitle.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                item.setTitle(spannableTitle);
+            } else {
+                item.setTitle(title);
+            }
+        }
+    }
+
+    private void refreshContactsList() {
+        if (contactsFragment != null && contactsFragment.getContactsListView() != null) {
+            contactsFragment.getContactsListView().refreshSorting();
         }
     }
 

@@ -147,8 +147,10 @@
     <string name="birthday_banner_prefix">Birthday:</string>
     <string name="birthdays">Birthdays</string>
     <string name="no_birthdays_found">No contacts with birthdays found</string>
-    <string name="sort_by_name">Sort by name</string>
-    <string name="sort_by_date">Sort by date</string>
+    <string name="sort_by">Sort by</string>
+    <string name="sort_by_name">Name</string>
+    <string name="sort_by_date">Date</string>
+    <string name="sort_by_group">Group</string>
     <string name="website">Website</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="invalid_url">Invalid url</string>

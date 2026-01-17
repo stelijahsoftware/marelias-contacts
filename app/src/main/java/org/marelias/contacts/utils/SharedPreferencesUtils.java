@@ -52,6 +52,10 @@ public class SharedPreferencesUtils {
     public static final String ENCRYPTING_CONTACTS_EXPORT_KEY = "encryptingContactsExportKey";
     public static final String SORT_USING_FIRST_NAME = "sortUsingFirstName";
     public static final String SORT_CONTACTS_BY_NAME = "sortContactsByName";
+    public static final String SORT_CONTACTS_MODE = "sortContactsMode";
+    public static final String SORT_MODE_NAME = "name";
+    public static final String SORT_MODE_DATE = "date";
+    public static final String SORT_MODE_GROUP = "group";
     public static final String LOCK_TO_PORTRAIT = "lockToPortrait";
     public static final String SINGLE_CONTACT_WIDGET_TO_CONTACT_MAPPING = "singleContactWidgetToContactMapping";
     public static final String SHOULD_ASK_FOR_PERMISSIONS = "SHOULD_ASK_FOR_PERMISSIONS";
@@ -192,11 +196,28 @@ public class SharedPreferencesUtils {
     }
 
     public static boolean shouldSortContactsByName(Context context) {
-        return getBoolean(SORT_CONTACTS_BY_NAME, false, context);
+        // Legacy support: check old boolean preference first
+        boolean legacySortByName = getBoolean(SORT_CONTACTS_BY_NAME, false, context);
+        if (legacySortByName) {
+            // Migrate to new preference system
+            setSortContactsMode(SORT_MODE_NAME, context);
+            return true;
+        }
+        String sortMode = getStringFromPreferences(SORT_CONTACTS_MODE, SORT_MODE_DATE, context);
+        return SORT_MODE_NAME.equals(sortMode);
     }
 
     public static void setSortContactsByName(boolean sortByName, Context context) {
-        updatePreference(SORT_CONTACTS_BY_NAME, sortByName, context);
+        // Legacy method - update to use new preference system
+        setSortContactsMode(sortByName ? SORT_MODE_NAME : SORT_MODE_DATE, context);
+    }
+
+    public static String getSortContactsMode(Context context) {
+        return getStringFromPreferences(SORT_CONTACTS_MODE, SORT_MODE_DATE, context);
+    }
+
+    public static void setSortContactsMode(String sortMode, Context context) {
+        updatePreference(SORT_CONTACTS_MODE, sortMode, context);
     }
 
     public static boolean shouldLockToPortrait(Context context) {

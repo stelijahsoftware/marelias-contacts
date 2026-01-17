@@ -1,3 +1,6 @@
+# v1.4.0
+- add sorting option (name/date/group)
+
 # v1.3.2:
 - Removed unneeded actions when clicking on a contact detail
 - Removed unused Address field

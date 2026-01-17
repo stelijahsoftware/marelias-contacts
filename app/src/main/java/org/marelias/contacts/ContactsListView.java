@@ -5,7 +5,11 @@ import static org.marelias.contacts.utils.AndroidUtils.getASpaceOfHeight;
 import static org.marelias.contacts.utils.DomainUtils.getContactComparatorBasedOnName;
 import static org.marelias.contacts.utils.DomainUtils.sortContactsBasedOnCreationDate;
 import static org.marelias.contacts.utils.DomainUtils.sortContactsBasedOnName;
-import static org.marelias.contacts.utils.SharedPreferencesUtils.shouldSortContactsByName;
+import static org.marelias.contacts.utils.DomainUtils.sortContactsBasedOnGroup;
+import static org.marelias.contacts.utils.SharedPreferencesUtils.getSortContactsMode;
+import static org.marelias.contacts.utils.SharedPreferencesUtils.SORT_MODE_NAME;
+import static org.marelias.contacts.utils.SharedPreferencesUtils.SORT_MODE_DATE;
+import static org.marelias.contacts.utils.SharedPreferencesUtils.SORT_MODE_GROUP;
 
 import android.content.Context;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -107,9 +111,13 @@ public class ContactsListView extends ListView implements DataStoreChangeListene
 
     @Override
     public void onStoreRefreshed() {
-        if (shouldSortContactsByName(context)) {
+        String sortMode = getSortContactsMode(context);
+        if (SORT_MODE_NAME.equals(sortMode)) {
             contacts = sortContactsBasedOnName(ContactsDataStore.getAllContacts(), context);
+        } else if (SORT_MODE_GROUP.equals(sortMode)) {
+            contacts = sortContactsBasedOnGroup(ContactsDataStore.getAllContacts(), context);
         } else {
+            // Default to date sorting
             contacts = sortContactsBasedOnCreationDate(ContactsDataStore.getAllContacts(), context);
         }
         moveFavoritesToTop();

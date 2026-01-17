@@ -22,9 +22,26 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_sort_by_name"
-        android:title="@string/sort_by_name"
-        app:showAsAction="never" />
+        android:id="@+id/action_sort_by"
+        android:title="@string/sort_by"
+        app:showAsAction="never">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_sort_by_name"
+                    android:title="@string/sort_by_name"
+                    android:checkable="false" />
+                <item
+                    android:id="@+id/action_sort_by_date"
+                    android:title="@string/sort_by_date"
+                    android:checkable="false" />
+                <item
+                    android:id="@+id/action_sort_by_group"
+                    android:title="@string/sort_by_group"
+                    android:checkable="false" />
+            </group>
+        </menu>
+    </item>
 
     <item
         android:id="@+id/button_new"

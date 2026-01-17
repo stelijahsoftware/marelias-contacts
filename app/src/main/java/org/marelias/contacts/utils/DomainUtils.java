@@ -445,9 +445,40 @@ public class DomainUtils {
         };
     }
 
+    @NonNull
+    public static Comparator<Contact> getContactComparatorBasedOnGroup(Context context) {
+        return (contact1, contact2) -> {
+            List<String> groups1 = contact1.getGroupNames();
+            List<String> groups2 = contact2.getGroupNames();
+
+            // Contacts without groups go to the end
+            if (groups1.isEmpty() && groups2.isEmpty()) return 0;
+            if (groups1.isEmpty()) return 1;
+            if (groups2.isEmpty()) return -1;
+
+            // Sort by first group name alphabetically
+            String firstGroup1 = groups1.get(0);
+            String firstGroup2 = groups2.get(0);
+            int groupComparison = firstGroup1.compareToIgnoreCase(firstGroup2);
+
+            // If groups are the same, sort by name as secondary sort
+            if (groupComparison == 0) {
+                return getContactComparatorBasedOnName(context).compare(contact1, contact2);
+            }
+
+            return groupComparison;
+        };
+    }
+
     public static List<Contact> sortContactsBasedOnCreationDate(Collection<Contact> contacts, Context context) {
         List<Contact> newContactsList = U.copyOf(contacts);
         Collections.sort(newContactsList, getContactComparatorBasedOnCreationDate());
+        return newContactsList;
+    }
+
+    public static List<Contact> sortContactsBasedOnGroup(Collection<Contact> contacts, Context context) {
+        List<Contact> newContactsList = U.copyOf(contacts);
+        Collections.sort(newContactsList, getContactComparatorBasedOnGroup(context));
         return newContactsList;
     }
 
