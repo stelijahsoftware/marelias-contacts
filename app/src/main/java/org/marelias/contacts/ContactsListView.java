@@ -77,16 +77,24 @@ public class ContactsListView extends ListView implements DataStoreChangeListene
     @Override
     public void onUpdate(final Contact contact) {
         this.post(() -> {
-            contacts.remove(contact);
-            contacts.add(contact);
+            // Re-sort the entire list to maintain sort order
+            String sortMode = getSortContactsMode(context);
+            if (SORT_MODE_NAME.equals(sortMode)) {
+                contacts = sortContactsBasedOnName(ContactsDataStore.getAllContacts(), context);
+            } else if (SORT_MODE_GROUP.equals(sortMode)) {
+                contacts = sortContactsBasedOnGroup(ContactsDataStore.getAllContacts(), context);
+            } else {
+                // Default to date sorting
+                contacts = sortContactsBasedOnCreationDate(ContactsDataStore.getAllContacts(), context);
+            }
+            moveFavoritesToTop();
 
-            adapter.remove(contact);
-            adapter.add(contact);
+            adapter.clear();
+            adapter.addAll(contacts);
             adapter.notifyDataSetChanged();
             updateHeaderWithContactsCount();
-            adapter.contactsListFilter.updateMap(contact);
+            adapter.contactsListFilter.mapAsync(contacts);
         });
-
     }
 
     @Override
@@ -102,10 +110,23 @@ public class ContactsListView extends ListView implements DataStoreChangeListene
     @Override
     public void onAdd(final Contact contact) {
         this.post(() -> {
-            contacts.add(contact);
-            adapter.add(contact);
+            // Re-sort the entire list to maintain sort order
+            String sortMode = getSortContactsMode(context);
+            if (SORT_MODE_NAME.equals(sortMode)) {
+                contacts = sortContactsBasedOnName(ContactsDataStore.getAllContacts(), context);
+            } else if (SORT_MODE_GROUP.equals(sortMode)) {
+                contacts = sortContactsBasedOnGroup(ContactsDataStore.getAllContacts(), context);
+            } else {
+                // Default to date sorting
+                contacts = sortContactsBasedOnCreationDate(ContactsDataStore.getAllContacts(), context);
+            }
+            moveFavoritesToTop();
+
+            adapter.clear();
+            adapter.addAll(contacts);
             adapter.notifyDataSetChanged();
             updateHeaderWithContactsCount();
+            adapter.contactsListFilter.mapAsync(contacts);
         });
     }
 
