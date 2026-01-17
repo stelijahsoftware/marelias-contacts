@@ -1,5 +1,6 @@
 # v1.4.0
-- add sorting option (name/date/group)
+- Add sorting option (name/date/group)
+- Auto sort contact on add and modify
 
 # v1.3.2:
 - Removed unneeded actions when clicking on a contact detail
